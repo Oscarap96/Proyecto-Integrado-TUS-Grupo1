@@ -18,7 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.ParadasFragment"></activity>
+        <activity android:name=".Views.ParadasFragment" />
+        <activity
+            android:name=".Views.ListParadasLinea"
+            android:label="@string/title_activity_list_paradas_linea"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
