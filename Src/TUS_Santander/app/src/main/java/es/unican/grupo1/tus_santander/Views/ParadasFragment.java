@@ -16,8 +16,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
 
     @Override
     public void showList(List<Parada> paradasList) {
-
-    }
+   }
 
     @Override
     public void showProgress(boolean state) {
