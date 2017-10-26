@@ -7,9 +7,11 @@ package es.unican.grupo1.tus_santander.Model;
 
 public class Linea {
 
+
     private String name;
     private String numero;
     private int identifier;
+
 
     public Linea(String name, String numero, int identifier){
         this.name = name;
