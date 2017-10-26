@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import es.unican.grupo1.tus_santander.R;
 
@@ -25,6 +27,17 @@ public class MainActivity extends FragmentActivity implements DataCommunication 
         ft.add(R.id.frameLayoutElements,fragmentLineas);
         ft.commit();
     }//onCreate
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+    }*/
 
     @Override
     public int getLineaIdentifier() {
