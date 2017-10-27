@@ -22,7 +22,7 @@ public class BaseTUS extends SQLiteOpenHelper {
 
     private static final String TABLA_LINEAS="create table linea" + "(_id INT PRIMARY KEY," +
             "nombre TEXT, numero TEXT, identificador INT";
-    private static final String TABLA_PARADAS_A_LINEAS="create table paradasALineas" +
+    private static final String TABLA_PARADAS_A_LINEAS="create table ParadaALinea" +
             "parada TEXT not null, linea TEXT not null" +
             "PRIMARY KEY(parada,linea)" +
             " FOREIGN KEY (parada) references parada(_id), FOREIGN KEY (linea) references linea(_id)";

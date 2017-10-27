@@ -2,7 +2,7 @@ package es.unican.grupo1.tus_santander.Views;
 
 import android.widget.ArrayAdapter;
 
-import es.unican.grupo1.tus_santander.Model.Parada;<<<<<<< HEAD
+import es.unican.grupo1.tus_santander.Model.Parada;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
