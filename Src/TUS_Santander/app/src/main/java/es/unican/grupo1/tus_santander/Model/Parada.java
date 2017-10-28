@@ -9,6 +9,7 @@ public class Parada {
     private String nombre;
     private int identificador;
 
+
     public Parada(String nombre,int identificador){
 
         this.nombre=nombre;

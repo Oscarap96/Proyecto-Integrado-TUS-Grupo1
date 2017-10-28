@@ -51,6 +51,10 @@ public class ListParadasPresenter {
     public List<Parada> getListParadasBus(){
         return listParadasBus;
     }
+    public void start() {
+       // new ListParadasPresenter.RetrieveFeedTask().execute();
+
+    }// start
 
 
 
