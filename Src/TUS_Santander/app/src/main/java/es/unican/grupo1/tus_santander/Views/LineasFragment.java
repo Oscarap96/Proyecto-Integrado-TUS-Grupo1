@@ -63,7 +63,7 @@ public class LineasFragment extends ListFragment implements IListLineasView {
     @Override
     public void showProgress (boolean state){
         if (state) {
-            dialog.setMessage("Cargando datos");
+            dialog.setMessage("Cargando datos...");
             dialog.show();
         } else {
             dialog.cancel();
