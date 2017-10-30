@@ -103,12 +103,23 @@ public class LineaTest {
         // creo que es al contrario
 
         // U3a
-        Linea lineaInsertada = null;
-        // assert
         // U3b
         // U3c
         // U3d
+        Linea linea = null;
+        Assert.assertEquals("Línea 25", linea.getName());
+        Assert.assertEquals(10, linea.getIdentifier());
+        Assert.assertEquals("39", linea.getNumero());
         // U3e
+        try {
+            linea = null;
+            Assert.fail();
+        } catch (Exception e) {
+        }
         // U3f
+        linea = null;
+        Assert.assertEquals("Línea 12", linea.getName());
+        Assert.assertEquals(14, linea.getIdentifier());
+        Assert.assertEquals("25", linea.getNumero());
     }
 }
