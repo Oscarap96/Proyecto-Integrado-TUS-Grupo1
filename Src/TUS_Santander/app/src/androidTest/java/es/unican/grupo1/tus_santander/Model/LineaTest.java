@@ -95,4 +95,20 @@ public class LineaTest {
         // TODO terminar el metodo
     }
 
+    @Test
+    public void insertarYBuscarBaseDatos() throws Exception {
+        // TODO llamar a los metodos correspondientes por probar en todos los casos
+        // id es el de la base de datos
+        // identificador es el de la linea
+        // creo que es al contrario
+
+        // U3a
+        Linea lineaInsertada = null;
+        // assert
+        // U3b
+        // U3c
+        // U3d
+        // U3e
+        // U3f
+    }
 }
