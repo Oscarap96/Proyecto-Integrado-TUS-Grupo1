@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_paradas_list, container, false);
+        TextView buscarParadas=(TextView) view.findViewById(R.id.editText_search);
+        buscarParadas.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_search_black_24dp);
         return view;
     }
 

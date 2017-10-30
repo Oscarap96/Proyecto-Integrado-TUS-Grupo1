@@ -37,8 +37,6 @@ public class ListParadasAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewRow = layoutInflater.inflate(R.layout.custom_list_paradas_layout,null,true);
-        TextView buscarParadas=(TextView) viewRow.findViewById(R.id.editText_search);
-        buscarParadas.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_search_black_24dp);
         TextView lineasParada=(TextView) viewRow.findViewById(R.id.textView_lineasParada);
         TextView nombreParada=(TextView) viewRow.findViewById(R.id.textView_nombreParada);
         TextView idParada=(TextView) viewRow.findViewById(R.id.textView_idParada);
