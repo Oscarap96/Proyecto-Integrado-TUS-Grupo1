@@ -1,7 +1,0 @@
-
-esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(žêÇ£ýÿÿÿÿ
-vsquid:S1488"\Immediately return this expression instead of assigning it to the temporary variable "view".(Æàþøÿÿÿÿ
-3squid:S2131"Use "Integer.toString" instead.(Æ“Ð<
-wsquid:S1450"bRemove the "listLineasPresenter" field and declare it as a local variable in the relevant methods.(ÀÌ¿Û
-rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(½­Šßûÿÿÿÿ
-Osquid:S1068"5Remove this unused "dataCommunication" private field.(ªèöÕþÿÿÿÿ

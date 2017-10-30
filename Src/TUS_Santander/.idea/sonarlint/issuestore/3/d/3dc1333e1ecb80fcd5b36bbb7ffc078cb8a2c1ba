@@ -1,12 +1,0 @@
-
-rsquid:S1450"XRemove the "exception" field and declare it as a local variable in the relevant methods.(ØûÃñøÿÿÿÿ
-Bsquid:S2447"-Null is returned but a "Boolean" is expected.(¥¹ï
-Vsquid:UselessImportCheck"4Remove this unused import 'org.xml.sax.InputSource'.(”íÍ¤
-1squid:S1643"Use a StringBuilder instead.(­«Õö
-Gsquid:S1068"-Remove this unused "exception" private field.(ØûÃñøÿÿÿÿ
-Psquid:UselessImportCheck")Remove this unused import 'java.net.URL'.(ñìÁ„üÿÿÿÿ
-_squid:UselessImportCheck"8Remove this unused import 'javax.xml.parsers.SAXParser'.(á©ÎËøÿÿÿÿ
-=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-asquid:UselessImportCheck"?Remove this unused import 'javax.xml.parsers.SAXParserFactory'.(‡Ó¿ï
-rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(ƒÍ‘øıÿÿÿÿ
-Ssquid:UselessImportCheck"2Remove this unused import 'org.xml.sax.XMLReader'.(½Ñ´.
