@@ -71,7 +71,7 @@ public BaseTUS(Context context){
     public List<Linea> recuperarLineas() {
         SQLiteDatabase db = getReadableDatabase();
         List<Linea> lista_lineas = new ArrayList<Linea>();
-        String[] valores_recuperar = {"_id", "nombre", "numero", "identifiacor"};
+        String[] valores_recuperar = {"_id", "nombre", "numero", "identificador"};
         Cursor c = db.query("lineas", valores_recuperar,
                 null, null, null, null, null, null);
         c.moveToFirst();

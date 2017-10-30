@@ -42,7 +42,7 @@ public class ListParadasAdapter extends ArrayAdapter {
         TextView idParada=(TextView) viewRow.findViewById(R.id.textView_idParada);
         TextView separador=(TextView) viewRow.findViewById(R.id.textView_separador);
         idParada.setText(paradasBus.get(position).getIdentificador());
-       // separador.setText(paradasBus.get(position).g); Separador no implementado
+        separador.setText(paradasBus.get(position).getIdentificador());
         nombreParada.setText(paradasBus.get(position).getIdentificador());
         return viewRow;
     }
