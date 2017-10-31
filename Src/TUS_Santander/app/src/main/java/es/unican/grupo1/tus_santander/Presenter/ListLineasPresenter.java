@@ -103,15 +103,6 @@ public class ListLineasPresenter {
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
             }
-            for(int i=0; i<listaLineasBus.size(); i++) {
-                Linea miLinea = listaLineasBus.get(i);
-                String numero = miLinea.getNumero();
-                if (numero.length()==1) {
-                    miLinea.setNumero(numero);
-                    listaLineasBus.remove(i);
-                    listaLineasBus.add(miLinea);
-                }
-            }
             Collections.sort(listaLineasBus);
             Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
             return true;
