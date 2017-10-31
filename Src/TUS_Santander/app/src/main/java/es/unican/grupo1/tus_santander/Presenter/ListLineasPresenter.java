@@ -34,6 +34,9 @@ public class ListLineasPresenter {
     private RemoteFetch remoteFetchLineas;
     private Context context;
 
+    private static String DB_PATH = "/data/data/Views/databases/";
+    //private static String DB_NAME = "";
+
     public ListLineasPresenter(Context context, IListLineasView listLineasView){
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
@@ -92,8 +95,14 @@ public class ListLineasPresenter {
      */
     public boolean obtenLineas(){
         try {
-            remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
-            listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+            if(remoteFetchLineas.checkDataBase(DB_PATH)) {
+                //OBTENER LOS DATOS DE LA BASE DE DATOS
+                //listaLineasBus = bd.algo
+            } else {
+                //SE OBTIENEN LOS DATOS DE INTERNET
+                remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+            }
             for(int i=0; i<listaLineasBus.size(); i++) {
                 Linea miLinea = listaLineasBus.get(i);
                 String numero = miLinea.getNumero();
