@@ -66,4 +66,5 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
             //dialog.cancel();
         }
     }
+
 }

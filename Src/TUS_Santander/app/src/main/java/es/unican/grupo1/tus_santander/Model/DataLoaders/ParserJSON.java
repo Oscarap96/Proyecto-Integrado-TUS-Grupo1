@@ -83,10 +83,10 @@ public class ParserJSON {
     }
 
     /**
-     * Método para obtener todas las lineas de buses
+     * Método para obtener todas las paradas de buses
      *
-     * @param in InputStream del JSON con las lineas de buses
-     * @return Lista con todas las lineas
+     * @param in InputStream del JSON con las paradas de buses
+     * @return Lista con todas las paradas
      * @throws IOException
      */
     public static List<Parada> readArrayParadas(InputStream in) throws IOException {
@@ -110,7 +110,7 @@ public class ParserJSON {
     }
 
     /**
-     * Lee una linea
+     * Lee una parada
      *
      * @param reader
      * @return

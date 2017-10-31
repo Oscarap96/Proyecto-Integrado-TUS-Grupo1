@@ -48,4 +48,5 @@ public class ListaParadasActivity extends FragmentActivity implements DataCommun
     public void setParadaIdentifier(int paradaIdentifier) {
         this.paradaIdentifier= paradaIdentifier;
     }
+
 }

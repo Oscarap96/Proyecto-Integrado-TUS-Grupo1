@@ -50,15 +50,12 @@ public class LineasFragment extends ListFragment implements IListLineasView {
         ParadasFragment fragmentParadas = new ParadasFragment();
         FragmentManager fm =getActivity().getSupportFragmentManager();
         FragmentTransaction ft =  fm.beginTransaction();
-        ft.add(R.id.frameLayoutElements,fragmentParadas);
+        ft.replace(R.id.frameLayoutElements,fragmentParadas);
         dataCommunication=(DataCommunication)getContext();
         dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
         ft.addToBackStack(null);
         ft.commit();
         listView.setVisibility(View.INVISIBLE);
-
-
-
     }
 
     @Override
