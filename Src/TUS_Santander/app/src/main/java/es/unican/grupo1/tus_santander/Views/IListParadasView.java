@@ -5,13 +5,11 @@ import java.util.List;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 
-
 /**
- * Created by alejandro on 11/10/17.
+ * Created by Adrian on 25/10/2017.
  */
 
-public interface IListLineasView {
-    void showList(List<Linea> lineaList);
+public interface IListParadasView {
+    void showList(List<Parada> paradasList);
     void showProgress(boolean state);
-    void showErrorMessage ();
-}//IListLineasView
+}

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TUS_Santander</string>
+
     <string name="refresh">Refresh</string>
+
+    <string name="title_activity_list_paradas_linea">ListParadasLinea</string>
+
 </resources>
