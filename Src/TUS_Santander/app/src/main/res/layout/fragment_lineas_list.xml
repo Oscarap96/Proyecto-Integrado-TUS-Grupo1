@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        android:text="eijweijfe"
+        android:text=""
         android:textColor="@android:color/holo_red_light"
         android:textSize="15sp"
         android:visibility="gone"

@@ -102,14 +102,14 @@ public class ListLineasPresenter implements IListLineasPresenter{
      */
     public boolean obtenLineas(){
         try {
-            if(remoteFetchLineas.checkDataBase(DB_PATH)) {
-                //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
-                listaLineasBus = FuncionesBBDD.obtenerLineas();
-            } else {
+           // if(remoteFetchLineas.checkDataBase(DB_PATH)) {
+             //   //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
+               // listaLineasBus = FuncionesBBDD.obtenerLineas();
+            //} else {
                 //SE OBTIENEN LOS DATOS DE INTERNET
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
-            }
+            //}
             Collections.sort(listaLineasBus); //ordenación de las lineas de buses
             Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
             return true;
