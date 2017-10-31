@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Presenter.ListParadasPresenter;
 import es.unican.grupo1.tus_santander.R;
@@ -21,7 +22,8 @@ import es.unican.grupo1.tus_santander.R;
  */
 public class ParadasFragment extends ListFragment implements IListParadasView {
     private DataCommunication dataCommunication;
-    private ProgressDialog dialog;
+    private int identifierLinea;
+   // private ProgressDialog dialog;
     private ListParadasPresenter listParadasPresenter;
 
     @Override
@@ -35,8 +37,10 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        this.listParadasPresenter = new ListParadasPresenter(getContext(), this);
-        this.dialog = new ProgressDialog(getContext());
+        dataCommunication=(DataCommunication)getContext();
+        identifierLinea = dataCommunication.getLineaIdentifier();
+        this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
+        //this.dialog = new ProgressDialog(getContext());
         this.listParadasPresenter.start();
     }
 
@@ -51,17 +55,19 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
 
     @Override
     public void showList(List<Parada> paradasList) {
-        ListParadasAdapter listParadasAdapter = new ListParadasAdapter(getContext(), paradasList);
+        ListParadasAdapter listParadasAdapter = new ListParadasAdapter(getContext(), paradasList );
         getListView().setAdapter(listParadasAdapter);
     }
 
     @Override
     public void showProgress(boolean state) {
         if (state) {
-            dialog.setMessage("Cargando datos");
-            dialog.show();
+          //  dialog.setMessage("Cargando datos");
+            //dialog.show();
+
         } else {
-            dialog.cancel();
+            //dialog.cancel();
         }
     }
+
 }

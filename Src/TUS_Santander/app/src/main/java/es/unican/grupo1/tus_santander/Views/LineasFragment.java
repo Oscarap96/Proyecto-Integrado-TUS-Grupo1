@@ -2,16 +2,20 @@ package es.unican.grupo1.tus_santander.Views;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Presenter.ListLineasPresenter;
 import es.unican.grupo1.tus_santander.R;
 
@@ -24,11 +28,13 @@ public class LineasFragment extends ListFragment implements IListLineasView {
     private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private ListLineasPresenter listLineasPresenter;
+    private TextView textViewMensajeError;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lineas_list, container, false);
+        textViewMensajeError = (TextView)view.findViewById(R.id.textViewMensajeError);
         return view;
     }
 
@@ -42,11 +48,17 @@ public class LineasFragment extends ListFragment implements IListLineasView {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        Log.d("pulsado", ""+position);
-        //Haciendo uso de la interfaz DataCommunication podemos enviar los datos entre fragmentos
-        //Ejemplo:
-        //dataCommunication = (DataCommunication) getContext();
-        //dataCommunication.setLineaIdentifier(datosBuses.getListaLineasBus().get(position).getIdentifier());
+        Log.d("pulsado", "" + position);
+        //AQUI SE DEBE HACER EL CAMBIO DE FRAGMENTS
+        ParadasFragment fragmentParadas = new ParadasFragment();
+        FragmentManager fm =getActivity().getSupportFragmentManager();
+        FragmentTransaction ft =  fm.beginTransaction();
+        ft.replace(R.id.frameLayoutElements,fragmentParadas);
+        dataCommunication=(DataCommunication)getContext();
+        dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
+        ft.addToBackStack(null);
+        ft.commit();
+        listView.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -69,4 +81,10 @@ public class LineasFragment extends ListFragment implements IListLineasView {
             dialog.cancel();
         }
     }
+
+    public void showErrorMessage (){
+        textViewMensajeError.setVisibility(View.VISIBLE);
+        textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
+    }
+
 }
