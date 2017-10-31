@@ -98,7 +98,6 @@ public class ListLineasPresenter {
                 Linea miLinea = listaLineasBus.get(i);
                 String numero = miLinea.getNumero();
                 if (numero.length()==1) {
-                    numero = "0"+numero;
                     miLinea.setNumero(numero);
                     listaLineasBus.remove(i);
                     listaLineasBus.add(miLinea);
