@@ -45,8 +45,14 @@ public class Linea implements Comparable{
     public int compareTo(Object o) {
         Linea linea = (Linea) o;
 
-        return this.numero.compareToIgnoreCase(linea.numero);
-
-
+        int resultado = 0;
+        if (this.identifier < linea.identifier) {
+            resultado = -1;
+        } else if (this.identifier > linea.identifier) {
+            resultado = 1;
+        } else {
+            resultado = 0;
+        }
+        return resultado;
     }
 }
