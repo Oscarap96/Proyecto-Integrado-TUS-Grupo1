@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Presenter.ListParadasPresenter;
 import es.unican.grupo1.tus_santander.R;
@@ -20,6 +21,7 @@ import es.unican.grupo1.tus_santander.R;
  */
 public class ParadasFragment extends ListFragment implements IListParadasView {
     private DataCommunication dataCommunication;
+    private int identifierLinea;
    // private ProgressDialog dialog;
     private ListParadasPresenter listParadasPresenter;
 
@@ -32,7 +34,9 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        this.listParadasPresenter = new ListParadasPresenter(getContext(), this);
+        dataCommunication=(DataCommunication)getContext();
+        identifierLinea = dataCommunication.getLineaIdentifier();
+        this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
         //this.dialog = new ProgressDialog(getContext());
         this.listParadasPresenter.start();
     }
@@ -48,7 +52,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
 
     @Override
     public void showList(List<Parada> paradasList) {
-        ListParadasAdapter listParadasAdapter = new ListParadasAdapter(getContext(), paradasList);
+        ListParadasAdapter listParadasAdapter = new ListParadasAdapter(getContext(), paradasList );
         getListView().setAdapter(listParadasAdapter);
     }
 

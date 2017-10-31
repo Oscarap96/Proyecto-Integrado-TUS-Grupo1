@@ -25,26 +25,37 @@ import es.unican.grupo1.tus_santander.R;
 
 public class ListParadasAdapter extends ArrayAdapter {
     List<Parada> paradasBus;
+    List<Parada> paradasLinea;
     Context context;
+
 
     public ListParadasAdapter(Context context, List<Parada> paradasBus) {
         super(context, R.layout.custom_list_paradas_layout, paradasBus);
         this.context = context;
         this.paradasBus = paradasBus;
+
+
     }// ListLineasAdapter
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewRow = layoutInflater.inflate(R.layout.custom_list_paradas_layout,null,true);
-        TextView lineasParada=(TextView) viewRow.findViewById(R.id.textView_lineasParada);
-        TextView nombreParada=(TextView) viewRow.findViewById(R.id.textView_nombreParada);
-        TextView idParada=(TextView) viewRow.findViewById(R.id.textView_idParada);
-        TextView separador=(TextView) viewRow.findViewById(R.id.textView_separador);
-        idParada.setText(paradasBus.get(position).getIdentificador());
+        View viewRow = layoutInflater.inflate(R.layout.custom_list_paradas_layout, null, true);
+        TextView lineasParada = (TextView) viewRow.findViewById(R.id.textView_lineasParada);
+        TextView nombreParada = (TextView) viewRow.findViewById(R.id.textView_nombreParada);
+        TextView idParada = (TextView) viewRow.findViewById(R.id.textView_idParada);
+        TextView separador = (TextView) viewRow.findViewById(R.id.textView_separador);
+
+        // System.out.println();
         separador.setText("-");
-        nombreParada.setText(paradasBus.get(position).getIdentificador());
-        lineasParada.setText(paradasBus.get(position).getLineas().toString());
-        return viewRow;
+        //int c=paradasBus.get(position).getIdentificador();
+
+
+            nombreParada.setText(String.valueOf(paradasBus.get(position).getNombre()).trim());
+        idParada.setText(String.valueOf(paradasBus.get(position).getIdentificador()));
+            lineasParada.setText(String.valueOf("2"));
+            return viewRow;
+
     }
 }

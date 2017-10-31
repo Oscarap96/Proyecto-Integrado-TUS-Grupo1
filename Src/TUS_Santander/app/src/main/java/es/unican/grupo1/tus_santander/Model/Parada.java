@@ -11,13 +11,18 @@ public class Parada {
 
     private String nombre;
     private int identificador;
-    private List<Integer> lineas;
+    private int linea;
 
-    public Parada(String nombre,int identificador){
+    public Parada(String nombre,int identificador,int numero){
 
         this.nombre=nombre;
+        this.linea=numero;
         this.identificador=identificador;
-        lineas=new ArrayList<Integer>();
+
+    }
+    public Parada(String nombre, int identificador){
+        this.nombre=nombre;
+        this.identificador=identificador;
     }
 
 
@@ -38,7 +43,8 @@ public class Parada {
         this.identificador = identificador;
     }
 
-    public List<Integer>getLineas(){return lineas;}
+    public int getLinea(){return linea;}
 
-    public void setLinea(Integer i){lineas.add(i);}
+    public void setLinea(int linea){this.linea=linea;}
+
 }

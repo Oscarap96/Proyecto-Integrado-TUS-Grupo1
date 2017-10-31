@@ -1,9 +1,7 @@
 package es.unican.grupo1.tus_santander.Views;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -16,6 +14,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Presenter.ListLineasPresenter;
 import es.unican.grupo1.tus_santander.R;
 
@@ -48,15 +47,17 @@ public class LineasFragment extends ListFragment implements IListLineasView {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         Log.d("pulsado", "" + position);
         //AQUI SE DEBE HACER EL CAMBIO DE FRAGMENTS
-        ParadasFragment fragmentLineas = new ParadasFragment();
+        ParadasFragment fragmentParadas = new ParadasFragment();
         FragmentManager fm =getActivity().getSupportFragmentManager();
         FragmentTransaction ft =  fm.beginTransaction();
-        ft.add(R.id.frameLayoutElements,fragmentLineas);
+        ft.add(R.id.frameLayoutElements,fragmentParadas);
         dataCommunication=(DataCommunication)getContext();
-
-
-
+        dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
+        ft.addToBackStack(null);
         ft.commit();
+        listView.setVisibility(View.INVISIBLE);
+
+
 
     }
 

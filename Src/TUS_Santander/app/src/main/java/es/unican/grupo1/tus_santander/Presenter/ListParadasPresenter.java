@@ -21,20 +21,22 @@ import es.unican.grupo1.tus_santander.Views.IListParadasView;
 public class ListParadasPresenter {
     private IListParadasView listParadasView;
     private List<Parada> listParadasBus;
-    private List<Integer> lineasDeParadas;
+    private List<Parada> lineasDeParadas;
     private RemoteFetch remoteFetchParadas;
+    private int identifierLinea;
     private Context context;
-    public ListParadasPresenter(Context context, IListParadasView listParadasView){
+    public ListParadasPresenter(Context context, IListParadasView listParadasView, int identifierLinea){
         this.listParadasView = listParadasView;
         this.remoteFetchParadas = new RemoteFetch();
         this.context = context;
+        this.identifierLinea = identifierLinea;
     }// ListLineasPresenter
     public boolean obtenParadas(){
         try {
-            remoteFetchParadas.getJSON(RemoteFetch.URL_PARADAS_INFO);
-            listParadasBus = ParserJSON.readArrayParadas(remoteFetchParadas.getBufferedData());
-            remoteFetchParadas.getJSON(RemoteFetch.URL_PARADAS_BUS);
-            lineasDeParadas=ParserJSON.readLineaParadas(remoteFetchParadas.getBufferedData());
+            remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
+            listParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
+            //remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
+           // lineasDeParadas=ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las paradas de la linea: "+e.getMessage());
@@ -53,6 +55,7 @@ public class ListParadasPresenter {
         }
         return textoParadas;
     }
+    public List<Parada>getListLineasParadas(){return lineasDeParadas;}
 
     public List<Parada> getListParadasBus(){
         return listParadasBus;
@@ -70,6 +73,7 @@ public class ListParadasPresenter {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
+
             listParadasView.showList(getListParadasBus());
             listParadasView.showProgress(false);
             //Muestra el toast con el mensaje

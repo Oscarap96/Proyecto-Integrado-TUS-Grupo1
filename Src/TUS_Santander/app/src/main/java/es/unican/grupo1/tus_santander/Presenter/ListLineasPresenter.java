@@ -35,8 +35,6 @@ public class ListLineasPresenter {
     private IListLineasView listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
-    private RemoteFetch remoteFetchParadas;
-    private List<Parada>listParadasBus;
     private Context context;
 
     public ListLineasPresenter(Context context, IListLineasView listLineasView){
@@ -129,7 +127,5 @@ public class ListLineasPresenter {
 
 
 
-    public List<Parada> getListParadasBus(){
-        return listParadasBus;
-    }
+
 }// ListLineasPresenter

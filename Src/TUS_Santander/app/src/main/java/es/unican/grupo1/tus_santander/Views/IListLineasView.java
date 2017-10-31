@@ -3,6 +3,7 @@ package es.unican.grupo1.tus_santander.Views;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.Parada;
 
 
 /**
