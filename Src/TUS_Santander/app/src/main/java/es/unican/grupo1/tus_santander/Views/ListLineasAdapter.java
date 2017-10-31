@@ -174,4 +174,4 @@ public class ListLineasAdapter extends ArrayAdapter {
         return viewRow;
     }
 
-}// ListLineasAdapter
+}

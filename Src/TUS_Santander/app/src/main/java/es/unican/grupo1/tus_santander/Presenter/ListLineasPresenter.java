@@ -1,6 +1,7 @@
 package es.unican.grupo1.tus_santander.Presenter;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,21 +18,27 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 
+import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
+import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Views.IListLineasView;
 
+import static es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON.readArrayParadas;
 import static java.security.AccessController.getContext;
 
 /**
  * Created by alejandro on 11/10/17.
  */
 
-public class ListLineasPresenter {
+public class ListLineasPresenter implements IListLineasPresenter{
     private IListLineasView listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
+    private RemoteFetch remoteFetchParadas;
+    private List<Parada>listParadasBus;
     private Context context;
 
     private static String DB_PATH = "/data/data/Views/databases/";
@@ -96,14 +103,14 @@ public class ListLineasPresenter {
     public boolean obtenLineas(){
         try {
             if(remoteFetchLineas.checkDataBase(DB_PATH)) {
-                //OBTENER LOS DATOS DE LA BASE DE DATOS
-                //listaLineasBus = bd.algo
+                //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
+                listaLineasBus = FuncionesBBDD.obtenerLineas();
             } else {
                 //SE OBTIENEN LOS DATOS DE INTERNET
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
             }
-            Collections.sort(listaLineasBus);
+            Collections.sort(listaLineasBus); //ordenación de las lineas de buses
             Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
             return true;
         } catch(IOException e) {
@@ -114,6 +121,7 @@ public class ListLineasPresenter {
             return false;
         }//try
     }//obtenLineas
+
 
 
     public List<Linea> getListaLineasBus() {
@@ -138,4 +146,9 @@ public class ListLineasPresenter {
         return textoLineas;
     }//getTextoLineas
 
+
+
+    public List<Parada> getListParadasBus(){
+        return listParadasBus;
+    }
 }// ListLineasPresenter

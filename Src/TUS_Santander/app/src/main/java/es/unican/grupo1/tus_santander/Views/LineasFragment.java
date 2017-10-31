@@ -1,7 +1,11 @@
 package es.unican.grupo1.tus_santander.Views;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,11 +49,18 @@ public class LineasFragment extends ListFragment implements IListLineasView {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        Log.d("pulsado", ""+position);
-        //Haciendo uso de la interfaz DataCommunication podemos enviar los datos entre fragmentos
-        //Ejemplo:
-        //dataCommunication = (DataCommunication) getContext();
-        //dataCommunication.setLineaIdentifier(datosBuses.getListaLineasBus().get(position).getIdentifier());
+        Log.d("pulsado", "" + position);
+        //AQUI SE DEBE HACER EL CAMBIO DE FRAGMENTS
+        ParadasFragment fragmentLineas = new ParadasFragment();
+        FragmentManager fm =getActivity().getSupportFragmentManager();
+        FragmentTransaction ft =  fm.beginTransaction();
+        ft.add(R.id.frameLayoutElements,fragmentLineas);
+        dataCommunication=(DataCommunication)getContext();
+
+
+
+        ft.commit();
+
     }
 
     @Override
@@ -66,7 +77,7 @@ public class LineasFragment extends ListFragment implements IListLineasView {
     @Override
     public void showProgress (boolean state){
         if (state) {
-            dialog.setMessage("Cargando datos");
+            dialog.setMessage("Cargando datos...");
             dialog.show();
         } else {
             dialog.cancel();
@@ -77,4 +88,5 @@ public class LineasFragment extends ListFragment implements IListLineasView {
         textViewMensajeError.setVisibility(View.VISIBLE);
         textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
     }
+
 }
