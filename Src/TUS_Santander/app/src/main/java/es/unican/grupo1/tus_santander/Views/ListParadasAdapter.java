@@ -42,8 +42,9 @@ public class ListParadasAdapter extends ArrayAdapter {
         TextView idParada=(TextView) viewRow.findViewById(R.id.textView_idParada);
         TextView separador=(TextView) viewRow.findViewById(R.id.textView_separador);
         idParada.setText(paradasBus.get(position).getIdentificador());
-        separador.setText(paradasBus.get(position).getIdentificador());
+        separador.setText("-");
         nombreParada.setText(paradasBus.get(position).getIdentificador());
+        lineasParada.setText(paradasBus.get(position).getLineas().toString());
         return viewRow;
     }
 }

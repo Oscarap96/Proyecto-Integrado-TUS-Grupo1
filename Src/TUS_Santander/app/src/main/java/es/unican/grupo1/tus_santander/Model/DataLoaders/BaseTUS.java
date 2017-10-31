@@ -9,11 +9,15 @@ import android.print.PageRange;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
+
+import static android.R.attr.id;
+import static es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON.readArrayParadas;
 
 public class BaseTUS extends SQLiteOpenHelper {
     private static final int VERISION_BASE=1;
@@ -50,12 +54,26 @@ public BaseTUS(Context context){
         valores.put("identificador",identificador);
         db.update("Lineas",valores,"_id=" + id,null);
     }
+
+    public void modificarLineas(List<Linea>lista){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues valores=new ContentValues();
+        for(int i=1;i<=lista.size();i++){
+            valores.put("_id",i);
+            valores.put("identifiacador",lista.get(i).getIdentifier());
+            valores.put("nombre",lista.get(i).getName());
+            valores.put("numero",lista.get(i).getNumero());
+            db.update("Lineas",valores, "_id" + id,null);
+        }
+        db.update("Lineas",valores, "_id" + id,null);
+        db.close();
+    }
     public void borrarLinea(int id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("linea", "_id="+id, null);
         db.close();
     }
-    public Linea recuperaLinea(int id) {
+    public Linea recuperarLinea(int id) {
         SQLiteDatabase db = getReadableDatabase();
         String[] valores_recuperar = {"_id", "nombre", "numero", "identificador"};
         Cursor c = db.query("lineas", valores_recuperar, "_id=" + id,
@@ -92,12 +110,25 @@ public BaseTUS(Context context){
         valores.put("identificador", identificador);
         db.update("Lineas", valores, "_id=" + id, null);
     }
+    public void modificarParadas(List<Parada>lista){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues valores=new ContentValues();
+        for(int i=1;i<=lista.size();i++){
+            valores.put("_id",i);
+            valores.put("nombre",lista.get(i).getNombre());
+            valores.put("identificador",lista.get(i).getIdentificador());
+
+        }
+        db.update("Lineas",valores, "_id" + id,null);
+        db.close();
+    }
+
     public void borrarParada(int id) {
             SQLiteDatabase db = getWritableDatabase();
             db.delete("parada", "_id="+id, null);
             db.close();
     }
-    public Parada recuperaParada(int id) {
+    public Parada recuperarParada(int id) {
         SQLiteDatabase db = getReadableDatabase();
         String[] valores_recuperar = {"_id", "nombre", "identificador"};
         Cursor c = db.query("Parada", valores_recuperar, "_id=" +id,

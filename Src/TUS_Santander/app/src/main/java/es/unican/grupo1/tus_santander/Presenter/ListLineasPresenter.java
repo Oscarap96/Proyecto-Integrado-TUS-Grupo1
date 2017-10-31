@@ -1,6 +1,7 @@
 package es.unican.grupo1.tus_santander.Presenter;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -15,11 +17,14 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 
+import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Views.IListLineasView;
 
+import static es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON.readArrayParadas;
 import static java.security.AccessController.getContext;
 
 /**
@@ -30,6 +35,8 @@ public class ListLineasPresenter {
     private IListLineasView listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
+    private RemoteFetch remoteFetchParadas;
+    private List<Parada>listParadasBus;
     private Context context;
 
     public ListLineasPresenter(Context context, IListLineasView listLineasView){
@@ -97,6 +104,7 @@ public class ListLineasPresenter {
     }//obtenLineas
 
 
+
     public List<Linea> getListaLineasBus() {
         return listaLineasBus;
     }//getListaLineasBus
@@ -119,4 +127,9 @@ public class ListLineasPresenter {
         return textoLineas;
     }//getTextoLineas
 
+
+
+    public List<Parada> getListParadasBus(){
+        return listParadasBus;
+    }
 }// ListLineasPresenter

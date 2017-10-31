@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import es.unican.grupo1.tus_santander.R;
 
@@ -19,12 +20,14 @@ public class ListaParadasActivity extends FragmentActivity implements DataCommun
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paradas);
-        LineasFragment fragmentLineas = new LineasFragment();
+        ParadasFragment fragmentLineas = new ParadasFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft =  fm.beginTransaction();
         ft.add(R.id.frameLayoutElements,fragmentLineas);
         ft.commit();
     }//onCreate
+
+
 
     @Override
     public int getLineaIdentifier() {

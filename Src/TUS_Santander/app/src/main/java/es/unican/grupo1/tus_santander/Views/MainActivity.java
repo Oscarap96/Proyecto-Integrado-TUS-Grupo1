@@ -26,6 +26,8 @@ public class MainActivity extends FragmentActivity implements DataCommunication 
         ft.commit();
     }//onCreate
 
+
+
     @Override
     public int getLineaIdentifier() {
         return lineaIdentifier;
