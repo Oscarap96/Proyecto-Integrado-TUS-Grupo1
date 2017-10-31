@@ -1,10 +1,17 @@
 package es.unican.grupo1.tus_santander.Model.DataLoaders;
 
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import es.unican.grupo1.tus_santander.R;
 
 /**
  * Clase en la que se realizan la descarga de los datos desde el servicio "REST"

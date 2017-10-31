@@ -12,4 +12,5 @@ import es.unican.grupo1.tus_santander.Model.Linea;
 public interface IListLineasView {
     void showList(List<Linea> lineaList);
     void showProgress(boolean state);
+    void showErrorMessage ();
 }//IListLineasView

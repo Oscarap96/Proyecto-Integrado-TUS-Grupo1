@@ -5,7 +5,7 @@ package es.unican.grupo1.tus_santander.Model;
  * Created by alejandro on 4/08/17.
  */
 
-public class Linea {
+public class Linea implements Comparable{
 
     private String name;
     private String numero;
@@ -39,5 +39,14 @@ public class Linea {
 
     public void setIdentifier(int identifier) {
         this.identifier = identifier;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Linea linea = (Linea) o;
+
+        return this.numero.compareToIgnoreCase(linea.numero);
+
+
     }
 }

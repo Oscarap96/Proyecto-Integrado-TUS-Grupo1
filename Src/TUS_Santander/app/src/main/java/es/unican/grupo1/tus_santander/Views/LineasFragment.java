@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -24,11 +25,13 @@ public class LineasFragment extends ListFragment implements IListLineasView {
     private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private ListLineasPresenter listLineasPresenter;
+    private TextView textViewMensajeError;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lineas_list, container, false);
+        textViewMensajeError = (TextView)view.findViewById(R.id.textViewMensajeError);
         return view;
     }
 
@@ -68,5 +71,10 @@ public class LineasFragment extends ListFragment implements IListLineasView {
         } else {
             dialog.cancel();
         }
+    }
+
+    public void showErrorMessage (){
+        textViewMensajeError.setVisibility(View.VISIBLE);
+        textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
     }
 }

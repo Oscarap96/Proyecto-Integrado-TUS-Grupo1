@@ -8,7 +8,9 @@ import android.widget.Toast;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.SAXParser;
@@ -51,11 +53,16 @@ public class ListLineasPresenter {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-            listLineasView.showList(getListaLineasBus());
-            listLineasView.showProgress(false);
-            //Muestra el toast con el mensaje
-            Toast toast1 = Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT);
-            toast1.show();
+            if (aBoolean) {
+                listLineasView.showList(getListaLineasBus());
+                listLineasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT);
+                toast1.show();
+            } else {
+                listLineasView.showProgress(false);
+                listLineasView.showErrorMessage();
+            }
         }
 
         @Override
@@ -87,8 +94,21 @@ public class ListLineasPresenter {
         try {
             remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
             listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
-            Log.d("ENTRA", "Obten lineas de bus:"+listaLineasBus.size());
+            for(int i=0; i<listaLineasBus.size(); i++) {
+                Linea miLinea = listaLineasBus.get(i);
+                String numero = miLinea.getNumero();
+                if (numero.length()==1) {
+                    numero = "0"+numero;
+                    miLinea.setNumero(numero);
+                    listaLineasBus.remove(i);
+                    listaLineasBus.add(miLinea);
+                }
+            }
+            Collections.sort(listaLineasBus);
+            Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
             return true;
+        } catch(IOException e) {
+            return false;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());
             e.printStackTrace();
