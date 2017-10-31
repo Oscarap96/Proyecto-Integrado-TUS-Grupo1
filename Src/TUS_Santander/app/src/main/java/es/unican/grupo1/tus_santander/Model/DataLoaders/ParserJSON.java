@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.Parada;
+
+import static android.R.attr.id;
 
 
 /**
@@ -18,6 +21,8 @@ import es.unican.grupo1.tus_santander.Model.Linea;
  * los diferentes datos del TUS de Santander
  */
 public class ParserJSON{
+
+    static BaseTUS bd;
 
     /**
      * Método para obtener todas las lineas de buses
@@ -47,13 +52,14 @@ public class ParserJSON{
 
 
     /**
-     * Lee una linea
+     * Método que se encarga de leer una parada
      * @param reader
      * @return
      * @throws IOException
      */
     private static Linea readLinea (JsonReader reader) throws IOException {
         reader.beginObject(); //Leemos un object
+        int cont=1;//Contador de ids
         String name ="", numero="";
         int identifier=-1;
         while(reader.hasNext()) {
@@ -64,11 +70,68 @@ public class ParserJSON{
                 name = reader.nextString();
             } else if (n.equals("dc:identifier")) {
                 identifier = reader.nextInt();
+                bd.modificarLinea(cont,name,numero,identifier);
             } else {
                 reader.skipValue();
             }
+            cont++;
         }
         reader.endObject();
+
         return new Linea(name,numero,identifier);
+    }
+
+    /**
+     * Método para obtener todas las lineas de buses
+     * @param in InputStream del JSON con las lineas de buses
+     * @return Lista con todas las lineas
+     * @throws IOException
+     */
+    public static List<Parada> readArrayParadas (InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        List<Parada> listParadasBus = new ArrayList<Parada>();
+        reader.beginObject(); //summary y resources
+        while (reader.hasNext()){
+            String name = reader.nextName();
+            if(name.equals ("resources")){
+                reader.beginArray(); //cada elemento del array es un object
+                while(reader.hasNext())
+                    listParadasBus.add(readParada(reader));
+
+
+            }else{
+                reader.skipValue();
+            }
+        }
+        Log.d("Lineas buses",listParadasBus.toString());
+        return listParadasBus;
+    }
+    /**
+     * Lee una linea
+     * @param reader
+     * @return
+     * @throws IOException
+     */
+    private static Parada readParada (JsonReader reader) throws IOException {
+        reader.beginObject(); //Leemos un object
+        int cont=1;//Contador de ids para la bd
+        String nombre="";
+        int identifier=-1;
+        while(reader.hasNext()) {
+            String n = reader.nextName();
+            if (n.equals("ayto:parada")) {
+                nombre = reader.nextString();
+            }
+             else if (n.equals("dc:identifier")) {
+                identifier = reader.nextInt();
+                bd.modificarParada(cont,nombre,identifier);
+                cont++;
+            } else {
+                reader.skipValue();
+            }
+
+        }
+        reader.endObject();
+        return new Parada(nombre,identifier);
     }
 }//ParserJSON
