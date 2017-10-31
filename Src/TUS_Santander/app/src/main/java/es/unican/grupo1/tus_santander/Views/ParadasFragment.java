@@ -30,7 +30,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_paradas_list, container, false);
         TextView buscarParadas=(TextView) view.findViewById(R.id.editText_search);
-        buscarParadas.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_search_black_24dp);
+        buscarParadas.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_24dp,0,0,0);
         return view;
     }
 

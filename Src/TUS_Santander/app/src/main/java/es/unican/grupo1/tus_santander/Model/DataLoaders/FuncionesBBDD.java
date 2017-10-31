@@ -17,18 +17,16 @@ import static es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON.readAr
  */
 
 public class FuncionesBBDD {
-    private RemoteFetch remoteFetchLineas;
-    public void anhadeParadas() throws IOException {
-        List<Parada> lista=readArrayParadas(remoteFetchLineas.getBufferedData());
+    //private RemoteFetch remoteFetchLineas;
+    public void anhadeParadas(RemoteFetch remoteFetch) throws IOException {
+        List<Parada> lista=readArrayParadas(remoteFetch.getBufferedData());
         for(int i=1;i<=lista.size();i++){
            bd.modificarParada(i,lista.get(i).getNombre(),lista.get(i).getIdentificador());
-
-
         }
         bd.close();
     }
 
-    public void anhadeLineas() throws IOException {
+    public void anhadeLineas(RemoteFetch remoteFetchLineas) throws IOException {
         List<Linea> lista=readArrayLineasBus(remoteFetchLineas.getBufferedData());
         for(int i=1;i<=lista.size();i++){
             bd.modificarParada(i,lista.get(i).getName(),lista.get(i).getIdentifier());
