@@ -1,0 +1,9 @@
+
+M"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(Ÿ¯÷@
+^squid:S1192"IDefine a constant instead of duplicating this literal "#010101" 11 times.(¨à†ñ
+bsquid:S1871"HThis case's code block is the same as the block for the case on line 72.(Ìø„€ıÿÿÿÿ
+bsquid:S1871"HThis case's code block is the same as the block for the case on line 64.(Ëã¸ùÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ù©ÍÄ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÖİìÙ
+Lsquid:S1479"8Reduce the number of switch cases from 33 to at most 30.(Ÿ¯÷@
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(½­Šßûÿÿÿÿ
