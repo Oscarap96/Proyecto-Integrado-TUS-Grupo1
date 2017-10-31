@@ -7,7 +7,7 @@ import java.util.List;
  * Created by alejandro on 4/08/17.
  */
 
-public class Linea {
+public class Linea implements Comparable{
 
 
     private String name;
@@ -46,5 +46,20 @@ public class Linea {
 
     public void setIdentifier(int identifier) {
         this.identifier = identifier;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Linea linea = (Linea) o;
+
+        int resultado = 0;
+        if (this.identifier < linea.identifier) {
+            resultado = -1;
+        } else if (this.identifier > linea.identifier) {
+            resultado = 1;
+        } else {
+            resultado = 0;
+        }
+        return resultado;
     }
 }

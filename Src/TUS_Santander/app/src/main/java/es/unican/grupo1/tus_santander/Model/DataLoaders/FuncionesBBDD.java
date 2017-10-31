@@ -26,9 +26,8 @@ public class FuncionesBBDD {
 
         }
         bd.close();
-
-
     }
+
     public void anhadeLineas() throws IOException {
         List<Linea> lista=readArrayLineasBus(remoteFetchLineas.getBufferedData());
         for(int i=1;i<=lista.size();i++){
@@ -36,7 +35,13 @@ public class FuncionesBBDD {
 
         }
         bd.close();
+    }
 
+    public static List<Parada> obtenerParadas() {
+        return bd.recuperarParadas();
+    }
 
+    public static List<Linea> obtenerLineas() {
+        return bd.recuperarLineas();
     }
 }

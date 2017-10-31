@@ -18,7 +18,7 @@ import es.unican.grupo1.tus_santander.Views.IListParadasView;
  * Created by Adrian on 25/10/2017.
  */
 
-public class ListParadasPresenter {
+public class ListParadasPresenter implements IListParadasPresenter{
     private IListParadasView listParadasView;
     private List<Parada> listParadasBus;
     private List<Parada> lineasDeParadas;

@@ -1,10 +1,20 @@
 package es.unican.grupo1.tus_santander.Model.DataLoaders;
 
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import es.unican.grupo1.tus_santander.R;
 
 /**
  * Clase en la que se realizan la descarga de los datos desde el servicio "REST"
@@ -42,6 +52,17 @@ public class RemoteFetch {
             urlConnection.addRequestProperty("Accept", "application/json");
             bufferedData =  new BufferedInputStream(urlConnection.getInputStream());
     }//getJSON
+
+    public boolean checkDataBase(String Database_path) {
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase(Database_path, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException e) {
+            Log.e("Error", "No existe la base de datos ");
+        }
+        return checkDB != null;
+    }
 
     /**
      * Retorna el BufferedInputStream con el JSON, pero para que el objeto no este vacío debemos de
