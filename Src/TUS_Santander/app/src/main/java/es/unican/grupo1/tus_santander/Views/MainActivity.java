@@ -2,19 +2,19 @@ package es.unican.grupo1.tus_santander.Views;
 
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
+
 
 import es.unican.grupo1.tus_santander.R;
 
 
 public class MainActivity extends AppCompatActivity implements DataCommunication {
 
-    //private ListView listViewLineas;
+
     private int lineaIdentifier;
     private int paradaIdentifier;
 
@@ -37,10 +37,7 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         return true;
     }
 
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item){
 
-    }*/
 
     @Override
     public int getLineaIdentifier() {
