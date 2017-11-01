@@ -12,6 +12,20 @@ buildscript {
     }
 }
 
+plugins {
+id "org.sonarqube" version "2.5"
+}
+
+sonarqube {
+  properties {
+    property "sonar.host.url", "https://sonarcloud.io"
+    property "sonar.organization", "isuc"
+    property "sonar.login", "7581ebd0d74f43ef91ae6b9864776973b548c9d3"
+    property "sonar.projectKey", "tusgrupo1"
+    property "sonar.projectName", "TUS Grupo 1"
+  }
+}
+
 allprojects {
     repositories {
         jcenter()
