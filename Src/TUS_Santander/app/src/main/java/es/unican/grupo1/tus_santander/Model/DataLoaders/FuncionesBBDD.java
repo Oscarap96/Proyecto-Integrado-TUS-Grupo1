@@ -3,6 +3,7 @@ package es.unican.grupo1.tus_santander.Model.DataLoaders;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
@@ -41,5 +42,16 @@ public class FuncionesBBDD {
 
     public static List<Linea> obtenerLineas() {
         return bd.recuperarLineas();
+    }
+
+    /**
+     * Permite anhadir lineas a la bd desde un inputstream por ejemplo para leer un archivo.
+     */
+    public static void anhadeLineasFromInputStream(InputStream in, BaseTUS baseDatos) throws IOException {
+        List<Linea> lista=readArrayLineasBus(in);
+        for(int i=1;i<=lista.size();i++){
+            baseDatos.modificarParada(i,lista.get(i).getName(),lista.get(i).getIdentifier());
+        }
+        baseDatos.close();
     }
 }

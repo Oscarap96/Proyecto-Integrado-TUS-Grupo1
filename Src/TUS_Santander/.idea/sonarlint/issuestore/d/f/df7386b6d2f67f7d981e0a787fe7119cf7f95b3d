@@ -1,0 +1,22 @@
+
+1squid:S1643"Use a StringBuilder instead.(­«Õö
+Vsquid:S1075"ARefactor your code to get this URI from a customizable parameter.(³ çô
+gsquid:S3008"RRename this field "DB_PATH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³ çô
+@squid:S1068"+Remove this unused "DB_PATH" private field.(³ çô
+Gsquid:S1068"-Remove this unused "exception" private field.(ØûÃñøÿÿÿÿ
+rsquid:S1450"XRemove the "exception" field and declare it as a local variable in the relevant methods.(ØûÃñøÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ö´ÞÕ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÏÏßüÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(öÐÀŽûÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+Bsquid:S2447"-Null is returned but a "Boolean" is expected.(¥¹ï
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(ƒÍ‘øýÿÿÿÿ
+Vsquid:UselessImportCheck"4Remove this unused import 'org.xml.sax.InputSource'.(”íÍ¤
+Psquid:UselessImportCheck")Remove this unused import 'java.net.URL'.(ñìÁ„üÿÿÿÿ
+asquid:UselessImportCheck"?Remove this unused import 'javax.xml.parsers.SAXParserFactory'.(‡Ó¿ï
+jsquid:UselessImportCheck"HRemove this unused import 'es.unican.grupo1.tus_santander.Model.Parada'.(™›œÂ
+jsquid:UselessImportCheck"CRemove this unused import 'android.database.sqlite.SQLiteDatabase'.(ãµèÈùÿÿÿÿ
+Ssquid:UselessImportCheck"2Remove this unused import 'org.xml.sax.XMLReader'.(½Ñ´.
+wsquid:UselessImportCheck"URemove this unused import 'es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS'.(—ãÙ™
+_squid:UselessImportCheck"8Remove this unused import 'javax.xml.parsers.SAXParser'.(á©ÎËøÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
