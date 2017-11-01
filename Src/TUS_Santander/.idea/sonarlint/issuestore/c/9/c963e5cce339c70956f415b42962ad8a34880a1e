@@ -1,5 +1,0 @@
-
-M"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(Ÿ¯÷@
-rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(½­Šßûÿÿÿÿ
-Lsquid:S1479"8Reduce the number of switch cases from 33 to at most 30.(Ÿ¯÷@
-^squid:S1192"IDefine a constant instead of duplicating this literal "#010101" 11 times.(¨à†ñ

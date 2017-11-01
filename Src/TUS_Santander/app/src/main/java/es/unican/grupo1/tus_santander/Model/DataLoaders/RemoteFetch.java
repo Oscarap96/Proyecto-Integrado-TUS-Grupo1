@@ -1,10 +1,20 @@
 package es.unican.grupo1.tus_santander.Model.DataLoaders;
 
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import es.unican.grupo1.tus_santander.R;
 
 /**
  * Clase en la que se realizan la descarga de los datos desde el servicio "REST"
@@ -17,7 +27,7 @@ public class RemoteFetch {
 
     //URL para obtener un listado de la secuencia de paradas
     //http://datos.santander.es/resource/?ds=lineas-bus&id=bbfe898c-715b-4dfd-a418-a878d276f9fc&ft=JSON
-    // public static final String URL_SECUENCIA_PARADAS="http://datos.santander.es/api/rest/datasets/lineas_bus_secuencia.json";
+     public static final String URL_SECUENCIA_PARADAS="http://datos.santander.es/api/rest/datasets/lineas_bus_secuencia.json?items=2232";
 
     //URL para obtener un listado de todas las paradas de autobus
     public static final String URL_PARADAS_BUS="http://datos.santander.es/api/rest/datasets/lineas_bus_paradas.json?items=2000";
@@ -42,6 +52,17 @@ public class RemoteFetch {
             urlConnection.addRequestProperty("Accept", "application/json");
             bufferedData =  new BufferedInputStream(urlConnection.getInputStream());
     }//getJSON
+
+    public boolean checkDataBase(String Database_path) {
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase(Database_path, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException e) {
+            Log.e("Error", "No existe la base de datos ");
+        }
+        return checkDB != null;
+    }
 
     /**
      * Retorna el BufferedInputStream con el JSON, pero para que el objeto no este vacío debemos de
