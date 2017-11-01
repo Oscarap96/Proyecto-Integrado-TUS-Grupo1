@@ -21,13 +21,3 @@ Happ/src/main/java/es/unican/grupo1/tus_santander/Views/MainActivity.java,e/0/e
 ]app/src/androidTest/java/es/unican/grupo1/tus_santander/Model/DataLoaders/ParserUnitTest.java,7/4/74f2e479a9249586fbd283c8fa4a262409a38310
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
-}
-Mapp\src\main\java\es\unican\grupo1\tus_santander\Views\ListLineasAdapter.java,7\8\78c409f2e1cd701f30f60f521e65f0daf3cf2370
-ƒ
-Sapp\src\main\java\es\unican\grupo1\tus_santander\Presenter\ListLineasPresenter.java,d\f\df7386b6d2f67f7d981e0a787fe7119cf7f95b3d
-ƒ
-Sapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\RemoteFetch.java,3\3\338af4ca9cdd6a450666b8fc620618f6d08dc3f5
-‚
-Rapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\ParserJSON.java,a\b\ab6d3752c2c25e9287cdefa4b319f2173bb47c49
-P
- app\src\main\AndroidManifest.xml,a\c\ac6e0c942798c8a768fab2e3ab7e6a6b69b346f1
