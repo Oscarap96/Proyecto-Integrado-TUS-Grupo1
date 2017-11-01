@@ -2,12 +2,15 @@ package es.unican.grupo1.tus_santander.Views;
 
 
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -16,6 +19,7 @@ import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Text;
 
 import es.unican.grupo1.tus_santander.R;
 
@@ -27,6 +31,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anything;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -36,42 +41,37 @@ public class ParadaTestIntegracion {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void paradaTestIntegracion() {
-        ViewInteraction relativeLayout = onView(
-                allOf(childAtPosition(
-                        withId(android.R.id.list),
-                        29),
-                        isDisplayed()));
-        relativeLayout.perform(click());
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.textView_idParada), withText("225"),
-                        childAtPosition(
-                                allOf(withId(R.id.linearLayout_primeraFila),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("225")));
-
+    public void paradaTestIntegracion0() {
+        onData(anything()).atPosition(29).perform(click());
+        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkParadas("224")));
     }
 
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
+    @Test
+    public void paradaTestIntegracion1() {
+        onData(anything()).atPosition(29).perform(click());
+        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkParadas("225")));
+    }
 
+    @Test
+    public void paradaTestIntegracion2() {
+        onData(anything()).atPosition(29).perform(click());
+        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkParadas("9")));
+    }
+
+    private static Matcher<View> checkParadas(final String esperado) {
         return new TypeSafeMatcher<View>() {
             @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
+            protected boolean matchesSafely(View item) {
+                LinearLayout layout = (LinearLayout) item;
+                TextView campo = (TextView) layout.findViewById(R.id.textView_idParada);
+                String line = campo.getText().toString();
+                String resultadoEsperado = esperado;
+                return line.equals(resultadoEsperado);
             }
 
             @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            public void describeTo(Description description) {
+                description.appendText("El mensaje de error no coincide.");
             }
         };
     }
