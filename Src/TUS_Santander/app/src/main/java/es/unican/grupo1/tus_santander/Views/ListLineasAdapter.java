@@ -36,9 +36,9 @@ public class ListLineasAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewRow = layoutInflater.inflate(R.layout.custom_list_lineas_layout,null,true);
-        TextView textViewIdentificador = (TextView) viewRow.findViewById(R.id.textViewIdentificador);
-        TextView textViewName = (TextView) viewRow.findViewById(R.id.textViewName);
-        TextView textViewNumero = (TextView) viewRow.findViewById(R.id.textViewNumero);
+        TextView textViewIdentificador =  viewRow.findViewById(R.id.textViewIdentificador);
+        TextView textViewName =  viewRow.findViewById(R.id.textViewName);
+        TextView textViewNumero =  viewRow.findViewById(R.id.textViewNumero);
         textViewIdentificador.setText(Integer.toString(lineasBus.get(position).getIdentifier()));
         textViewName.setText(lineasBus.get(position).getName().trim());
         //textViewNumero.setText(lineasBus.get(position).getNumero().trim());

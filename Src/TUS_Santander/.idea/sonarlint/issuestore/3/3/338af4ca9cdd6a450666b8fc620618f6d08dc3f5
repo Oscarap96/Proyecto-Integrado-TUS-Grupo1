@@ -1,7 +1,0 @@
-
-gsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦±Ì­
-msquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(èÀžÓ
-Vsquid:UselessImportCheck"4Remove this unused import 'android.content.Context'.(©Ê‰è
-Zsquid:UselessImportCheck"8Remove this unused import 'android.view.LayoutInflater'.(À¯ÑÇ
-[squid:UselessImportCheck"4Remove this unused import 'android.widget.TextView'.(„Ë‚ˆÿÿÿÿÿ
-Usquid:UselessImportCheck".Remove this unused import 'android.view.View'.(Ø½­äþÿÿÿÿ

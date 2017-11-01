@@ -5,5 +5,5 @@ package es.unican.grupo1.tus_santander;
  */
 
 public class AceptacionTest {
-    // Coinciden con las de integracion, por tanto ejecutar ese test.
+    // Coincide con los tests de integracion, por tanto ejecutar esos.
 }
