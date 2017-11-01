@@ -23,7 +23,7 @@ import es.unican.grupo1.tus_santander.R;
 public class ParadasFragment extends ListFragment implements IListParadasView {
     private DataCommunication dataCommunication;
     private int identifierLinea;
-   // private ProgressDialog dialog;
+
     private ListParadasPresenter listParadasPresenter;
 
     @Override
@@ -40,18 +40,13 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
         dataCommunication=(DataCommunication)getContext();
         identifierLinea = dataCommunication.getLineaIdentifier();
         this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
-        //this.dialog = new ProgressDialog(getContext());
         this.listParadasPresenter.start();
     }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         Log.d("pulsado", ""+position);
-        //Haciendo uso de la interfaz DataCommunication podemos enviar los datos entre fragmentos
-        //Ejemplo:
-        //dataCommunication = (DataCommunication) getContext();
-        //dataCommunication.setLineaIdentifier(datosBuses.getListaLineasBus().get(position).getIdentifier());
-    }
+        }
 
     @Override
     public void showList(List<Parada> paradasList) {
@@ -61,13 +56,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
 
     @Override
     public void showProgress(boolean state) {
-        if (state) {
-          //  dialog.setMessage("Cargando datos");
-            //dialog.show();
-
-        } else {
-            //dialog.cancel();
-        }
+        //Borrado lo que habia aqui dentro ya que no hacia nada.
     }
 
 }

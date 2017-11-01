@@ -27,6 +27,12 @@ public class BaseTUS extends SQLiteOpenHelper {
             " FOREIGN KEY (parada) references parada(_id), FOREIGN KEY (linea) references linea(_id)";
     private static final String TABLA_PARADAS = "create table parada" + "(_id INT PRIMARY KEY," +
             "nombre TEXT, identificador INT";
+    private static final String NOMBRE="nombre";
+    private static final String NUMERO="numero";
+    private static final String IDENTIFICADOR="identificador";
+    private static final String LINEAS="Lineas";
+    private static final String PARADAS="paradas";
+
 
     public BaseTUS(Context context) {
         super(context, NOMBREBASE, null, VERSION_BASE);
@@ -49,10 +55,10 @@ public class BaseTUS extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put("_id", id);
-        valores.put("nombre", nombre);
-        valores.put("numero", numero);
-        valores.put("identificador", identificador);
-        db.update("Lineas", valores, "_id=" + id, null);
+        valores.put(NOMBRE, nombre);
+        valores.put(NUMERO, numero);
+        valores.put(IDENTIFICADOR, identificador);
+        db.update(LINEAS, valores, "_id=" + id, null);
     }
 
     public void modificarLineas(List<Linea> lista) {
@@ -60,12 +66,12 @@ public class BaseTUS extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         for (int i = 1; i <= lista.size(); i++) {
             valores.put("_id", i);
-            valores.put("identifiacador", lista.get(i).getIdentifier());
-            valores.put("nombre", lista.get(i).getName());
-            valores.put("numero", lista.get(i).getNumero());
-            db.update("Lineas", valores, "_id" + id, null);
+            valores.put(IDENTIFICADOR, lista.get(i).getIdentifier());
+            valores.put(NOMBRE, lista.get(i).getName());
+            valores.put(NUMERO, lista.get(i).getNumero());
+            db.update(LINEAS, valores, "_id" + id, null);
         }
-        db.update("Lineas", valores, "_id" + id, null);
+        db.update(LINEAS, valores, "_id" + id, null);
         db.close();
     }
 
@@ -75,14 +81,15 @@ public class BaseTUS extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Linea recuperarLinea(int id) {
+    public Linea recuperarLinea(int id) throws NullPointerException {
         SQLiteDatabase db = getReadableDatabase();
-        String[] valores_recuperar = {"_id", "nombre", "numero", "identificador"};
-        Cursor c = db.query("lineas", valores_recuperar, "_id=" + id,
+        String[] valores_recuperar = {"_id", NOMBRE, NUMERO, IDENTIFICADOR};
+        Cursor c = db.query(LINEAS, valores_recuperar, "_id=" + id,
                 null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
         }
+        if (c==null) throw new  NullPointerException();
         Linea linea = new Linea(c.getString(1), c.getString(2), c.getInt(3));
         db.close();
         c.close();
@@ -92,8 +99,8 @@ public class BaseTUS extends SQLiteOpenHelper {
     public List<Linea> recuperarLineas() {
         SQLiteDatabase db = getReadableDatabase();
         List<Linea> lista_lineas = new ArrayList<Linea>();
-        String[] valores_recuperar = {"_id", "nombre", "numero", "identificador"};
-        Cursor c = db.query("lineas", valores_recuperar,
+        String[] valores_recuperar = {"_id", NOMBRE, NUMERO, IDENTIFICADOR};
+        Cursor c = db.query(LINEAS, valores_recuperar,
                 null, null, null, null, null, null);
         c.moveToFirst();
         do {
@@ -110,9 +117,9 @@ public class BaseTUS extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put("_id", id);
-        valores.put("nombre", nombre);
-        valores.put("identificador", identificador);
-        db.update("Paradas", valores, "_id=" + id, null);
+        valores.put(NOMBRE, nombre);
+        valores.put(IDENTIFICADOR, identificador);
+        db.update(PARADAS, valores, "_id=" + id, null);
     }
 
     public void modificarParadas(List<Parada> lista) {
@@ -120,7 +127,7 @@ public class BaseTUS extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         for (int i = 1; i <= lista.size(); i++) {
             valores.put("_id", i);
-            valores.put("nombre", lista.get(i).getNombre());
+            valores.put(NOMBRE, lista.get(i).getNombre());
             valores.put("identificador", lista.get(i).getIdentificador());
 
         }
@@ -134,14 +141,15 @@ public class BaseTUS extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Parada recuperarParada(int id) {
+    public Parada recuperarParada(int id) throws NullPointerException{
         SQLiteDatabase db = getReadableDatabase();
-        String[] valores_recuperar = {"_id", "nombre", "identificador"};
+        String[] valores_recuperar = {"_id", NOMBRE, IDENTIFICADOR};
         Cursor c = db.query("Parada", valores_recuperar, "_id=" + id,
                 null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
         }
+        if (c==null) throw new NullPointerException();
         Parada parada = new Parada(c.getString(1),
                 c.getInt(2));
         db.close();
@@ -152,8 +160,8 @@ public class BaseTUS extends SQLiteOpenHelper {
     public List<Parada> recuperarParadas() {
         SQLiteDatabase db = getReadableDatabase();
         List<Parada> lista_lineas = new ArrayList<Parada>();
-        String[] valores_recuperar = {"_id", "nombre", "identificador"};
-        Cursor c = db.query("Paradas", valores_recuperar,
+        String[] valores_recuperar = {"_id", NOMBRE, IDENTIFICADOR};
+        Cursor c = db.query(PARADAS, valores_recuperar,
                 null, null, null, null, null, null);
         c.moveToFirst();
         do {

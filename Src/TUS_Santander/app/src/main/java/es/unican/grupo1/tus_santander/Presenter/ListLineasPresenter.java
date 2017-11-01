@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
@@ -125,6 +126,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             return false;
         } catch (Exception e) {
             Log.e("ERROR", "Error en la obtención de las lineas de Bus: " + e.getMessage());
+
             e.printStackTrace();
             return false;
         }//try

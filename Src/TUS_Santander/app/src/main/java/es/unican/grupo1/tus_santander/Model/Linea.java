@@ -22,7 +22,7 @@ public class Linea implements Comparable{
         this.identifier = identifier;
     }
 
-    public List<Parada>paradas;
+
 
     public String getName() {
         return name;
