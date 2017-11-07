@@ -9,7 +9,6 @@ import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
-import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Views.IListParadasView;
 

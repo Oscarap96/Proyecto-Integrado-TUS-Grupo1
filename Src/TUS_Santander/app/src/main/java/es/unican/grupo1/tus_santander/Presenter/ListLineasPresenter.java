@@ -1,20 +1,15 @@
 package es.unican.grupo1.tus_santander.Presenter;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
 
-import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
