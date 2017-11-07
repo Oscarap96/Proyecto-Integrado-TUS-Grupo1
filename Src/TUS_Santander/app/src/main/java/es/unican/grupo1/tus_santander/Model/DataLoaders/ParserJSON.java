@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Estimacion;
@@ -188,9 +189,7 @@ public class ParserJSON {
         reader.beginObject();
         boolean flag = false;
         while (reader.hasNext()) {
-            //System.out.println(reader.nextName());
             String n = reader.nextName();
-            System.out.println(n);
             if (n.equals("ayto:Linea")) {
                 linea = reader.nextInt();
                 if (linea != identifierLinea)
@@ -210,8 +209,87 @@ public class ParserJSON {
             return null;
     }
 
-    public static List<Estimacion> readArrayEstimaciones(InputStream in) throws IOException {
-        // TODO
-        return null;
+    /**
+     * Obtiene una lista de estimaciones de un InputStream.
+     *
+     * @param in       InputStream correspondiente a leer
+     * @param paradaId parada de la que queremos obtener sus estimaciones
+     * @return lista ordenada de todas las estimaciones
+     * @throws IOException en caso de que no pueda leer correctamente
+     */
+    public static List<Estimacion> readArrayEstimaciones(InputStream in, int paradaId) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        List<Estimacion> listEstimaciones = new ArrayList<Estimacion>();
+        reader.beginObject(); //summary y resources
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (name.equals("resources")) {
+                reader.beginArray(); //cada elemento del array es un object
+                // recorre los elementos del resources
+                while (reader.hasNext()) {
+                    Estimacion estimacion = readEstimacion(reader, paradaId);
+                    if (estimacion != null)
+                        listEstimaciones.add(estimacion);
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        Collections.sort(listEstimaciones);
+        return listEstimaciones;
+    }
+
+    /**
+     * Lee un campo para una estimacion.
+     *
+     * @param reader   json a procesar
+     * @param paradaId parada de la que queremos conocer sus estimaciones
+     * @return estimacion con sus correspondientes campos
+     * @throws IOException en caso de que no pueda leer correctamente
+     */
+    private static Estimacion readEstimacion(JsonReader reader, int paradaId) throws IOException {
+        String etiquetaLinea = "";
+        int tiempo1Seg = -1;
+        int tiempo2Seg = -1;
+        // parada para comprobar que es una estimacion a esa parada
+        int parada = -1;
+        // flag para descartar los campos que no me interesen
+        boolean flag = false;
+        // recorrer los campos de cada objeto
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String n = reader.nextName();
+            if (n.equals("ayto:tiempo1")) {
+                tiempo1Seg = reader.nextInt();
+            } else if (n.equals("ayto:tiempo2")) {
+                try {
+                    tiempo2Seg = reader.nextInt();
+                } catch (Exception e) {
+                    // en caso de que no pueda leer el campo porque esta vacio
+                    e.printStackTrace();
+                    tiempo2Seg = -1;
+                }
+            } else if (n.equals("ayto:etiqLinea")) {
+                etiquetaLinea = reader.nextString();
+            } else if (n.equals("ayto:paradaId")) {
+                // comprobar que es una estiamcion para la parada correspondiente
+                parada = reader.nextInt();
+                if (parada != paradaId) {
+                    flag = true;
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        if (!flag) {
+            if (tiempo2Seg == -1) {
+                return new Estimacion(etiquetaLinea, tiempo1Seg);
+            } else {
+                return new Estimacion(etiquetaLinea, tiempo1Seg, tiempo2Seg);
+            }
+        } else {
+            return null;
+        }
     }
 }//ParserJSON
