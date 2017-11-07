@@ -1,5 +1,7 @@
 package es.unican.grupo1.tus_santander.Views;
 
+import android.app.ProgressDialog;
+
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
@@ -16,8 +18,13 @@ public interface IListParadasView {
 
     // TODO comentario
     void showProgress(boolean state);
+<<<<<<< HEAD
 
     // TODO comentario
     // TODO comprobar si es necesario
     void showErrorMessage();
+=======
+    void showErrorMessage ();
+    ProgressDialog getDialog();
+>>>>>>> 245550-ArreglarBotonAtras
 }

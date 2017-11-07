@@ -20,6 +20,7 @@ Happ/src/main/java/es/unican/grupo1/tus_santander/Views/MainActivity.java,e/0/e
 ç
 ]app/src/androidTest/java/es/unican/grupo1/tus_santander/Model/DataLoaders/ParserUnitTest.java,7/4/74f2e479a9249586fbd283c8fa4a262409a38310
 P
+<<<<<<< HEAD
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 z
 Japp\src\main\java\es\unican\grupo1\tus_santander\Views\LineasFragment.java,4\0\40752e94d7bb8b5115d5b93ae57eec08270086ed
@@ -39,3 +40,6 @@ Oapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\BaseTUS.java
 Uapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\FuncionesBBDD.java,6\7\6745f17622def977ff66185e1bcefbe5a30e7cea
 É
 Sapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\RemoteFetch.java,3\3\338af4ca9cdd6a450666b8fc620618f6d08dc3f5
+=======
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+>>>>>>> 245550-ArreglarBotonAtras

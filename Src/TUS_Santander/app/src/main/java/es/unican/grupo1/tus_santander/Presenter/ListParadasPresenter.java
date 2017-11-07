@@ -66,6 +66,7 @@ public class ListParadasPresenter implements IListParadasPresenter{
 
         @Override
         protected void onPreExecute() {
+            listParadasView.getDialog().setCancelable(false);
             //Muestra mensaje de cargando datos...
             listParadasView.showProgress(true);
 
@@ -73,31 +74,29 @@ public class ListParadasPresenter implements IListParadasPresenter{
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-
-            listParadasView.showList(getListParadasBus());
-            listParadasView.showProgress(false);
-            //Muestra el toast con el mensaje
-            Toast toast1 = Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT);
-            toast1.show();
+            if (aBoolean) {
+                listParadasView.showList(getListParadasBus());
+                listParadasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT);
+                toast1.show();
+            }else{
+                listParadasView.showProgress(false);
+                listParadasView.showErrorMessage();
+            }
         }
 
         @Override
         protected Boolean doInBackground(String... urls) {
-            try {
-                return obtenParadas();
-            } catch (Exception e) {
-                this.exception = e;
-                return null;
+            obtenParadas();
+            if(isCancelled()){
+                return false;
             }
-
+            return true;
         }
-
     }
 
     public void start() {
-        new ListParadasPresenter.RetrieveFeedTask().execute();
-
+        new RetrieveFeedTask().execute();
     }// start
-
-
 }
