@@ -21,17 +21,3 @@ Happ/src/main/java/es/unican/grupo1/tus_santander/Views/MainActivity.java,e/0/e
 ]app/src/androidTest/java/es/unican/grupo1/tus_santander/Model/DataLoaders/ParserUnitTest.java,7/4/74f2e479a9249586fbd283c8fa4a262409a38310
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
-ƒ
-Sapp\src\main\java\es\unican\grupo1\tus_santander\Presenter\ListLineasPresenter.java,d\f\df7386b6d2f67f7d981e0a787fe7119cf7f95b3d
-{
-Kapp\src\main\java\es\unican\grupo1\tus_santander\Views\ParadasFragment.java,e\b\eb9eee0ac0e2bf03895d48afdade0b36d4a83da5
-{
-Kapp\src\androidTest\java\es\unican\grupo1\tus_santander\AceptacionTest.java,0\6\0684dc089fa55343da2251b21b24920a693cae84
-
-Oapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\BaseTUS.java,e\2\e2d54d0a7e86ddbfbbe8cae3707a4980fbe71c3e
-‚
-Rapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\ParserJSON.java,a\b\ab6d3752c2c25e9287cdefa4b319f2173bb47c49
-P
- app\src\main\AndroidManifest.xml,a\c\ac6e0c942798c8a768fab2e3ab7e6a6b69b346f1
-|
-Lapp\src\androidTest\java\es\unican\grupo1\tus_santander\IntegracionTest.java,2\5\25df6bfac2e8e76dddde3092e1cfba7bede801ae

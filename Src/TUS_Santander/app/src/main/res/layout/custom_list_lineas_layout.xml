@@ -19,10 +19,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/textViewIdentificador"
-
         android:textStyle="bold"
         android:textSize="15sp"/>
-
     <TextView
         android:id="@+id/textViewNumero"
         android:layout_width="fill_parent"
@@ -33,6 +31,4 @@
         android:textSize="25sp"
         android:layout_toLeftOf="@+id/textViewName"
         android:layout_toStartOf="@+id/textViewName" />
-
-
 </RelativeLayout>
