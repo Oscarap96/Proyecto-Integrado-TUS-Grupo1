@@ -11,7 +11,12 @@ import es.unican.grupo1.tus_santander.Model.Parada;
 
 public interface IListLineasPresenter {
 
-    public boolean obtenLineas();
-    public List<Linea> getListaLineasBus();
-    public String getTextoLineas();
+    // TODO comentario
+    boolean obtenLineas();
+
+    // TODO comentario
+    List<Linea> getListaLineasBus();
+
+    // TODO comentario
+    String getTextoLineas();
 }

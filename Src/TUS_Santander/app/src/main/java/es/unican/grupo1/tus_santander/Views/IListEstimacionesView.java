@@ -2,17 +2,16 @@ package es.unican.grupo1.tus_santander.Views;
 
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.Linea;
-import es.unican.grupo1.tus_santander.Model.Parada;
+import es.unican.grupo1.tus_santander.Model.Estimacion;
 
 /**
- * Created by Adrian on 25/10/2017.
+ * Created by anon on 7/11/17.
  */
 
-public interface IListParadasView {
+public interface IListEstimacionesView {
 
     // TODO comentario
-    void showList(List<Parada> paradasList);
+    void showList(List<Estimacion> estimacionesList);
 
     // TODO comentario
     void showProgress(boolean state);
