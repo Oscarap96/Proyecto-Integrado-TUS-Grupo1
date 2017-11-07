@@ -143,17 +143,17 @@ public class ListLineasAdapter extends ArrayAdapter {
             case "N1":
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_n1,0,0,0);
-                textViewIdentificador.setText("101");
+                textViewIdentificador.setText("N1");
                 break;
             case "N2":
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_n2,0,0,0);
-                textViewIdentificador.setText("102");
+                textViewIdentificador.setText("N2");
                 break;
             case "N3":
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_n3,0,0,0);
-                textViewIdentificador.setText("103");
+                textViewIdentificador.setText("N3");
                 break;
             case "E1":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e1,0,0,0);
