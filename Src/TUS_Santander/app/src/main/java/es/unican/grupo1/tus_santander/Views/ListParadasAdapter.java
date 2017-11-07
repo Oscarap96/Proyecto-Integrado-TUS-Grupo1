@@ -53,8 +53,11 @@ public class ListParadasAdapter extends ArrayAdapter {
 
 
             nombreParada.setText(String.valueOf(paradasBus.get(position).getNombre()).trim());
-        idParada.setText(String.valueOf(paradasBus.get(position).getIdentificador()));
-            lineasParada.setText(String.valueOf("2"));
+
+                idParada.setText(String.valueOf(paradasBus.get(position).getIdentificador()));
+
+
+            //lineasParada.setText(String.valueOf("2"));
             return viewRow;
 
     }

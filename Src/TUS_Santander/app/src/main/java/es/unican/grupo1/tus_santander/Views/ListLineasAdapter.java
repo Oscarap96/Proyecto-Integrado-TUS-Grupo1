@@ -64,26 +64,32 @@ public class ListLineasAdapter extends ArrayAdapter {
             case "5C1":
                 textViewNumero.setTextColor(Color.parseColor("#929292"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_5,0,0,0);
+                textViewIdentificador.setText("5C1");
                 break;
             case "5C2":
                 textViewNumero.setTextColor(Color.parseColor("#929292"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_5,0,0,0);
+                textViewIdentificador.setText("5C2");
                 break;
             case "6C1":
                 textViewNumero.setTextColor(Color.parseColor("#157A3A"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_6,0,0,0);
+                textViewIdentificador.setText("6C1");
                 break;
             case "6C2":
                 textViewNumero.setTextColor(Color.parseColor("#157A3A"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_6,0,0,0);
+                textViewIdentificador.setText("6C2");
                 break;
             case "7C1":
                 //textViewNumero.setTextColor(Color.parseColor("#F26319"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_71,0,0,0);
+                textViewIdentificador.setText("7C1");
                 break;
             case "7C2":
                 textViewNumero.setTextColor(Color.parseColor("#F26319"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_71,0,0,0);
+                textViewIdentificador.setText("7C2");
                 break;
             case "11":
                 textViewNumero.setTextColor(Color.parseColor("#070F47"));
@@ -137,46 +143,57 @@ public class ListLineasAdapter extends ArrayAdapter {
             case "N1":
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_n1,0,0,0);
+                textViewIdentificador.setText("101");
                 break;
             case "N2":
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_n2,0,0,0);
+                textViewIdentificador.setText("102");
                 break;
             case "N3":
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_n3,0,0,0);
+                textViewIdentificador.setText("103");
                 break;
             case "E1":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e1,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E1");
                 break;
             case "E2":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e2,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E2");
                 break;
             case "E3":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e3,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E3");
                 break;
             case "E4":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e4,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E4");
                 break;
             case "E5":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e5,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E5");
                 break;
             case "E9":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e9,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E9");
                 break;
             case "E30":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e30,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E30");
                 break;
             case "E31":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e31,0,0,0);
                 textViewNumero.setTextColor(Color.parseColor("#010101"));
+                textViewIdentificador.setText("E31");
                 break;
         }
 
