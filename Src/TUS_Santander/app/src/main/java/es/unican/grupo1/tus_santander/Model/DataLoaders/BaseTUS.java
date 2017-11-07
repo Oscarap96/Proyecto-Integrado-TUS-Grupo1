@@ -42,6 +42,7 @@ public class BaseTUS extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLA_LINEAS);
         db.execSQL(TABLA_PARADAS);
+        db.execSQL(TABLA_PARADAS_A_LINEAS);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -49,16 +50,19 @@ public class BaseTUS extends SQLiteOpenHelper {
         db.execSQL(TABLA_LINEAS);
         db.execSQL("DROP TABLE IF EXISTS TABLA_PARADAS");
         db.execSQL(TABLA_PARADAS);
+        db.execSQL("DROP TABLE IF EXISTS TABLA_PARADAS_A_LINEAS");
+        db.execSQL(TABLA_PARADAS_A_LINEAS);
     }
 
     public void modificarLinea(int id, String nombre, String numero, int identificador) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues valores = new ContentValues();
+        //db.execSQL();
+        /*ContentValues valores = new ContentValues();
         valores.put("_id", id);
         valores.put(NOMBRE, nombre);
         valores.put(NUMERO, numero);
         valores.put(IDENTIFICADOR, identificador);
-        db.update(LINEAS, valores, "_id=" + id, null);
+        db.update(LINEAS, valores, "_id=" + id, null);*/
     }
 
     public void modificarLineas(List<Linea> lista) {

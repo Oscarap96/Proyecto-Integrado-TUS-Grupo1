@@ -18,6 +18,7 @@ import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
+import es.unican.grupo1.tus_santander.Model.Database.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Views.IListLineasView;
 
@@ -32,14 +33,16 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private Context context;
 
 
-    private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander.Model.DataLoaders/databases/BaseTUS.db";
+    //private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander.Model.DataLoaders/databases/BaseTUS.db";
     //private static String DB_NAME = "";
 
     public ListLineasPresenter(Context context, IListLineasView listLineasView) {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
         this.context = context;
-    }// ListLineasPresenter
+
+
+    }
 
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
 
@@ -94,11 +97,11 @@ public class ListLineasPresenter implements IListLineasPresenter {
      */
     public boolean obtenLineas() {
         try {
-            if (remoteFetchLineas.checkDataBase(DB_PATH)) {
+            /**if (remoteFetchLineas.checkDataBase(DB_PATH)) {
                 Log.d("BBDD: ", "SI hay base de datos");
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaLineasBus = FuncionesBBDD.obtenerLineas();
-            } else {
+            } else {*/
                 Log.d("BBDD: ", "NO hay base de datos");
                 //SE OBTIENEN LOS DATOS DE INTERNET...
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
@@ -118,7 +121,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
                  db.insert(usuario.TABLA_LINEAS,null,valores);
                  db.close();*/
-            }
+            //}
             Collections.sort(listaLineasBus); //ordenación de las lineas de buses
             Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
             return true;
