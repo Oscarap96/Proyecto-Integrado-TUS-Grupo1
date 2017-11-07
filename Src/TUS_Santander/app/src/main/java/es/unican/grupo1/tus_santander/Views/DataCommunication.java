@@ -10,8 +10,17 @@ package es.unican.grupo1.tus_santander.Views;
  */
 public interface DataCommunication {
 
-    public int getLineaIdentifier();
-    public void setLineaIdentifier(int identifier);
-    public int getParadaIdentifier();
-    public void setParadaIdentifier(int paradaIdentifier);
+    // TODO comentario
+    int getLineaIdentifier();
+
+    // TODO comentario
+    void setLineaIdentifier(int identifier);
+
+    // TODO comentario
+    int getParadaIdentifier();
+
+    // TODO comentario
+    void setParadaIdentifier(int paradaIdentifier);
+
+    // TODO anhadir metodos cuando necesite comunicarme entre fragments
 }

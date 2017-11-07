@@ -11,7 +11,13 @@ import es.unican.grupo1.tus_santander.Model.Parada;
  */
 
 public interface IListLineasView {
+
+    // TODO comentario
     void showList(List<Linea> lineaList);
+
+    // TODO comentario
     void showProgress(boolean state);
-    void showErrorMessage ();
+
+    // TODO comentario
+    void showErrorMessage();
 }//IListLineasView

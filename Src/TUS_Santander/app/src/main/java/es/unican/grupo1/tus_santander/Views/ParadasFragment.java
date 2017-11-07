@@ -59,4 +59,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
         //Borrado lo que habia aqui dentro ya que no hacia nada.
     }
 
+    public void showErrorMessage (){
+        // TODO hacerlo similar a LineasFragment
+    }
 }
