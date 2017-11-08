@@ -46,6 +46,7 @@ public class ParserJSON {
             }
         }
         Log.d("Lineas buses", listLineasBus.toString());
+        Collections.sort(listLineasBus);
         return listLineasBus;
     }
 

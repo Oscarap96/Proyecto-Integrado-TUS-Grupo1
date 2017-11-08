@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 
+import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
@@ -96,8 +97,10 @@ public class ListLineasPresenter implements IListLineasPresenter {
             } else {
                 Log.d("BBDD: ", "NO hay base de datos");
                 //SE OBTIENEN LOS DATOS DE INTERNET...
-                remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
-                listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+                // remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                // listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+                Data data = new Data();
+                listaLineasBus = data.descargarLineas();
 
                 //... Y SE METEN EN LA BBDD
                 //FuncionesBBDD usuario = new FuncionesBBDD();
@@ -114,7 +117,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
                  db.insert(usuario.TABLA_LINEAS,null,valores);
                  db.close();*/
             }
-            Collections.sort(listaLineasBus); //ordenación de las lineas de buses
             Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
             return true;
         } catch (IOException e) {

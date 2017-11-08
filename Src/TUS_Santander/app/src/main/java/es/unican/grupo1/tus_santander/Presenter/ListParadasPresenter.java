@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Parada;
@@ -32,10 +33,10 @@ public class ListParadasPresenter implements IListParadasPresenter{
     }// ListLineasPresenter
     public boolean obtenParadas(){
         try {
-            remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
-            listParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
             //remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
-           // lineasDeParadas=ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
+            // lineasDeParadas=ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
+            Data data = new Data();
+            listParadasBus = data.descargarParadas(identifierLinea);
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las paradas de la linea: "+e.getMessage());
