@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="@string/separador"/>
+            android:text=" "/>
         <TextView
             android:id="@+id/textView_nombreLinea"
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/separador"/>
+            android:text=" "/>
         <TextView
             android:id="@+id/textView_tiempoBus1"
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/separador"/>
+            android:text=" "/>
         <TextView
             android:id="@+id/textView_minBus1"
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/separador"/>
+            android:text=" "/>
         <TextView
             android:id="@+id/textView_tiempoBus2"
             android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/separador"/>
+            android:text=" "/>
         <TextView
             android:id="@+id/textView_minBus2"
             android:layout_width="wrap_content"

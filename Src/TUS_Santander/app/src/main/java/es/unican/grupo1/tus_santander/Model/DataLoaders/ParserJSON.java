@@ -268,6 +268,7 @@ public class ParserJSON {
                 } catch (Exception e) {
                     // en caso de que no pueda leer el campo porque esta vacio
                     e.printStackTrace();
+                    reader.skipValue();
                     tiempo2Seg = -1;
                 }
             } else if (n.equals("ayto:etiqLinea")) {

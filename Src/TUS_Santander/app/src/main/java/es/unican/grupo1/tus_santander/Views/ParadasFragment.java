@@ -2,6 +2,8 @@ package es.unican.grupo1.tus_santander.Views;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,16 +33,16 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_paradas_list, container, false);
-        textViewMensajeError = (TextView)view.findViewById(R.id.textViewMensajeError);
-        TextView buscarParadas=(TextView) view.findViewById(R.id.editText_search);
-        buscarParadas.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_24dp,0,0,0);
+        textViewMensajeError = (TextView) view.findViewById(R.id.textViewMensajeError);
+        TextView buscarParadas = (TextView) view.findViewById(R.id.editText_search);
+        buscarParadas.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_24dp, 0, 0, 0);
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        dataCommunication=(DataCommunication)getContext();
+        dataCommunication = (DataCommunication) getContext();
         identifierLinea = dataCommunication.getLineaIdentifier();
         this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
         this.dialog = new ProgressDialog(getContext());
@@ -49,12 +51,22 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        Log.d("pulsado", ""+position);
-        }
+        Log.d("pulsado", "" + position);
+        // cambio a la interfaz de estimaciones
+        EstimacionesFragment fragmentEstimaciones = new EstimacionesFragment();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frameLayoutElements, fragmentEstimaciones);
+        dataCommunication = (DataCommunication) getContext();
+        dataCommunication.setParadaIdentifier(listParadasPresenter.getListParadasBus().get(position).getIdentificador());
+        ft.addToBackStack(null);
+        ft.commit();
+        listView.setVisibility(View.INVISIBLE);
+    }
 
     @Override
     public void showList(List<Parada> paradasList) {
-        ListParadasAdapter listParadasAdapter = new ListParadasAdapter(getContext(), paradasList );
+        ListParadasAdapter listParadasAdapter = new ListParadasAdapter(getContext(), paradasList);
         getListView().setAdapter(listParadasAdapter);
     }
 
@@ -68,12 +80,12 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
         }
     }
 
-    public void showErrorMessage () {
+    public void showErrorMessage() {
         textViewMensajeError.setVisibility(View.VISIBLE);
         textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
     }
 
-    public ProgressDialog getDialog(){
+    public ProgressDialog getDialog() {
         return dialog;
     }
 }

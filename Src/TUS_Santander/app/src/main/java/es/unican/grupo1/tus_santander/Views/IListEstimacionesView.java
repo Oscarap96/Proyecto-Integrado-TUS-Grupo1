@@ -1,5 +1,7 @@
 package es.unican.grupo1.tus_santander.Views;
 
+import android.app.ProgressDialog;
+
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Estimacion;
@@ -19,4 +21,7 @@ public interface IListEstimacionesView {
     // TODO comentario
     // TODO comprobar si es necesario
     void showErrorMessage();
+
+    // TODO comentario
+    ProgressDialog getDialog();
 }
