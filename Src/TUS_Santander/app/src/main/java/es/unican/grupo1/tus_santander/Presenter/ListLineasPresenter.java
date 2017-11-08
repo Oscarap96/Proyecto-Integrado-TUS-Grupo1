@@ -68,15 +68,16 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
         @Override
         protected Boolean doInBackground(String... urls) {
-            obtenLineas();
-            if(isCancelled()){
+            try {
+                return obtenLineas();
+            } catch (Exception e) {
+                e.printStackTrace();
                 return false;
             }
-            return true;
         }
 
         @Override
-        protected void onCancelled(){
+        protected void onCancelled() {
 
         }
     }
