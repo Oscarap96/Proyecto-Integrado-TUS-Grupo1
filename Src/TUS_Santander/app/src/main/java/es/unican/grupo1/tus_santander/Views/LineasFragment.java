@@ -87,4 +87,7 @@ public class LineasFragment extends ListFragment implements IListLineasView {
         textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
     }
 
+    public ProgressDialog getDialog(){
+        return dialog;
+    }
 }

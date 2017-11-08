@@ -1,6 +1,9 @@
 package es.unican.grupo1.tus_santander.Presenter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -43,6 +46,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
         @Override
         protected void onPreExecute() {
+            listLineasView.getDialog().setCancelable(false);
             //Muestra mensaje de cargando datos...
             listLineasView.showProgress(true);
 
@@ -64,15 +68,17 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
         @Override
         protected Boolean doInBackground(String... urls) {
-            try {
-                return obtenLineas();
-            } catch (Exception e) {
-                this.exception = e;
-                return null;
+            obtenLineas();
+            if(isCancelled()){
+                return false;
             }
-
+            return true;
         }
 
+        @Override
+        protected void onCancelled(){
+
+        }
     }
 
     public void start() {
