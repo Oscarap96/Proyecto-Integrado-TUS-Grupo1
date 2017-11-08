@@ -73,12 +73,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
         textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
     }
 
-<<<<<<< HEAD
-    public void showErrorMessage (){
-        // TODO hacerlo similar a LineasFragment
-=======
     public ProgressDialog getDialog(){
         return dialog;
->>>>>>> 245550-ArreglarBotonAtras
     }
 }

@@ -18,13 +18,13 @@ public interface IListParadasView {
 
     // TODO comentario
     void showProgress(boolean state);
-<<<<<<< HEAD
+
 
     // TODO comentario
     // TODO comprobar si es necesario
     void showErrorMessage();
-=======
-    void showErrorMessage ();
+
+
     ProgressDialog getDialog();
->>>>>>> 245550-ArreglarBotonAtras
+
 }

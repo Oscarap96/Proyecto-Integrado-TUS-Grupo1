@@ -1,6 +1,5 @@
 package es.unican.grupo1.tus_santander.Views;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Estimacion;
@@ -20,11 +19,4 @@ public interface IListEstimacionesView {
     // TODO comentario
     // TODO comprobar si es necesario
     void showErrorMessage();
-=======
-/**
- * Created by pma11 on 07/11/2017.
- */
-
-public interface IListEstimacionesView {
->>>>>>> 245550-ArreglarBotonAtras
 }

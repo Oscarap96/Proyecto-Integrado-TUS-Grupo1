@@ -19,12 +19,12 @@ public interface IListLineasView {
 
     // TODO comentario
     void showProgress(boolean state);
-<<<<<<< HEAD
+
 
     // TODO comentario
     void showErrorMessage();
-=======
-    void showErrorMessage ();
+
+
     ProgressDialog getDialog();
->>>>>>> 245550-ArreglarBotonAtras
+
 }//IListLineasView
