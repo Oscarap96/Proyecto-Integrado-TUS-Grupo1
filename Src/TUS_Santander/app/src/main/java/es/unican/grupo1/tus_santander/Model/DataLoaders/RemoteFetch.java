@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -53,15 +54,17 @@ public class RemoteFetch {
             bufferedData =  new BufferedInputStream(urlConnection.getInputStream());
     }//getJSON
 
-    public boolean checkDataBase(String Database_path) {
-        SQLiteDatabase checkDB = null;
-        try {
-            checkDB = SQLiteDatabase.openDatabase(Database_path, null, SQLiteDatabase.OPEN_READONLY);
-            checkDB.close();
-        } catch (SQLiteException e) {
-            Log.e("Error", "No existe la base de datos ");
+    public boolean checkDataBase(String Database_path, Context contexto) {
+        File database=contexto.getDatabasePath(Database_path);
+
+        if (!database.exists()) {
+            // Database does not exist so copy it from assets here
+            Log.i("Database", "Not Found");
+            return false;
+        } else {
+            Log.i("Database", "Found");
+            return true;
         }
-        return checkDB != null;
     }
 
     /**

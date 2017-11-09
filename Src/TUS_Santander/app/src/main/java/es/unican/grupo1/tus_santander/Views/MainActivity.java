@@ -24,14 +24,16 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(this, "DBTUS", null, 2);
+        //TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(this, "DBTUS", null, 1);
 
-        SQLiteDatabase db = tusdbh.getWritableDatabase();
+        //SQLiteDatabase db = tusdbh.getWritableDatabase();
+
+        //this.deleteDatabase("DBTUS");
 
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        /**if(db != null)
         {
-            //Insertamos 5 usuarios de ejemplo
+            //Insertamos 5 lineas y paradas de ejemplo
             for(int i=1; i<=5; i++)
             {
                 Log.d("Entraaaaaa","Entra inserción de datos"+i);
@@ -47,25 +49,24 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
                 String nombreP = "Parada" + i;
                 int identificadorP = i;
 
-                valores.put("idLinea", codigo);
-                valores.put("nombre", nombre);
-                valores.put("numero", numero);
-                valores.put("identificador", identificador);
-                db.insert("Linea", null, valores);
+                //valores.put("idLinea", codigo);
+                //valores.put("nombre", nombre);
+                //valores.put("numero", numero);
+                //valores.put("identificador", identificador);
+                //db.insert("Linea", null, valores);
                 //db.close();
 
                 //Insertamos los datos en la tabla Linea
-               // db.execSQL("INSERT INTO Linea (idLinea, nombre, numero, identificador) " +
-                 //       "VALUES (" + codigo + ", '" + nombre +"', '" + numero +"', " + identificador + ")");
+               db.execSQL("INSERT INTO Linea (idLinea, nombre, numero, identificador) " +
+                        "VALUES (" + codigo + ", '" + nombre +"', '" + numero +"', " + identificador + ")");
 
 
-//                db.execSQL("INSERT INTO Parada (idParada, nombre, identificador) " +
-  //                      "VALUES (" + codParada + ", '" + nombreP +"', " + identificadorP + ")");
+                db.execSQL("INSERT INTO Parada (idParada, nombre, identificador) " +
+                        "VALUES (" + codParada + ", '" + nombreP +"', " + identificadorP + ")");
             }
-
             //Cerramos la base de datos
             db.close();
-        }
+        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LineasFragment fragmentLineas = new LineasFragment();

@@ -21,13 +21,3 @@ Happ/src/main/java/es/unican/grupo1/tus_santander/Views/MainActivity.java,e/0/e
 ]app/src/androidTest/java/es/unican/grupo1/tus_santander/Model/DataLoaders/ParserUnitTest.java,7/4/74f2e479a9249586fbd283c8fa4a262409a38310
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
-z
-Japp\src\main\java\es\unican\grupo1\tus_santander\Views\LineasFragment.java,4\0\40752e94d7bb8b5115d5b93ae57eec08270086ed
-
-Oapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\BaseTUS.java,e\2\e2d54d0a7e86ddbfbbe8cae3707a4980fbe71c3e
-x
-Happ\src\main\java\es\unican\grupo1\tus_santander\Views\MainActivity.java,a\8\a8bcc38f3f034634c6a87f6ba88767c86f083189
-ƒ
-Sapp\src\main\java\es\unican\grupo1\tus_santander\Presenter\ListLineasPresenter.java,d\f\df7386b6d2f67f7d981e0a787fe7119cf7f95b3d
-„
-Tapp\src\main\java\es\unican\grupo1\tus_santander\Model\Database\TUSSQLiteHelper.java,d\a\da47a438ed69fdeb9bc1cd7f2db0a53a8ad0bda1

@@ -1,12 +1,0 @@
-
-osquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(Ó¯´ÿÿÿÿÿ8³µ­ù+
-Msquid:S1481",Remove this unused "nombreP" local variable.(—’™åùÿÿÿÿ8áõ®ù+
-Tsquid:S1481"3Remove this unused "identificadorP" local variable.(¾€èžûÿÿÿÿ8áõ®ù+
-\squid:S1854";Remove this useless assignment to local variable "nombreP".(—’™åùÿÿÿÿ8áõ®ù+
-fsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(»€ÒI8µ‘¡®ù+
-Osquid:S1481".Remove this unused "codParada" local variable.(« «ùÿÿÿÿ8áõ®ù+
-rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(½­Šßûÿÿÿÿ
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(àÙþÛ8Æðœ®ù+
-^squid:S1854"=Remove this useless assignment to local variable "codParada".(« «ùÿÿÿÿ8áõ®ù+
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‰ô†‰ûÿÿÿÿ8áõ®ù+
-csquid:S1854"BRemove this useless assignment to local variable "identificadorP".(¾€èžûÿÿÿÿ8áõ®ù+
