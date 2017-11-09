@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -293,5 +294,49 @@ public class ParserJSON {
         } else {
             return null;
         }
+    }
+
+    // TODO
+    public static int relacionarAytoparadaDcidentifier(InputStream in, int dcidentifier) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        int aytoparada = -1;
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (name.equals("resources")) {
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    aytoparada = leerObjetoRelacionarAytoparadaDcidentifier(reader, dcidentifier);
+                    if (aytoparada != -1) {
+                        return aytoparada;
+                    }
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        return aytoparada;
+    }
+
+    // TODO
+    private static int leerObjetoRelacionarAytoparadaDcidentifier (JsonReader reader, int dcidentifier) throws IOException {
+        int aytoparada = -1;
+        int identifier = -1;
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String n = reader.nextName();
+            if (n.equals("ayto:parada")) {
+                aytoparada = reader.nextInt();
+            } else if (n.equals("dc:identifier")) {
+                identifier = reader.nextInt();
+                if (identifier != dcidentifier) {
+                    aytoparada = -1;
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return aytoparada;
     }
 }//ParserJSON

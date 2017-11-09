@@ -27,7 +27,13 @@ public class Data implements IData {
 
     @Override
     public List<Estimacion> descargarEstimaciones(int paradaId) throws IOException {
+        /*remoteFetch.getJSON(RemoteFetch.URL_ESTIMACION);
+        return ParserJSON.readArrayEstimaciones(remoteFetch.getBufferedData(), paradaId);*/
+        remoteFetch.getJSON(RemoteFetch.URL_PARADAS_BUS);
+        int num = ParserJSON.relacionarAytoparadaDcidentifier(remoteFetch.getBufferedData(), paradaId);
         remoteFetch.getJSON(RemoteFetch.URL_ESTIMACION);
-        return ParserJSON.readArrayEstimaciones(remoteFetch.getBufferedData(), paradaId);
+        return ParserJSON.readArrayEstimaciones(remoteFetch.getBufferedData(), num);
     }
+
+    // TODO Metodo que use el json local de las pruebas
 }
