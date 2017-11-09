@@ -5,11 +5,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
+
+import static es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON.readArrayLineasBus;
 
 /**
  * Created by Oscar Alario Pelaz on 08/11/2017.
@@ -58,6 +63,7 @@ public class MisFuncionesBBDD {
             for (int i = 0; i < paradas.size(); i++) {
                 laParada = paradas.get(i);
                 valores.put("idParada", laParada.getIdentificador());
+                valores.put("nombreParada", laParada.getNombre());
                 valores.put("idLinea", identiLinea);
                 db.insert("ParadaLinea", null, valores);
             }
@@ -65,25 +71,23 @@ public class MisFuncionesBBDD {
     }
 
     public List<Parada> obtenerParadasLinea(int identiLinea, SQLiteDatabase db) {
-        String[] args = new String[]{String.valueOf(identiLinea)};
-        Cursor c1 = db.rawQuery("SELECT idParada FROM ParadaLinea where idLinea = ?", args);
         int identiParada;
         String nombre;
-        int identificador;
         List<Parada> paradas = new ArrayList<Parada>();
+
+        Cursor c1 = db.rawQuery("SELECT * FROM ParadaLinea where idLinea =" + identiLinea, null);
+
         if (c1.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros
             do {
                 identiParada = c1.getInt(0);
-                String[] args2 = new String[]{String.valueOf(identiParada)};
-                Cursor c2 = db.rawQuery("SELECT * FROM Parada where identificador = ? limit 1", args2);
-
-                nombre = c2.getString(1);
-                identificador = c2.getInt(2);
-                paradas.add(new Parada(nombre, identificador));
+                nombre = c1.getString(1);
+                //Cursor c2 = db.rawQuery("SELECT * FROM Parada where identificador = " + identiParada + " limit 1", null);
+                //c2.moveToFirst();
+                //nombre = c2.getString(1);
+                paradas.add(new Parada(nombre, identiParada));
             } while (c1.moveToNext());
         }
-        Log.d("Lista paradas lineas", "tamano: "+paradas.size());
         return paradas;
     }
 
@@ -121,4 +125,16 @@ public class MisFuncionesBBDD {
         return paradas;
     }
 
+    //METODOS HEREDADOS DE LAS FUNCIONES ANTERIORES//
+    /**
+     * Permite anhadir lineas a la bd desde un inputstream. Por ejemplo, para leer un archivo.
+     */
+    /*
+    public static void anhadeLineasFromInputStream(InputStream in, TUSSQLiteHelper baseDatos) throws IOException {
+        List<Linea> lista=readArrayLineasBus(in);
+        for(int i=1;i<=lista.size();i++){
+            baseDatos.modificarParada(i,lista.get(i).getName(),lista.get(i).getIdentifier());
+        }
+        baseDatos.close();
+    }*/
 }

@@ -121,20 +121,22 @@ public class ListLineasPresenter implements IListLineasPresenter {
         } else {
             try {
                 Log.d("BBDD: ", "NO hay base de datos");
+
                 //SE OBTIENEN LOS DATOS DE INTERNET...
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
 
-                remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
-                listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData());
+                //remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                //listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData());
 
                 Log.d("ENTRA", "Obtiene lineas de JSON:" + listaLineasBus.size());
-                Log.d("ENTRA", "Obtiene paradas de JSON:" + listaParadasBus.size());
+                //Log.d("ENTRA", "Obtiene paradas de JSON:" + listaParadasBus.size());
 
                 TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
 
                 // Asignar paradas a lineas
+
                 Linea laLinea;
                 int identiLinea;
                 List<Parada> paradasDeLinea;
@@ -158,7 +160,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 if (db != null) {
                     Log.d("DB Creada","creada la base de datos");
                     funciones.insertaListaLineas(listaLineasBus, db);
-                    funciones.insertaListaParadas(listaParadasBus, db);
+                    //funciones.insertaListaParadas(listaParadasBus, db);
                 }
 
                 db.close();

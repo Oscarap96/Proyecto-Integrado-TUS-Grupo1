@@ -21,3 +21,7 @@ Happ/src/main/java/es/unican/grupo1/tus_santander/Views/MainActivity.java,e/0/e
 ]app/src/androidTest/java/es/unican/grupo1/tus_santander/Model/DataLoaders/ParserUnitTest.java,7/4/74f2e479a9249586fbd283c8fa4a262409a38310
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+x
+Happ\src\main\java\es\unican\grupo1\tus_santander\Views\MainActivity.java,a\8\a8bcc38f3f034634c6a87f6ba88767c86f083189
+…
+Uapp\src\main\java\es\unican\grupo1\tus_santander\Model\DataLoaders\FuncionesBBDD.java,6\7\6745f17622def977ff66185e1bcefbe5a30e7cea

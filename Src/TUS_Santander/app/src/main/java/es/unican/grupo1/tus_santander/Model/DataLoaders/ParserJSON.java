@@ -134,74 +134,7 @@ public class ParserJSON {
         reader.endObject();
         return new Parada(nombre, identifier);
     }
-    /**public static List<Integer> cogeLineas(InputStream in,List<Parada> identificadorParada)throws IOException{
-     JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-     List<Integer>lineas=new ArrayList<Integer>();
-     int aux=0;
-     reader.beginObject(); //summary y resources
-     while (reader.hasNext()) {
-     String name = reader.nextName();
-     if (name.equals("resources")) {
-     reader.beginArray(); //cada elemento del array es un object
 
-
-     if (name.equals("ayto:linea")) {
-     aux = reader.nextInt();
-     }
-     if (name.equals("ayto:parada")) {
-     for (int i = 0; i < identificadorParada.size(); i++) {
-
-     if (reader.nextInt() == identificadorParada.get(i).getIdentificador()) {
-     aux = reader.nextInt();
-     lineas.add(aux);
-     identificadorParada.get(i).setLinea(aux);
-     }
-     }
-     } else {
-     reader.skipValue();
-     }
-
-
-     }
-     }
-     Log.d("Lineas de la parada",lineas.toString());
-     return lineas;
-     }
-     */
-
-    /**
-     * public static List<Integer> cogeLineas(InputStream in, int identificadorParada) throws IOException {
-     * JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-     * List<Integer> listLineasParada = new ArrayList<Integer>();
-     * int aux = 0;
-     * reader.beginObject(); //summary y resources
-     * while (reader.hasNext()) {
-     * String nombre = reader.nextName();
-     * if (nombre.equals("resources")) {
-     * reader.beginArray(); //cada elemento del array es un object
-     * }
-     * }
-     * reader.endObject();
-     * <p>
-     * while (reader.hasNext()) {
-     * String name = reader.nextName();
-     * <p>
-     * if (name.equals("ayto:linea")) {
-     * aux = reader.nextInt();
-     * }
-     * if (name.equals("ayto:parada"))
-     * if (reader.nextInt() == identificadorParada) {
-     * listLineasParada.add(aux);
-     * } else {
-     * reader.skipValue();
-     * }
-     * }
-     * reader.endObject();
-     * <p>
-     * Log.d("Lineas de la parada", listLineasParada.toString());
-     * return listLineasParada;
-     * }
-     */
     public static List<Parada> readArraySecuenciaParadas(InputStream in, int identifierLinea) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         List<Parada> listParadasBus = new ArrayList<Parada>();

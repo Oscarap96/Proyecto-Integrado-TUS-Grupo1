@@ -52,6 +52,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
+                Log.d("Lista paradasLinea", "Tamano es: "+listaParadasBus.size());
             }
             db.close();
             Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
