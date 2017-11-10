@@ -47,6 +47,8 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
         this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
         this.dialog = new ProgressDialog(getContext());
         this.listParadasPresenter.start();
+        // TODO
+        ((DataCommunication) getContext()).setMostrarBotonActualizar(true);
     }
 
     @Override

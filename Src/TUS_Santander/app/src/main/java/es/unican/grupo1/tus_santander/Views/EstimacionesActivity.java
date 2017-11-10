@@ -45,4 +45,15 @@ public class EstimacionesActivity extends FragmentActivity implements DataCommun
     public void setParadaIdentifier(int paradaIdentifier) {
         this.paradaIdentifier = paradaIdentifier;
     }
+
+    @Override
+    public void setMostrarBotonActualizar(boolean mostrar) {
+        // TODO
+    }
+
+    @Override
+    public boolean getMostrarActualizar() {
+        // TODO
+        return false;
+    }
 }

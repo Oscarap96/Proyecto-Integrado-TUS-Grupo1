@@ -23,4 +23,8 @@ public interface DataCommunication {
     void setParadaIdentifier(int paradaIdentifier);
 
     // TODO anhadir metodos cuando necesite comunicarme entre fragments
+
+    void setMostrarBotonActualizar(boolean mostrar);
+
+    boolean getMostrarActualizar();
 }
