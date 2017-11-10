@@ -7,9 +7,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
-import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.R;
 import es.unican.grupo1.tus_santander.Views.IListParadasView;
@@ -19,48 +19,55 @@ import es.unican.grupo1.tus_santander.Views.IListParadasView;
  * Created by Adrian on 25/10/2017.
  */
 
-public class ListParadasPresenter implements IListParadasPresenter{
+public class ListParadasPresenter implements IListParadasPresenter {
     private IListParadasView listParadasView;
     private List<Parada> listParadasBus;
     private List<Parada> lineasDeParadas;
     private RemoteFetch remoteFetchParadas;
     private int identifierLinea;
     private Context context;
-    public ListParadasPresenter(Context context, IListParadasView listParadasView, int identifierLinea){
+
+    public ListParadasPresenter(Context context, IListParadasView listParadasView, int identifierLinea) {
         this.listParadasView = listParadasView;
         this.remoteFetchParadas = new RemoteFetch();
         this.context = context;
         this.identifierLinea = identifierLinea;
     }// ListLineasPresenter
-    public boolean obtenParadas(){
+
+    public boolean obtenParadas() {
         try {
-            remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
-            listParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
             //remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
-           // lineasDeParadas=ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
+            // lineasDeParadas=ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
+            Data data = new Data();
+            listParadasBus = data.descargarParadas(identifierLinea);
             return true;
-        }catch(Exception e){
-            Log.e("ERROR","Error en la obtención de las paradas de la linea: "+e.getMessage());
+        } catch (Exception e) {
+            Log.e("ERROR", "Error en la obtención de las paradas de la linea: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
-    public String getTextoParadas(){
-        String textoParadas="";
-        if(listParadasBus!=null){
-            for (int i=0; i<listParadasBus.size(); i++){
-                textoParadas=textoParadas+listParadasBus.get(i).getNombre()+"\n\n";
+
+    public String getTextoParadas() {
+        String textoParadas = "";
+        if (listParadasBus != null) {
+            for (int i = 0; i < listParadasBus.size(); i++) {
+                textoParadas = textoParadas + listParadasBus.get(i).getNombre() + "\n\n";
             }
-        }else{
-            textoParadas="";
+        } else {
+            textoParadas = "";
         }
         return textoParadas;
     }
-    public List<Parada>getListLineasParadas(){return lineasDeParadas;}
 
-    public List<Parada> getListParadasBus(){
+    public List<Parada> getListLineasParadas() {
+        return lineasDeParadas;
+    }
+
+    public List<Parada> getListParadasBus() {
         return listParadasBus;
     }
+
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
 
         private Exception exception;
@@ -81,7 +88,7 @@ public class ListParadasPresenter implements IListParadasPresenter{
                 //Muestra el toast con el mensaje
                 Toast toast1 = Toast.makeText(context, R.string.mensajeToast1, Toast.LENGTH_SHORT);
                 toast1.show();
-            }else{
+            } else {
                 listParadasView.showProgress(false);
                 listParadasView.showErrorMessage();
             }
@@ -89,9 +96,9 @@ public class ListParadasPresenter implements IListParadasPresenter{
 
         @Override
         protected Boolean doInBackground(String... urls) {
-            try{
+            try {
                 return obtenParadas();
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }

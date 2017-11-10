@@ -19,12 +19,11 @@ public interface IListParadasView {
     // TODO comentario
     void showProgress(boolean state);
 
-
     // TODO comentario
     // TODO comprobar si es necesario
     void showErrorMessage();
 
-
+    // TODO comentario
     ProgressDialog getDialog();
 
 }

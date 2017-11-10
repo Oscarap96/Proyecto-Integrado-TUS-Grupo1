@@ -49,4 +49,15 @@ public class ListaParadasActivity extends FragmentActivity implements DataCommun
         this.paradaIdentifier= paradaIdentifier;
     }
 
+    @Override
+    public void setMostrarBotonActualizar(boolean mostrar) {
+        // TODO
+    }
+
+    @Override
+    public boolean getMostrarActualizar() {
+        // TODO
+        return false;
+    }
+
 }

@@ -1,6 +1,5 @@
 package es.unican.grupo1.tus_santander.Model;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
 import junit.framework.Assert;
@@ -19,7 +18,6 @@ import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.R;
 
 import static android.support.test.InstrumentationRegistry.getContext;
-import static org.junit.Assert.*;
 
 /**
  * Created by lamberto on 29/10/17.
