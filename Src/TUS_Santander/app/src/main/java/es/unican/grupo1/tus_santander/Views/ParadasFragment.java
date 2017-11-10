@@ -61,7 +61,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
     @Override
     public void showProgress(boolean state) {
         if (state) {
-            dialog.setMessage("Cargando datos...");
+            dialog.setMessage(getString(R.string.mensajeCargando));
             dialog.show();
         } else {
             dialog.cancel();
@@ -70,7 +70,7 @@ public class ParadasFragment extends ListFragment implements IListParadasView {
 
     public void showErrorMessage () {
         textViewMensajeError.setVisibility(View.VISIBLE);
-        textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
+        textViewMensajeError.setText(getString(R.string.noHayInternet));
     }
 
     public ProgressDialog getDialog(){

@@ -21,6 +21,7 @@ import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.R;
 import es.unican.grupo1.tus_santander.Views.IListLineasView;
 
 /**
@@ -61,7 +62,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 listLineasView.showList(getListaLineasBus());
                 listLineasView.showProgress(false);
                 //Muestra el toast con el mensaje
-                Toast toast1 = Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT);
+                Toast toast1 = Toast.makeText(context, R.string.mensajeToast1, Toast.LENGTH_SHORT);
                 toast1.show();
             } else {
                 listLineasView.showProgress(false);
@@ -71,16 +72,12 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
         @Override
         protected Boolean doInBackground(String... urls) {
-            obtenLineas();
-            if(isCancelled()){
+            try{
+                return obtenLineas();
+            }catch(Exception e) {
+                e.printStackTrace();
                 return false;
             }
-            return true;
-        }
-
-        @Override
-        protected void onCancelled(){
-
         }
     }
 

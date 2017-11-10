@@ -11,6 +11,7 @@ import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
+import es.unican.grupo1.tus_santander.R;
 import es.unican.grupo1.tus_santander.Views.IListParadasView;
 
 
@@ -78,7 +79,7 @@ public class ListParadasPresenter implements IListParadasPresenter{
                 listParadasView.showList(getListParadasBus());
                 listParadasView.showProgress(false);
                 //Muestra el toast con el mensaje
-                Toast toast1 = Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT);
+                Toast toast1 = Toast.makeText(context, R.string.mensajeToast1, Toast.LENGTH_SHORT);
                 toast1.show();
             }else{
                 listParadasView.showProgress(false);
@@ -88,11 +89,12 @@ public class ListParadasPresenter implements IListParadasPresenter{
 
         @Override
         protected Boolean doInBackground(String... urls) {
-            obtenParadas();
-            if(isCancelled()){
+            try{
+                return obtenParadas();
+            }catch(Exception e){
+                e.printStackTrace();
                 return false;
             }
-            return true;
         }
     }
 
