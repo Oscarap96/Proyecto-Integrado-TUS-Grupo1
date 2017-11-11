@@ -24,7 +24,6 @@ public interface DataCommunication {
 
     // TODO anhadir metodos cuando necesite comunicarme entre fragments
 
+    // TODO
     void setMostrarBotonActualizar(boolean mostrar);
-
-    boolean getMostrarActualizar();
 }

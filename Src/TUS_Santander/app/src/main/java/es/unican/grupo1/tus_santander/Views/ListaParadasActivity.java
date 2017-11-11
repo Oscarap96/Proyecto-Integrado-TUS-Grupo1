@@ -27,8 +27,6 @@ public class ListaParadasActivity extends FragmentActivity implements DataCommun
         ft.commit();
     }//onCreate
 
-
-
     @Override
     public int getLineaIdentifier() {
        return lineaIdentifier;
@@ -53,11 +51,4 @@ public class ListaParadasActivity extends FragmentActivity implements DataCommun
     public void setMostrarBotonActualizar(boolean mostrar) {
         // TODO
     }
-
-    @Override
-    public boolean getMostrarActualizar() {
-        // TODO
-        return false;
-    }
-
 }

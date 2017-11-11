@@ -50,10 +50,4 @@ public class EstimacionesActivity extends FragmentActivity implements DataCommun
     public void setMostrarBotonActualizar(boolean mostrar) {
         // TODO
     }
-
-    @Override
-    public boolean getMostrarActualizar() {
-        // TODO
-        return false;
-    }
 }

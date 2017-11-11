@@ -60,12 +60,9 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         this.paradaIdentifier = paradaIdentifier;
     }
 
+    @Override
     public void setMostrarBotonActualizar(boolean mostrar) {
-        mostrarBotonActualizar = mostrar;
+        this.mostrarBotonActualizar = mostrar;
         invalidateOptionsMenu();
-    }
-
-    public boolean getMostrarActualizar() {
-        return mostrarBotonActualizar;
     }
 }// MainActivity
