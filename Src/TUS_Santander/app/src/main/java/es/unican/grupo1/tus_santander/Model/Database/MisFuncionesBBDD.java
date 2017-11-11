@@ -3,18 +3,12 @@ package es.unican.grupo1.tus_santander.Model.Database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
-
-import static es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON.readArrayLineasBus;
 
 /**
  * Created by Oscar Alario Pelaz on 08/11/2017.

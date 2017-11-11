@@ -33,4 +33,6 @@ public interface IBase {
 
     // TODO considerar poner metodos para anhadir listas de paradas y de lineas
     // TODO considerar poner metodos para modificar lineas y paradas
+
+    // TODO quitar esta clase si es innecesaria o modificarla con los métodos correctos
 }

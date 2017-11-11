@@ -27,7 +27,7 @@ import es.unican.grupo1.tus_santander.Model.Parada;
  */
 public class ParserJSON {
 
-    static BaseTUS bd;
+    //static BaseTUS bd;
 
     /**
      * Método para obtener todas las lineas de buses

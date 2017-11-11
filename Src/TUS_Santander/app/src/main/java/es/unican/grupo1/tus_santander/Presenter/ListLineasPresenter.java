@@ -10,13 +10,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
-import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Database.MisFuncionesBBDD;
