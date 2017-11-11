@@ -11,16 +11,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.Estimacion;
 import es.unican.grupo1.tus_santander.Presenter.ListEstimacionesPresenter;
 import es.unican.grupo1.tus_santander.R;
 
 /**
- * Created by pma11 on 07/11/2017.
+ * Fragment para las estimaciones.
  */
-
-public class EstimacionesFragment extends ListFragment implements IListEstimacionesView {
+public class EstimacionesFragment extends ListFragment implements IEstimacionesFragment {
     private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private ListEstimacionesPresenter listEstimacionesPresenter;
@@ -42,13 +40,12 @@ public class EstimacionesFragment extends ListFragment implements IListEstimacio
         this.listEstimacionesPresenter = new ListEstimacionesPresenter(getContext(), this, paradaId);
         this.dialog = new ProgressDialog(getContext());
         this.listEstimacionesPresenter.start();
-        // TODO
+        // oculta el boton de refrescar
         ((DataCommunication) getContext()).setMostrarBotonActualizar(false);
     }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        // TODO
         // no hace nada al pulsar una estimacion
     }
 

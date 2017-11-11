@@ -8,20 +8,33 @@ import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 
 /**
- * Created by anon on 7/11/17.
+ * Define los metodos que ofrece el paquete DataLoaders.
  */
-
 public interface IData {
-    // estas dos de descargar usaran la clase remoteFetch y parserJson
 
-    // TODO comentario, tambien ordenarlas
+    /**
+     * Descarga de Internet la lista de lineas.
+     *
+     * @return lista de lineas
+     * @throws IOException en caso de que no tenga conexion a internet
+     */
     List<Linea> descargarLineas() throws IOException;
 
-    // TODO comentario
+    /**
+     * Descarga la lista de paradas de Internet.
+     *
+     * @param identifierLinea linea de la que queremos obtener sus paradas
+     * @return lista de paradas de una lina
+     * @throws IOException en caso de que no tenga conexion a internet
+     */
     List<Parada> descargarParadas(int identifierLinea) throws IOException;
 
-    // TODO comentario
+    /**
+     * Descarga una lista de estimaciones de Internet.
+     *
+     * @param paradaId parada de la que queremos obtener sus estimaciones
+     * @return lista de estimaciones
+     * @throws IOException en caso de que no tenga conexion a internet
+     */
     List<Estimacion> descargarEstimaciones(int paradaId) throws IOException;
-
-    // segun donde vaya la logica de primero descargar y luego usar la base de datos, a lo mejor hay que anhadir mas metodos aqui
 }

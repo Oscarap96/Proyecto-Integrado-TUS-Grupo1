@@ -1,5 +1,0 @@
-
-rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(½­Šßûÿÿÿÿ
-3squid:S2131"Use "Integer.toString" instead.(Æ“Ð<
-squid:S1450"`Remove the "dataCommunication" field and declare it as a local variable in the relevant methods.(ªèöÕþÿÿÿÿ8¶ÂÂˆù+
-qsquid:UselessImportCheck"HRemove this unused import 'es.unican.grupo1.tus_santander.Model.Parada'.(™›œÂ8¶ÂÂˆù+

@@ -4,34 +4,31 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
-import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Estimacion;
-import es.unican.grupo1.tus_santander.Views.IListEstimacionesView;
+import es.unican.grupo1.tus_santander.Views.IEstimacionesFragment;
+
 
 /**
- * Created by anon on 8/11/17.
+ * Presenter de estimaciones. Se encarga de la logica entre la interfaz de las estimaciones y el
+ * modelo.
  */
-
 public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
-    private IListEstimacionesView listEstimacionesView;
+    private IEstimacionesFragment listEstimacionesView;
     private List<Estimacion> listaEstimaciones;
-    private RemoteFetch remoteFetch;
     private Context context;
     private int paradaId;
 
-    // TODO
-    public ListEstimacionesPresenter(Context context, IListEstimacionesView listEstimacionesView, int paradaId) {
+    // TODO comentario
+    public ListEstimacionesPresenter(Context context, IEstimacionesFragment listEstimacionesView, int paradaId) {
         this.listEstimacionesView = listEstimacionesView;
-        this.remoteFetch = new RemoteFetch();
         this.context = context;
         this.paradaId = paradaId;
     }
 
-    // TODO
+    // TODO comentario
     private class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -62,7 +59,7 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
         }
     }
 
-    // TODO
+    // TODO comentario
     public void start() {
         new RetrieveFeedTask().execute();
     }

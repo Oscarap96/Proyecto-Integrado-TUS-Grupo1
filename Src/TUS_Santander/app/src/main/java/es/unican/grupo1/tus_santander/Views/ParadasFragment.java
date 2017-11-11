@@ -14,15 +14,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Presenter.ListParadasPresenter;
 import es.unican.grupo1.tus_santander.R;
 
+
 /**
- * Created by Adrian on 25/10/2017.
+ * Fragment de paradas.
  */
-public class ParadasFragment extends ListFragment implements IListParadasView {
+public class ParadasFragment extends ListFragment implements IParadasFragment {
     private DataCommunication dataCommunication;
     private int identifierLinea;
     private ProgressDialog dialog;

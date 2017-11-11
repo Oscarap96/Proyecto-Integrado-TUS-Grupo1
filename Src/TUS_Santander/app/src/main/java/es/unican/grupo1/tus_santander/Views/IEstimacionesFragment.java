@@ -4,26 +4,23 @@ import android.app.ProgressDialog;
 
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.Linea;
-import es.unican.grupo1.tus_santander.Model.Parada;
+import es.unican.grupo1.tus_santander.Model.Estimacion;
+
 
 /**
- * Created by Adrian on 25/10/2017.
+ * Define los metodos del fragment de estimaciones
  */
-
-public interface IListParadasView {
+public interface IEstimacionesFragment {
 
     // TODO comentario
-    void showList(List<Parada> paradasList);
+    void showList(List<Estimacion> estimacionesList);
 
     // TODO comentario
     void showProgress(boolean state);
 
     // TODO comentario
-    // TODO comprobar si es necesario
     void showErrorMessage();
 
     // TODO comentario
     ProgressDialog getDialog();
-
 }
