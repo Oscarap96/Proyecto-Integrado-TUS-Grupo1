@@ -6,10 +6,10 @@ import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Estimacion;
 
-/**
- * Created by anon on 7/11/17.
- */
 
+/**
+ * Define los metodos del fragment de estimaciones
+ */
 public interface IEstimacionesFragment {
 
     // TODO comentario
@@ -19,7 +19,6 @@ public interface IEstimacionesFragment {
     void showProgress(boolean state);
 
     // TODO comentario
-    // TODO comprobar si es necesario
     void showErrorMessage();
 
     // TODO comentario

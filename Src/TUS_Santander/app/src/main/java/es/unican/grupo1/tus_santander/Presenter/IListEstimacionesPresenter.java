@@ -4,10 +4,10 @@ import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Estimacion;
 
-/**
- * Created by anon on 7/11/17.
- */
 
+/**
+ * Define los metodos minimos necesarios en el presenter de Estimaciones.
+ */
 public interface IListEstimacionesPresenter {
 
     // TODO comentario

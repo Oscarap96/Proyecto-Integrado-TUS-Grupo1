@@ -11,10 +11,13 @@ import android.view.MenuItem;
 import es.unican.grupo1.tus_santander.R;
 
 
+/**
+ * Actividad principal desde la que se inicia toda la aplicacion.
+ */
 public class MainActivity extends AppCompatActivity implements DataCommunication {
     private int lineaIdentifier;
     private int paradaIdentifier;
-    // TODO
+    // determina si hay que mostrar el boton de refrescar de la action bar
     private boolean mostrarBotonActualizar = true;
 
     @Override
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        // TODO
+        // mustra u oculta el boton de actualizar
         MenuItem item = menu.findItem(R.id.refresh_item);
         item.setVisible(mostrarBotonActualizar);
         return true;
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     @Override
     public void setMostrarBotonActualizar(boolean mostrar) {
         this.mostrarBotonActualizar = mostrar;
+        // vuelve a llamar a onCreateOptionsMenu
         invalidateOptionsMenu();
     }
 }// MainActivity

@@ -19,17 +19,14 @@ import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Views.ILineasFragment;
 
 /**
- * Created by alejandro on 11/10/17.
+ * Presenter de lineas. Se encarga de la logica entre la interfaz de lineas y el modelo.
  */
-
 public class ListLineasPresenter implements IListLineasPresenter {
     private ILineasFragment listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
     private Context context;
-
     private RemoteFetch remoteFetchParadas;
-    private List<Parada> listaParadasBus;
 
     private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
@@ -37,13 +34,10 @@ public class ListLineasPresenter implements IListLineasPresenter {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
         this.context = context;
-
         this.remoteFetchParadas = new RemoteFetch();
     }
 
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
-
-        private Exception exception;
 
         @Override
         protected void onPreExecute() {
@@ -79,13 +73,11 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
         @Override
         protected void onCancelled() {
-
         }
     }
 
     public void start() {
         new RetrieveFeedTask().execute();
-
     }// start
 
     /**
@@ -97,7 +89,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
      * @return
      */
     public boolean obtenLineas() {
-
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
         if (remoteFetchLineas.checkDataBase(DB_PATH, context)) {
@@ -145,7 +136,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
                     Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
                     if (db != null) {
-                        funciones.insertaParadasLinea(paradasDeLinea,identiLinea,db);
+                        funciones.insertaParadasLinea(paradasDeLinea, identiLinea, db);
                     }
                 }
 
@@ -154,7 +145,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
                 //Si hemos abierto correctamente la base de datos
                 if (db != null) {
-                    Log.d("DB Creada","creada la base de datos");
+                    Log.d("DB Creada", "creada la base de datos");
                     funciones.insertaListaLineas(listaLineasBus, db);
                     //funciones.insertaListaParadas(listaParadasBus, db);
                 }
@@ -173,11 +164,9 @@ public class ListLineasPresenter implements IListLineasPresenter {
         }
     }
 
-
     public List<Linea> getListaLineasBus() {
         return listaLineasBus;
     }//getListaLineasBus
-
 
     /**
      * Método para obtener un cadena de texto con todas las lineas. En esta cadena
@@ -185,7 +174,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
      *
      * @return String con todas las gasolineras separadas por un doble salto de línea
      */
-
     public String getTextoLineas() {
         String textoLineas = "";
         if (listaLineasBus != null) {
@@ -197,6 +185,4 @@ public class ListLineasPresenter implements IListLineasPresenter {
         }//if
         return textoLineas;
     }//getTextoLineas
-
-
 }// ListLineasPresenter

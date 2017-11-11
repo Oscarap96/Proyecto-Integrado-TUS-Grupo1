@@ -18,13 +18,11 @@ import es.unican.grupo1.tus_santander.Views.IParadasFragment;
 
 
 /**
- * Created by Adrian on 25/10/2017.
+ * Presenter de paradas. Se encarga de la logica entre la interfaz de paradas y el modelo.
  */
-
 public class ListParadasPresenter implements IListParadasPresenter {
     private IParadasFragment listParadasView;
     private List<Parada> listaParadasBus;
-    private List<Parada> lineasDeParadas;
     private RemoteFetch remoteFetchParadas;
     private int identifierLinea;
     private Context context;
@@ -50,7 +48,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
-                Log.d("Lista paradasLinea", "Tamano es: "+listaParadasBus.size());
+                Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
             }
             db.close();
             Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
@@ -91,24 +89,17 @@ public class ListParadasPresenter implements IListParadasPresenter {
         return textoParadas;
     }
 
-    public List<Parada> getListLineasParadas() {
-        return lineasDeParadas;
-    }
-
     public List<Parada> getListParadasBus() {
         return listaParadasBus;
     }
 
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
 
-        private Exception exception;
-
         @Override
         protected void onPreExecute() {
             listParadasView.getDialog().setCancelable(false);
             //Muestra mensaje de cargando datos...
             listParadasView.showProgress(true);
-
         }
 
         @Override
@@ -130,7 +121,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             try {
                 return obtenParadas();
             } catch (Exception e) {
-                Log.d("ERROR","No hay conexion a Internet");
+                Log.d("ERROR", "No hay conexion a Internet");
                 e.printStackTrace();
                 return false;
             }

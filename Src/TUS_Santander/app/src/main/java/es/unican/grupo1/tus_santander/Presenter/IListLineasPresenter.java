@@ -1,16 +1,13 @@
 package es.unican.grupo1.tus_santander.Presenter;
 
-/**
- * Created by Oscar Alario Pelaz on 31/10/2017.
- */
-
-import android.app.ProgressDialog;
-
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
-import es.unican.grupo1.tus_santander.Model.Parada;
 
+
+/**
+ * Define los metodos basicos qeu tiene que implementar el presenter de lineas.
+ */
 public interface IListLineasPresenter {
 
     // TODO comentario

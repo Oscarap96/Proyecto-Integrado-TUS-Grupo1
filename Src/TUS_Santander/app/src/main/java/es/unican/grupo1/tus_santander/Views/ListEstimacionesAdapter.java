@@ -9,17 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Estimacion;
 import es.unican.grupo1.tus_santander.R;
 
-/**
- * Created by pma11 on 07/11/2017.
- */
 
+/**
+ * Adapter para las estimaciones. Determina como se muestran graficamente las estimaciones.
+ */
 public class ListEstimacionesAdapter extends ArrayAdapter {
     List<Estimacion> estimaciones;
     Context context;

@@ -9,32 +9,25 @@ import android.widget.ArrayAdapter;
 import es.unican.grupo1.tus_santander.Model.Parada;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.Linea;
-import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.R;
 
-/**
- * Created by Adrian on 26/10/2017.
- */
 
+/**
+ * Determinan como se muestran graficamente las paradas.
+ */
 public class ListParadasAdapter extends ArrayAdapter {
     List<Parada> paradasBus;
-    List<Parada> paradasLinea;
     Context context;
 
     public ListParadasAdapter(Context context, List<Parada> paradasBus) {
         super(context, R.layout.custom_list_paradas_layout, paradasBus);
         this.context = context;
         this.paradasBus = paradasBus;
-
-
     }// ListLineasAdapter
 
     @NonNull

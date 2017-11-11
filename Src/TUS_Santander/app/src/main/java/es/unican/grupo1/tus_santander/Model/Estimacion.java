@@ -2,6 +2,7 @@ package es.unican.grupo1.tus_santander.Model;
 
 import android.support.annotation.NonNull;
 
+
 /**
  * Guarda la informacion de una estimacion, con el autobus al que corresponde y los tiempos.
  */
@@ -15,7 +16,7 @@ public class Estimacion implements Comparable {
     private int tiempo2min;
 
     /**
-     * Constructor de una estimacion.
+     * Constructor de una estimacion. Redondea los tiempos a la baja.
      *
      * @param autobus    etiqueta del autobus correspondiente a la estimacion, ej: "7C1"
      * @param tiempo1seg primera estimacion en segundos
@@ -29,6 +30,7 @@ public class Estimacion implements Comparable {
 
     /**
      * Constructor de una estimacion cuando no esta disponible la segudna estimacion.
+     * Redondea los tiempos a la baja.
      *
      * @param autobus    etiqueta del autobus correspondiente a la estimacion, ej: "7C1"
      * @param tiempo1seg primera estimacion en segundos

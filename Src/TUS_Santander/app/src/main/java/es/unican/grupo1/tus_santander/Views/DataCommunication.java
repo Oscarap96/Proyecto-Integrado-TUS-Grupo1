@@ -1,12 +1,9 @@
 package es.unican.grupo1.tus_santander.Views;
 
-/**
- * Created by alejandro on 16/08/17.
- */
 
 /**
  * Interfaz que implementará la activitidad MainActivity para tener métodos que nos permitan comunicar
- * los distintos fragments de la app
+ * los distintos fragments de la app.
  */
 public interface DataCommunication {
 
@@ -22,8 +19,10 @@ public interface DataCommunication {
     // TODO comentario
     void setParadaIdentifier(int paradaIdentifier);
 
-    // TODO anhadir metodos cuando necesite comunicarme entre fragments
-
-    // TODO
+    /**
+     * Permite ocultar o mostrar el boton de recargar de la action bar.
+     *
+     * @param mostrar true para mostrar el boton, false para ocultarlo
+     */
     void setMostrarBotonActualizar(boolean mostrar);
 }

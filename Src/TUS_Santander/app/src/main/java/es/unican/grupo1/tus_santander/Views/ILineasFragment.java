@@ -5,13 +5,11 @@ import android.app.ProgressDialog;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
-import es.unican.grupo1.tus_santander.Model.Parada;
 
 
 /**
- * Created by alejandro on 11/10/17.
+ * Define los metodos del fragment de lineas.
  */
-
 public interface ILineasFragment {
 
     // TODO comentario
@@ -20,11 +18,8 @@ public interface ILineasFragment {
     // TODO comentario
     void showProgress(boolean state);
 
-
     // TODO comentario
     void showErrorMessage();
 
-
     ProgressDialog getDialog();
-
 }//IListLineasView

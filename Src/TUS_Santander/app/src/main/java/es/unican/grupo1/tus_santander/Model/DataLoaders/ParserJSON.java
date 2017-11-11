@@ -3,14 +3,9 @@ package es.unican.grupo1.tus_santander.Model.DataLoaders;
 import android.util.JsonReader;
 import android.util.Log;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,11 +18,9 @@ import es.unican.grupo1.tus_santander.Model.Parada;
 /**
  * Created by alejandro on 27/09/16.
  * Clase que contiene los metodos necesarios para parsear el JSON que devuelve el servicio "REST" con
- * los diferentes datos del TUS de Santander
+ * los diferentes datos del TUS de Santander.
  */
 public class ParserJSON {
-
-    //static BaseTUS bd;
 
     /**
      * Método para obtener todas las lineas de buses
@@ -56,15 +49,14 @@ public class ParserJSON {
     }
 
     /**
-     * Método que se encarga de leer una parada
+     * Método que se encarga de leer una linea
      *
-     * @param reader
-     * @return
-     * @throws IOException
+     * @param reader para leer uno de los objetos
+     * @return nueva linea
+     * @throws IOException en caso de que no pueda leer los datos
      */
     private static Linea readLinea(JsonReader reader) throws IOException {
         reader.beginObject(); //Leemos un object
-        int cont = 1;//Contador de ids
         String name = "", numero = "";
         int identifier = -1;
         while (reader.hasNext()) {
@@ -78,18 +70,17 @@ public class ParserJSON {
             } else {
                 reader.skipValue();
             }
-            cont++;
         }
         reader.endObject();
         return new Linea(name, numero, identifier);
     }
 
     /**
-     * Método para obtener todas las paradas de buses
+     * Método para obtener todas las paradas de buses.
      *
      * @param in InputStream del JSON con las paradas de buses
      * @return Lista con todas las paradas
-     * @throws IOException
+     * @throws IOException en caso de que no pueda leer las paradas
      */
     public static List<Parada> readArrayParadas(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
@@ -110,15 +101,14 @@ public class ParserJSON {
     }
 
     /**
-     * Lee una parada
+     * Lee una parada.
      *
-     * @param reader
-     * @return
-     * @throws IOException
+     * @param reader para leer el objeto
+     * @return nueva parada
+     * @throws IOException en caso de que no pueda leer la parada
      */
     private static Parada readParada(JsonReader reader) throws IOException {
         reader.beginObject(); //Leemos un object
-        int cont = 1;//Contador de ids para la bd
         String nombre = "";
         int identifier = -1;
         while (reader.hasNext()) {
@@ -127,7 +117,6 @@ public class ParserJSON {
                 nombre = reader.nextString();
             } else if (n.equals("dc:identifier")) {
                 identifier = reader.nextInt();
-                //  cogeLineas(reader,identifier);
             } else {
                 reader.skipValue();
             }
@@ -136,6 +125,7 @@ public class ParserJSON {
         return new Parada(nombre, identifier);
     }
 
+    // TODO Investigar si este metodo hara falta en el futuro
     public static List<Integer> cogeLineas(InputStream in, List<Parada> identificadorParada) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         List<Integer> lineas = new ArrayList<Integer>();
@@ -166,6 +156,14 @@ public class ParserJSON {
         return lineas;
     }
 
+    /**
+     * Genera una lista de paradas ordenadas segun las paradas que visita el autobus.
+     *
+     * @param in              json
+     * @param identifierLinea linea de la que queremos obtener paradas
+     * @return lista de paradas
+     * @throws IOException en caso de que no pueda leerlo
+     */
     public static List<Parada> readArraySecuenciaParadas(InputStream in, int identifierLinea) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         List<Parada> listParadasBus = new ArrayList<Parada>();
@@ -187,9 +185,16 @@ public class ParserJSON {
         return listParadasBus;
     }
 
+    /**
+     * Lee una parada para generar la lista de paradas.
+     *
+     * @param reader          objeto a procesar
+     * @param identifierLinea linea de la que queremos obtener paradas
+     * @return una nueva parada o null en caso de que no pueda
+     * @throws IOException en caso de que no pueda leerlo
+     */
     private static Parada readParadaSecuencia(JsonReader reader, int identifierLinea) throws IOException {
         //Leemos un object
-        int cont = 1;//Contador de ids para la bd
         String nombre = "";
         int identifier = -1;
         int linea = -1;

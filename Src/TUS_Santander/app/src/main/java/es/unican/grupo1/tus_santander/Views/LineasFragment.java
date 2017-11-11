@@ -23,7 +23,6 @@ import es.unican.grupo1.tus_santander.R;
  * A fragment representing a list of Items.
  */
 public class LineasFragment extends ListFragment implements ILineasFragment {
-
     private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private ListLineasPresenter listLineasPresenter;
@@ -33,14 +32,14 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lineas_list, container, false);
-        textViewMensajeError = (TextView)view.findViewById(R.id.textViewMensajeError);
+        textViewMensajeError = (TextView) view.findViewById(R.id.textViewMensajeError);
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        this.listLineasPresenter = new ListLineasPresenter(getContext(),this);
+        this.listLineasPresenter = new ListLineasPresenter(getContext(), this);
         this.dialog = new ProgressDialog(getContext());
         this.listLineasPresenter.start();
     }
@@ -50,10 +49,10 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
         Log.d("pulsado", "" + position);
         //AQUI SE DEBE HACER EL CAMBIO DE FRAGMENTS
         ParadasFragment fragmentParadas = new ParadasFragment();
-        FragmentManager fm =getActivity().getSupportFragmentManager();
-        FragmentTransaction ft =  fm.beginTransaction();
-        ft.replace(R.id.frameLayoutElements,fragmentParadas);
-        dataCommunication=(DataCommunication)getContext();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frameLayoutElements, fragmentParadas);
+        dataCommunication = (DataCommunication) getContext();
         dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
         ft.addToBackStack(null);
         ft.commit();
@@ -69,10 +68,11 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
 
     /**
      * Este método cuando es llamado se encarga de mostrar un progressDialog
+     *
      * @param state si es true pone el progressDialog en la interfaz, si es false lo cancela
      */
     @Override
-    public void showProgress (boolean state){
+    public void showProgress(boolean state) {
         if (state) {
             dialog.setMessage("Cargando datos...");
             dialog.show();
@@ -81,12 +81,12 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
         }
     }
 
-    public void showErrorMessage (){
+    public void showErrorMessage() {
         textViewMensajeError.setVisibility(View.VISIBLE);
         textViewMensajeError.setText("Internet no disponible. Inténtalo más tarde.");
     }
 
-    public ProgressDialog getDialog(){
+    public ProgressDialog getDialog() {
         return dialog;
     }
 }
