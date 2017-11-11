@@ -15,12 +15,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import es.unican.grupo1.tus_santander.Views.EstimacionesActivity;
+import es.unican.grupo1.tus_santander.Views.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.anything;
 
 /**
@@ -30,7 +28,7 @@ import static org.hamcrest.Matchers.anything;
 @RunWith(AndroidJUnit4.class)
 public class EstimacionesTestIntegracion {
     @Rule
-    public ActivityTestRule<EstimacionesActivity> mActivityTestRule = new ActivityTestRule<>(EstimacionesActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     /**
      * Test que comprueba que se muestra un mensaje de error en caso

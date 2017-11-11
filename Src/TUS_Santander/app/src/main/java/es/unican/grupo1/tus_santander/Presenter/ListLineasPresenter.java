@@ -16,6 +16,7 @@ import es.unican.grupo1.tus_santander.Model.DatabaseAccess.MisFuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DatabaseAccess.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
+import es.unican.grupo1.tus_santander.R;
 import es.unican.grupo1.tus_santander.Views.ILineasFragment;
 
 
