@@ -45,7 +45,7 @@ public class FuncionesBBDD {
     }
 
     /**
-     * Permite anhadir lineas a la bd desde un inputstream por ejemplo para leer un archivo.
+     * Permite anhadir lineas a la bd desde un inputstream. Por ejemplo, para leer un archivo.
      */
     public static void anhadeLineasFromInputStream(InputStream in, BaseTUS baseDatos) throws IOException {
         List<Linea> lista=readArrayLineasBus(in);

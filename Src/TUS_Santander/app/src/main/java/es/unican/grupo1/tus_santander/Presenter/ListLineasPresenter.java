@@ -3,12 +3,14 @@ package es.unican.grupo1.tus_santander.Presenter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +19,10 @@ import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
+import es.unican.grupo1.tus_santander.Model.Database.MisFuncionesBBDD;
+import es.unican.grupo1.tus_santander.Model.Database.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Views.IListLineasView;
 
 /**
@@ -30,15 +35,18 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private RemoteFetch remoteFetchLineas;
     private Context context;
 
+    private RemoteFetch remoteFetchParadas;
+    private List<Parada> listaParadasBus;
 
-    private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander.Model.DataLoaders/databases/BaseTUS.db";
-    //private static String DB_NAME = "";
+    private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     public ListLineasPresenter(Context context, IListLineasView listLineasView) {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
         this.context = context;
-    }// ListLineasPresenter
+
+        this.remoteFetchParadas = new RemoteFetch();
+    }
 
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
 
@@ -96,44 +104,81 @@ public class ListLineasPresenter implements IListLineasPresenter {
      * @return
      */
     public boolean obtenLineas() {
-        try {
-            if (remoteFetchLineas.checkDataBase(DB_PATH)) {
-                Log.d("BBDD: ", "SI hay base de datos");
+
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+
+        if (remoteFetchLineas.checkDataBase(DB_PATH, context)) {
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            SQLiteDatabase db = tusdbh.getWritableDatabase();
+            Log.d("BBDD: ", "SI hay base de datos");
+
+            //Si hemos abierto correctamente la base de datos
+            if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
-                listaLineasBus = FuncionesBBDD.obtenerLineas();
-            } else {
-                Log.d("BBDD: ", "NO hay base de datos");
-                //SE OBTIENEN LOS DATOS DE INTERNET
-                Data data = new Data();
-                listaLineasBus = data.descargarLineas();
-
-                //... Y SE METEN EN LA BBDD
-                //FuncionesBBDD usuario = new FuncionesBBDD();
-                //usuario.anhadeLineas(remoteFetchLineas);
-                //usuario.anhadeParadas(remoteFetchLineas);
-                /**BaseTUS usuario = new BaseTUS(context);
-                 SQLiteDatabase db = usuario.getWritableDatabase();
-
-                 ContentValues valores = new ContentValues();
-                 valores.put("_id", "1");
-                 valores.put("nombre", "MiLinea");
-                 valores.put("identificador", 1);
-
-                 db.insert(usuario.TABLA_LINEAS,null,valores);
-                 db.close();*/
+                listaLineasBus = funciones.obtenerLineas(db);
             }
-            Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
+            db.close();
+            Collections.sort(listaLineasBus); //ordenación de las lineas de buses
+            Log.d("ENTRA", "Obtiene lineas de DB:" + listaLineasBus.size());
             return true;
-        } catch (IOException e) {
-            Log.d("ERROR","No hay conexion a Internet" + e.getMessage());
-            return false;
-        } catch (Exception e) {
-            Log.e("ERROR", "Error en la obtención de las lineas de Bus: " + e.getMessage());
+        } else {
+            try {
+                Log.d("BBDD: ", "NO hay base de datos");
 
-            e.printStackTrace();
-            return false;
-        }//try
-    }//obtenLineas
+                //SE OBTIENEN LOS DATOS DE INTERNET...
+                remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+
+                //remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                //listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData());
+
+                Log.d("ENTRA", "Obtiene lineas de JSON:" + listaLineasBus.size());
+                //Log.d("ENTRA", "Obtiene paradas de JSON:" + listaParadasBus.size());
+
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+                SQLiteDatabase db = tusdbh.getWritableDatabase();
+
+                // Asignar paradas a lineas
+
+                Linea laLinea;
+                int identiLinea;
+                List<Parada> paradasDeLinea;
+
+                for (int i = 0; i < listaLineasBus.size(); i++) {
+                    laLinea = listaLineasBus.get(i);
+                    identiLinea = laLinea.getIdentifier();
+                    Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
+                    remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                    paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
+                    Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
+                    if (db != null) {
+                        funciones.insertaParadasLinea(paradasDeLinea,identiLinea,db);
+                    }
+                }
+
+                // Asignar paradas a lineas
+
+
+                //Si hemos abierto correctamente la base de datos
+                if (db != null) {
+                    Log.d("DB Creada","creada la base de datos");
+                    funciones.insertaListaLineas(listaLineasBus, db);
+                    //funciones.insertaListaParadas(listaParadasBus, db);
+                }
+
+                db.close();
+                Collections.sort(listaLineasBus);
+                Log.d("ordenadas", "lineas ordenadas");
+                return true;
+            } catch (IOException e) {
+                return false;
+            } catch (Exception e) {
+                Log.e("ERROR", "Error en la obtención de las lineas de Bus: " + e.getMessage());
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
 
 
     public List<Linea> getListaLineasBus() {
@@ -147,6 +192,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
      *
      * @return String con todas las gasolineras separadas por un doble salto de línea
      */
+
     public String getTextoLineas() {
         String textoLineas = "";
         if (listaLineasBus != null) {

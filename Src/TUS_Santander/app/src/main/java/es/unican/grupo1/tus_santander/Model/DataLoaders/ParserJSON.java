@@ -160,6 +160,7 @@ public class ParserJSON {
                     reader.skipValue();
                 }
             }
+
         }
         Log.d("Lineas de la parada", lineas.toString());
         return lineas;
