@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.ParadasFragment" />
+        <activity android:name=".Views.ListaParadasActivity" />
+        <activity android:name=".Views.EstimacionesActivity" />
     </application>
 
 </manifest>

@@ -191,7 +191,7 @@ public class EstimacionesTestIntegracion {
                 TextView campo2 = (TextView) layout.findViewById(R.id.textView_tiempoBus2);
                 String time1 = campo1.getText().toString();
                 String time2 = campo2.getText().toString();
-                if(time1.compareTo(time2)<0 || time2.isEmpty()){
+                if(time1.compareTo(time2)<=0 || time2.isEmpty()){
                   return true;
                 }
                 return false;
