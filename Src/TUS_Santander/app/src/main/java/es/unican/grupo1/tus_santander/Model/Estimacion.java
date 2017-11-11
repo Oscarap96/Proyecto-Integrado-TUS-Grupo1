@@ -43,10 +43,21 @@ public class Estimacion implements Comparable {
     public int compareTo(@NonNull Object o) {
         Estimacion estimacion = (Estimacion) o;
         int resultado = 0;
+        // primero se ordenan segun el primer tiempo
         if (this.tiempo1min < estimacion.tiempo1min) {
             resultado = -1;
         } else if (this.tiempo1min > estimacion.tiempo1min) {
             resultado = 1;
+        } else {
+            // si aun asi son iguales, se ordenan segun el tiempo2
+            if (this.tiempo2min < estimacion.tiempo2min) {
+                resultado = -1;
+            } else if (this.tiempo2min > estimacion.tiempo2min) {
+                resultado = 1;
+            } else {
+                // si aun asi son iguales, se ordenan segun el nombre de la lina
+                resultado = this.etiquetaLinea.compareTo(estimacion.etiquetaLinea);
+            }
         }
         return resultado;
     }
