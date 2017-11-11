@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
-import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.Estimacion;
 import es.unican.grupo1.tus_santander.Views.IListEstimacionesView;
 
@@ -19,14 +17,12 @@ import es.unican.grupo1.tus_santander.Views.IListEstimacionesView;
 public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
     private IListEstimacionesView listEstimacionesView;
     private List<Estimacion> listaEstimaciones;
-    private RemoteFetch remoteFetch;
     private Context context;
     private int paradaId;
 
     // TODO
     public ListEstimacionesPresenter(Context context, IListEstimacionesView listEstimacionesView, int paradaId) {
         this.listEstimacionesView = listEstimacionesView;
-        this.remoteFetch = new RemoteFetch();
         this.context = context;
         this.paradaId = paradaId;
     }

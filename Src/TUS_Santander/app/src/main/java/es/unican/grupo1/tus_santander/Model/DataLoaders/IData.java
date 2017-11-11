@@ -22,6 +22,4 @@ public interface IData {
 
     // TODO comentario
     List<Estimacion> descargarEstimaciones(int paradaId) throws IOException;
-
-    // segun donde vaya la logica de primero descargar y luego usar la base de datos, a lo mejor hay que anhadir mas metodos aqui
 }
