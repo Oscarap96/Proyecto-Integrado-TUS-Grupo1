@@ -98,6 +98,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             try {
                 return obtenParadas();
             } catch (Exception e) {
+                Log.d("ERROR","No hay conexion a Internet");
                 e.printStackTrace();
                 return false;
             }

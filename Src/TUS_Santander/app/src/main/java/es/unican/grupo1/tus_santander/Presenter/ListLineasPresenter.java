@@ -103,9 +103,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 listaLineasBus = FuncionesBBDD.obtenerLineas();
             } else {
                 Log.d("BBDD: ", "NO hay base de datos");
-                //SE OBTIENEN LOS DATOS DE INTERNET...
-                // remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
-                // listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+                //SE OBTIENEN LOS DATOS DE INTERNET
                 Data data = new Data();
                 listaLineasBus = data.descargarLineas();
 
@@ -127,6 +125,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
             return true;
         } catch (IOException e) {
+            Log.d("ERROR","No hay conexion a Internet" + e.getMessage());
             return false;
         } catch (Exception e) {
             Log.e("ERROR", "Error en la obtención de las lineas de Bus: " + e.getMessage());
