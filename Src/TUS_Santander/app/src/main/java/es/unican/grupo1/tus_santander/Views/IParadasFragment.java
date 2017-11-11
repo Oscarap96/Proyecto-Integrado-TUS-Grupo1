@@ -11,7 +11,7 @@ import es.unican.grupo1.tus_santander.Model.Parada;
  * Created by Adrian on 25/10/2017.
  */
 
-public interface IListParadasView {
+public interface IParadasFragment {
 
     // TODO comentario
     void showList(List<Parada> paradasList);

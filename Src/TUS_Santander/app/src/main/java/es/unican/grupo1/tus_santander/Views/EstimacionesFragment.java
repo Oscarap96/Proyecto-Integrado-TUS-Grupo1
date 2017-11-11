@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.Estimacion;
 import es.unican.grupo1.tus_santander.Presenter.ListEstimacionesPresenter;
 import es.unican.grupo1.tus_santander.R;
@@ -20,7 +19,7 @@ import es.unican.grupo1.tus_santander.R;
  * Created by pma11 on 07/11/2017.
  */
 
-public class EstimacionesFragment extends ListFragment implements IListEstimacionesView {
+public class EstimacionesFragment extends ListFragment implements IEstimacionesFragment {
     private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private ListEstimacionesPresenter listEstimacionesPresenter;

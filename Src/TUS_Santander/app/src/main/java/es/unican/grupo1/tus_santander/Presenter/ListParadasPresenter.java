@@ -14,7 +14,7 @@ import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
 import es.unican.grupo1.tus_santander.Model.DatabaseAccess.MisFuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DatabaseAccess.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Parada;
-import es.unican.grupo1.tus_santander.Views.IListParadasView;
+import es.unican.grupo1.tus_santander.Views.IParadasFragment;
 
 
 /**
@@ -22,7 +22,7 @@ import es.unican.grupo1.tus_santander.Views.IListParadasView;
  */
 
 public class ListParadasPresenter implements IListParadasPresenter {
-    private IListParadasView listParadasView;
+    private IParadasFragment listParadasView;
     private List<Parada> listaParadasBus;
     private List<Parada> lineasDeParadas;
     private RemoteFetch remoteFetchParadas;
@@ -31,7 +31,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
     private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
-    public ListParadasPresenter(Context context, IListParadasView listParadasView, int identifierLinea) {
+    public ListParadasPresenter(Context context, IParadasFragment listParadasView, int identifierLinea) {
         this.listParadasView = listParadasView;
         this.remoteFetchParadas = new RemoteFetch();
         this.context = context;

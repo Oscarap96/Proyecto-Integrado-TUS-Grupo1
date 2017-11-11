@@ -8,20 +8,20 @@ import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.Estimacion;
-import es.unican.grupo1.tus_santander.Views.IListEstimacionesView;
+import es.unican.grupo1.tus_santander.Views.IEstimacionesFragment;
 
 /**
  * Created by anon on 8/11/17.
  */
 
 public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
-    private IListEstimacionesView listEstimacionesView;
+    private IEstimacionesFragment listEstimacionesView;
     private List<Estimacion> listaEstimaciones;
     private Context context;
     private int paradaId;
 
     // TODO
-    public ListEstimacionesPresenter(Context context, IListEstimacionesView listEstimacionesView, int paradaId) {
+    public ListEstimacionesPresenter(Context context, IEstimacionesFragment listEstimacionesView, int paradaId) {
         this.listEstimacionesView = listEstimacionesView;
         this.context = context;
         this.paradaId = paradaId;

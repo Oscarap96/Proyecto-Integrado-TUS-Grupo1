@@ -15,7 +15,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;
-import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Presenter.ListLineasPresenter;
 import es.unican.grupo1.tus_santander.R;
 
@@ -23,7 +22,7 @@ import es.unican.grupo1.tus_santander.R;
 /**
  * A fragment representing a list of Items.
  */
-public class LineasFragment extends ListFragment implements IListLineasView {
+public class LineasFragment extends ListFragment implements ILineasFragment {
 
     private DataCommunication dataCommunication;
     private ProgressDialog dialog;

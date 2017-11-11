@@ -16,14 +16,14 @@ import es.unican.grupo1.tus_santander.Model.DatabaseAccess.MisFuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DatabaseAccess.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
-import es.unican.grupo1.tus_santander.Views.IListLineasView;
+import es.unican.grupo1.tus_santander.Views.ILineasFragment;
 
 /**
  * Created by alejandro on 11/10/17.
  */
 
 public class ListLineasPresenter implements IListLineasPresenter {
-    private IListLineasView listLineasView;
+    private ILineasFragment listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
     private Context context;
@@ -33,7 +33,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
     private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
-    public ListLineasPresenter(Context context, IListLineasView listLineasView) {
+    public ListLineasPresenter(Context context, ILineasFragment listLineasView) {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
         this.context = context;
