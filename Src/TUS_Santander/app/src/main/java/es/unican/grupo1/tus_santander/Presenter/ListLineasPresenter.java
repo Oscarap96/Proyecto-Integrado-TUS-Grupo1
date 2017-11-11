@@ -1,9 +1,6 @@
 package es.unican.grupo1.tus_santander.Presenter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -15,8 +12,8 @@ import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
-import es.unican.grupo1.tus_santander.Model.Database.MisFuncionesBBDD;
-import es.unican.grupo1.tus_santander.Model.Database.TUSSQLiteHelper;
+import es.unican.grupo1.tus_santander.Model.DatabaseAccess.MisFuncionesBBDD;
+import es.unican.grupo1.tus_santander.Model.DatabaseAccess.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Views.IListLineasView;

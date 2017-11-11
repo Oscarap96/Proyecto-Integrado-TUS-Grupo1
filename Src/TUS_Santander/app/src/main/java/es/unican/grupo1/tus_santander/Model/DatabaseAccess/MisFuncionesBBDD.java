@@ -1,4 +1,4 @@
-package es.unican.grupo1.tus_santander.Model.Database;
+package es.unican.grupo1.tus_santander.Model.DatabaseAccess;
 
 import android.content.ContentValues;
 import android.database.Cursor;

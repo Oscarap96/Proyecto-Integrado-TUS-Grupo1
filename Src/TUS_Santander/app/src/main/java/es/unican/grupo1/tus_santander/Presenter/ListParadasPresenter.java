@@ -7,15 +7,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
-import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
-import es.unican.grupo1.tus_santander.Model.Database.MisFuncionesBBDD;
-import es.unican.grupo1.tus_santander.Model.Database.TUSSQLiteHelper;
-import es.unican.grupo1.tus_santander.Model.Linea;
+import es.unican.grupo1.tus_santander.Model.DatabaseAccess.MisFuncionesBBDD;
+import es.unican.grupo1.tus_santander.Model.DatabaseAccess.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Parada;
 import es.unican.grupo1.tus_santander.Views.IListParadasView;
 

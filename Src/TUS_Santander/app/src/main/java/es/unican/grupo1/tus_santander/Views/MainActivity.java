@@ -1,19 +1,15 @@
 package es.unican.grupo1.tus_santander.Views;
 
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-import es.unican.grupo1.tus_santander.Model.Database.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.R;
 
 
