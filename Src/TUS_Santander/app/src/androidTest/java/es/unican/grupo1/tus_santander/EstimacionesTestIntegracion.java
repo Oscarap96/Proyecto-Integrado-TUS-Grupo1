@@ -66,59 +66,79 @@ public class EstimacionesTestIntegracion {
 
     /**
      * Test que comprueba que se muestran los tiempos de llegada
-     * a una parada de diferentes lineas
+     * a la parada Arsenio Odriozola 16 de la línea 1.
      */
     @Test
-    public void I1b(){
-        //Comprobación para la línea 1 y la parada Arsensio Odriozola
+    public void I1ba() {
         onData(anything()).atPosition(0).perform(click());
         onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion1("1")));
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion2("17")));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion1("8")));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion2("-1")));
-        //Comprobación para la línea 2 y la parada Corbán
-        onData(anything()).atPosition(1).perform(click());
-        onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion1("4")));
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion2("-1")));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion1("14")));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion2("34")));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion1("18")));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion2("-1")));
-        //Comprobación para la línea 2 y la parada Los Ciruelos 27
-        onData(anything()).atPosition(1).perform(click());
-        onData(anything()).atPosition(5).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion1("0")));
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion2("-1")));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion1("0")));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion2("-1")));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion1("2")));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion2("21")));
-        onData(anything()).atPosition(3).check(ViewAssertions.matches(checkEstimacion1("29")));
-        onData(anything()).atPosition(3).check(ViewAssertions.matches(checkEstimacion2("44")));
-        onData(anything()).atPosition(4).check(ViewAssertions.matches(checkEstimacion1("59")));
-        onData(anything()).atPosition(4).check(ViewAssertions.matches(checkEstimacion2("-79")));
+        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion()));
+        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion()));
     }
 
     /**
-     * Test que comprueba que las estimaciones salen
-     * en orden decreciente en relación al tiempo
+     * Test que comprueba que se muestran los tiempos de llegada
+     * a la parada Corbán de la línea 2
      */
     @Test
-    public void I1c() throws Exception{
-        //Comprobación para la línea 1 y la parada Arsenio Odriozola
+    public void I1bb() {
+        //Comprobación para la línea 2 y la parada Corbán
+        onData(anything()).atPosition(1).perform(click());
+        onData(anything()).atPosition(0).perform(click());
+        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion()));
+        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion()));
+        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion()));
+
+    }
+
+    /**
+     * Test que comprueba que se muestran los tiempos de llegada
+     * a la parada Los Ciruelos 27 de la línea 2.
+     */
+    @Test
+    public void I1bc() {
+        onData(anything()).atPosition(1).perform(click());
+        onData(anything()).atPosition(5).perform(click());
+        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion()));
+        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion()));
+        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion()));
+        onData(anything()).atPosition(3).check(ViewAssertions.matches(checkEstimacion()));
+        onData(anything()).atPosition(4).check(ViewAssertions.matches(checkEstimacion()));
+    }
+
+    /**
+     * Test que comprueba que las estimaciones de la línea 1
+     * y la parada Arsenio Odriozola 16 salen
+     * en orden decreciente en relación al tiempo.
+     */
+    @Test
+    public void I1ca() throws Exception {
         onData(anything()).atPosition(0).perform(click());
         onData(anything()).atPosition(0).perform(click());
         onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacionOrden()));
         onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacionOrden()));
-        //Comprobación para la línea 2 y la parada Corbán
+    }
+
+    /**
+     * Test que comprueba que las estimaciones de la línea 2
+     * y la parada Corbán salen en orden decreciente en
+     * relación al tiempo.
+     */
+    @Test
+    public void I1cb() throws Exception {
         onData(anything()).atPosition(1).perform(click());
         onData(anything()).atPosition(0).perform(click());
         onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacionOrden()));
         onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacionOrden()));
         onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacionOrden()));
-        //Comprobación para la línea 2 y la parada Los Ciruelos 27
+    }
+    /**
+     * Test que comprueba que las estimaciones de la línea 2
+     * y la parada Los Ciruelos 27 salen en orden decreciente
+     * en relación al tiempo.
+     */
+    @Test
+    public void I1cc() throws Exception {
         onData(anything()).atPosition(1).perform(click());
         onData(anything()).atPosition(5).perform(click());
         onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacionOrden()));
@@ -131,47 +151,28 @@ public class EstimacionesTestIntegracion {
     /**
      * Método auxiliar que comprueba si el primer tiempo esperado
      * del primer bus es igual al original.
-     * @param esperado tiempo que se espera obtener
      * @return true si el tiempo esperado es correcto
      */
-    private static Matcher<View> checkEstimacion1(final String esperado) {
+    private static Matcher<View> checkEstimacion() {
         return new TypeSafeMatcher<View>() {
             @Override
             protected boolean matchesSafely(View item) {
                 LinearLayout layout = (LinearLayout) item;
-                TextView campo = (TextView) layout.findViewById(R.id.textView_tiempoBus1);
-                String time = campo.getText().toString();
-                String resultadoEsperado = esperado;
-                return time.equals(resultadoEsperado);
+                TextView campo1 = (TextView) layout.findViewById(R.id.textView_tiempoBus1);
+                String time1 = campo1.getText().toString();
+                TextView campo2 = (TextView) layout.findViewById(R.id.textView_tiempoBus2);
+                String time2 = campo2.getText().toString();
+                if(!time1.isEmpty() && !time2.isEmpty()){
+                    return true;
+                }else if(!time1.isEmpty() && time2.isEmpty()){
+                    return true;
+                }
+                return false;
             }
 
             @Override
             public void describeTo(Description description) {
-                description.appendText("El mensaje de error no coincide.");
-            }
-        };
-    }
-
-    /**
-     * Método auxiliar que comprueba si el segundo tiempo esperado
-     * del primer bus es igual al original.
-     * @param esperado tiempo que se espera obtener
-     * @return true si el tiempo esperado es correcto
-     */
-    private static Matcher<View> checkEstimacion2(final String esperado) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                LinearLayout layout = (LinearLayout) item;
-                TextView campo = (TextView) layout.findViewById(R.id.textView_tiempoBus2);
-                String time = campo.getText().toString();
-                String resultadoEsperado = esperado;
-                return time.equals(resultadoEsperado);
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("El mensaje de error no coincide.");
+                description.appendText("No hay estimación.");
             }
         };
     }
@@ -197,7 +198,7 @@ public class EstimacionesTestIntegracion {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText("El mensaje de error no coincide.");
+                description.appendText("El orden es incorrecto.");
             }
         };
     }
