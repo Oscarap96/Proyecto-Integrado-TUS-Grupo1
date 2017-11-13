@@ -72,7 +72,6 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 return false;
             } catch (Exception e) {
                 Log.e("ERROR", "Error en la obtención de las paradas de la linea: " + e.getMessage());
-                e.printStackTrace();
                 return false;
             }
         }
