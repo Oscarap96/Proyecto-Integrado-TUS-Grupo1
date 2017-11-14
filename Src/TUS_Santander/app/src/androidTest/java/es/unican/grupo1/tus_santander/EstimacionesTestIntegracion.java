@@ -1,5 +1,6 @@
 package es.unican.grupo1.tus_santander;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import junit.framework.Assert;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -15,6 +18,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
+import es.unican.grupo1.tus_santander.Model.Estimacion;
+import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Views.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
@@ -64,16 +74,44 @@ public class EstimacionesTestIntegracion {
         };
     }
 
+
     /**
      * Test que comprueba que se muestran los tiempos de llegada
      * a la parada Arsenio Odriozola 16 de la línea 1.
      */
     @Test
     public void I1ba() {
-        onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion()));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion()));
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 328);
+            Assert.assertEquals(0, estimaciones.get(0).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 328);
+            Assert.assertEquals(16, estimaciones.get(0).getTiempo2min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 328);
+            Assert.assertEquals(7, estimaciones.get(1).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 328);
+            Assert.assertEquals(-1, estimaciones.get(1).getTiempo2min());
+        }catch(IOException e){
+
+        }
     }
 
     /**
@@ -82,13 +120,53 @@ public class EstimacionesTestIntegracion {
      */
     @Test
     public void I1bb() {
-        //Comprobación para la línea 2 y la parada Corbán
-        onData(anything()).atPosition(1).perform(click());
-        onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion()));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion()));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion()));
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(3, estimaciones.get(0).getTiempo1min());
+        }catch(IOException e){
 
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(-1, estimaciones.get(0).getTiempo2min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(13, estimaciones.get(1).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(33, estimaciones.get(1).getTiempo2min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(17, estimaciones.get(2).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(-1, estimaciones.get(2).getTiempo2min());
+        }catch(IOException e){
+
+        }
     }
 
     /**
@@ -97,13 +175,85 @@ public class EstimacionesTestIntegracion {
      */
     @Test
     public void I1bc() {
-        onData(anything()).atPosition(1).perform(click());
-        onData(anything()).atPosition(5).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacion()));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacion()));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacion()));
-        onData(anything()).atPosition(3).check(ViewAssertions.matches(checkEstimacion()));
-        onData(anything()).atPosition(4).check(ViewAssertions.matches(checkEstimacion()));
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(0, estimaciones.get(0).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(-1, estimaciones.get(0).getTiempo2min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(0, estimaciones.get(1).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(-1, estimaciones.get(1).getTiempo2min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(2, estimaciones.get(2).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(20, estimaciones.get(2).getTiempo2min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(28, estimaciones.get(3).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(44, estimaciones.get(3).getTiempo2min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(59, estimaciones.get(4).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(78, estimaciones.get(4).getTiempo2min());
+        }catch(IOException e){
+
+        }
     }
 
     /**
@@ -113,10 +263,21 @@ public class EstimacionesTestIntegracion {
      */
     @Test
     public void I1ca() throws Exception {
-        onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacionOrden()));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacionOrden()));
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 328);
+            Assert.assertEquals(0, estimaciones.get(0).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 328);
+            Assert.assertEquals(7, estimaciones.get(1).getTiempo1min());
+        }catch(IOException e){
+
+        }
     }
 
     /**
@@ -126,11 +287,29 @@ public class EstimacionesTestIntegracion {
      */
     @Test
     public void I1cb() throws Exception {
-        onData(anything()).atPosition(1).perform(click());
-        onData(anything()).atPosition(0).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacionOrden()));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacionOrden()));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacionOrden()));
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(3, estimaciones.get(0).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(13, estimaciones.get(1).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 331);
+            Assert.assertEquals(17, estimaciones.get(2).getTiempo1min());
+        }catch(IOException e){
+
+        }
     }
     /**
      * Test que comprueba que las estimaciones de la línea 2
@@ -139,67 +318,44 @@ public class EstimacionesTestIntegracion {
      */
     @Test
     public void I1cc() throws Exception {
-        onData(anything()).atPosition(1).perform(click());
-        onData(anything()).atPosition(5).perform(click());
-        onData(anything()).atPosition(0).check(ViewAssertions.matches(checkEstimacionOrden()));
-        onData(anything()).atPosition(1).check(ViewAssertions.matches(checkEstimacionOrden()));
-        onData(anything()).atPosition(2).check(ViewAssertions.matches(checkEstimacionOrden()));
-        onData(anything()).atPosition(3).check(ViewAssertions.matches(checkEstimacionOrden()));
-        onData(anything()).atPosition(4).check(ViewAssertions.matches(checkEstimacionOrden()));
-    }
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(0, estimaciones.get(0).getTiempo1min());
+        }catch(IOException e){
 
-    /**
-     * Método auxiliar que comprueba si el primer tiempo esperado
-     * del primer bus es igual al original.
-     * @return true si el tiempo esperado es correcto
-     */
-    private static Matcher<View> checkEstimacion() {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                LinearLayout layout = (LinearLayout) item;
-                TextView campo1 = (TextView) layout.findViewById(R.id.textView_tiempoBus1);
-                String time1 = campo1.getText().toString();
-                TextView campo2 = (TextView) layout.findViewById(R.id.textView_tiempoBus2);
-                String time2 = campo2.getText().toString();
-                if(!time1.isEmpty() && !time2.isEmpty()){
-                    return true;
-                }else if(!time1.isEmpty() && time2.isEmpty()){
-                    return true;
-                }
-                return false;
-            }
+        }
 
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("No hay estimación.");
-            }
-        };
-    }
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(0, estimaciones.get(1).getTiempo1min());
+        }catch(IOException e){
 
-    /**
-     * Método auxiliar que comprueba si las estimaciones
-     * de llegada de los autobuses salen en orden.
-     */
-    private static Matcher<View> checkEstimacionOrden() {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                LinearLayout layout = (LinearLayout) item;
-                TextView campo1 = (TextView) layout.findViewById(R.id.textView_tiempoBus1);
-                TextView campo2 = (TextView) layout.findViewById(R.id.textView_tiempoBus2);
-                String time1 = campo1.getText().toString();
-                String time2 = campo2.getText().toString();
-                if(time1.compareTo(time2)<=0 || time2.isEmpty()){
-                  return true;
-                }
-                return false;
-            }
+        }
 
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("El orden es incorrecto.");
-            }
-        };
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(2, estimaciones.get(2).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(28, estimaciones.get(3).getTiempo1min());
+        }catch(IOException e){
+
+        }
+
+        try {
+            InputStream is = InstrumentationRegistry.getTargetContext().getResources().openRawResource(R.raw.control_flotas_estimaciones);
+            List<Estimacion> estimaciones = ParserJSON.readArrayEstimaciones(is, 2);
+            Assert.assertEquals(59, estimaciones.get(4).getTiempo1min());
+        }catch(IOException e){
+
+        }
     }
 }
