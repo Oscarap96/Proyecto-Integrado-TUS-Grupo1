@@ -76,7 +76,7 @@ public class UnitariasEstimacionesTest {
     }
 
     @Test
-    public void obtenEstimacionesTest() throws IOException {
+    public void descargaEstimacionesTest() throws IOException {
         List<Estimacion>estimaciones;
         Data data= new Data();
         estimaciones=data.descargarEstimaciones(1);
