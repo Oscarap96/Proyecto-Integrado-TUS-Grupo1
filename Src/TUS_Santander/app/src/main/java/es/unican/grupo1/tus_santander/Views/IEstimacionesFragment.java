@@ -12,7 +12,11 @@ import es.unican.grupo1.tus_santander.Model.Estimacion;
  */
 public interface IEstimacionesFragment {
 
-    // TODO comentario
+    /**
+     * Mustra graficamente la lista de estimaciones haciendo uso del adapter.
+     *
+     * @param estimacionesList lista de estimaciones
+     */
     void showList(List<Estimacion> estimacionesList);
 
     // TODO comentario

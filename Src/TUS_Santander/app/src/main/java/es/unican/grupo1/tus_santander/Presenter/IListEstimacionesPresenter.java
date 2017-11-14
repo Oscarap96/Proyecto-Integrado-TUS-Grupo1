@@ -10,12 +10,25 @@ import es.unican.grupo1.tus_santander.Model.Estimacion;
  */
 public interface IListEstimacionesPresenter {
 
-    // TODO comentario
+    /**
+     * Almacena los datos en el atributo listaEstimaciones. Para ello siempre descarga los datos de
+     * Internet y los procesa con el parser del json.
+     *
+     * @return true en caso de que lo haya obtenido con exito, false en caso contrario
+     */
     boolean obtenEstimaciones();
 
-    // TODO comentario
+    /**
+     * Observador de listaEstimaciones.
+     *
+     * @return lista de estimaciones
+     */
     List<Estimacion> getListaEstimacionesBus();
 
-    // TODO comentario
+    /**
+     * Metodo para obtener un cadena de texto con todas las estimaciones.
+     *
+     * @return String con todas las estimaciones
+     */
     String getTextoEstimaciones();
 }

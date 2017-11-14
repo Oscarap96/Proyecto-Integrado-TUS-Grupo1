@@ -32,6 +32,12 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
     private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
+    /**
+     * Constructor.
+     *
+     * @param context        contexto de la app
+     * @param listLineasView view para las lineas
+     */
     public ListLineasPresenter(Context context, ILineasFragment listLineasView) {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
@@ -39,6 +45,9 @@ public class ListLineasPresenter implements IListLineasPresenter {
         this.remoteFetchParadas = new RemoteFetch();
     }
 
+    /**
+     * Clase para hacer una tarea asincrona al descargar los datos.
+     */
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
@@ -78,18 +87,14 @@ public class ListLineasPresenter implements IListLineasPresenter {
         }
     }
 
+    /**
+     * Inicia la tarea asincrona.
+     */
     public void start() {
         new RetrieveFeedTask().execute();
     }// start
 
-    /**
-     * Método a través del cual se almacenan las lineas de buses en el atributo listaLineasBus
-     * de esta clase. Para realizar esto internamente realiza una llamada a la función
-     * getJSON (RemoteFetch) para seguidamente parsear el JSON obtenido con la llamada
-     * a readArrayLineasBus (ParserJSON)
-     *
-     * @return
-     */
+    @Override
     public boolean obtenLineas() {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
@@ -165,16 +170,12 @@ public class ListLineasPresenter implements IListLineasPresenter {
         }
     }
 
+    @Override
     public List<Linea> getListaLineasBus() {
         return listaLineasBus;
     }//getListaLineasBus
 
-    /**
-     * Método para obtener un cadena de texto con todas las lineas. En esta cadena
-     * se muestra unicamente el nombre de la linea
-     *
-     * @return String con todas las gasolineras separadas por un doble salto de línea
-     */
+    @Override
     public String getTextoLineas() {
         String textoLineas = "";
         if (listaLineasBus != null) {
