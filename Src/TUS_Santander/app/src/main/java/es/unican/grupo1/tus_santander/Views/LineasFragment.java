@@ -23,7 +23,6 @@ import es.unican.grupo1.tus_santander.R;
  * A fragment representing a list of Items.
  */
 public class LineasFragment extends ListFragment implements ILineasFragment {
-    private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private ListLineasPresenter listLineasPresenter;
     private TextView textViewMensajeError;
@@ -32,7 +31,7 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lineas_list, container, false);
-        textViewMensajeError = (TextView) view.findViewById(R.id.textViewMensajeError);
+        textViewMensajeError = view.findViewById(R.id.textViewMensajeError);
         return view;
     }
 
@@ -52,7 +51,7 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frameLayoutElements, fragmentParadas);
-        dataCommunication = (DataCommunication) getContext();
+        DataCommunication dataCommunication = (DataCommunication) getContext();
         dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
         ft.addToBackStack(null);
         ft.commit();

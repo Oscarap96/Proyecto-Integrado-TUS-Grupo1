@@ -21,7 +21,17 @@ import es.unican.grupo1.tus_santander.Model.Parada;
  * los diferentes datos del TUS de Santander.
  */
 public class ParserJSON {
+    private static final String UTF = "UTF-8";
+    private static final String RESOURCES = "resources";
+    private static final String LINEAS_BUSES = "Lineas buses";
+    private static final String LINEAS_DE_LA_PARADA = "Lineas de la parada";
 
+    /**
+     * Constructor
+     */
+    private ParserJSON(){
+        //
+    }
     /**
      * Método para obtener todas las lineas de buses
      *
@@ -30,12 +40,12 @@ public class ParserJSON {
      * @throws IOException
      */
     public static List<Linea> readArrayLineasBus(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<Linea> listLineasBus = new ArrayList<Linea>();
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF));
+        List<Linea> listLineasBus = new ArrayList<>();
         reader.beginObject(); //summary y resources
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("resources")) {
+            if (name.equals(RESOURCES)) {
                 reader.beginArray(); //cada elemento del array es un object
                 while (reader.hasNext())
                     listLineasBus.add(readLinea(reader));
@@ -43,7 +53,7 @@ public class ParserJSON {
                 reader.skipValue();
             }
         }
-        Log.d("Lineas buses", listLineasBus.toString());
+        Log.d(LINEAS_BUSES, listLineasBus.toString());
         Collections.sort(listLineasBus);
         return listLineasBus;
     }
@@ -57,7 +67,8 @@ public class ParserJSON {
      */
     private static Linea readLinea(JsonReader reader) throws IOException {
         reader.beginObject(); //Leemos un object
-        String name = "", numero = "";
+        String name = "";
+        String numero = "";
         int identifier = -1;
         while (reader.hasNext()) {
             String n = reader.nextName();
@@ -83,12 +94,12 @@ public class ParserJSON {
      * @throws IOException en caso de que no pueda leer las paradas
      */
     public static List<Parada> readArrayParadas(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<Parada> listParadasBus = new ArrayList<Parada>();
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF));
+        List<Parada> listParadasBus = new ArrayList<>();
         reader.beginObject(); //summary y resources
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("resources")) {
+            if (name.equals(RESOURCES)) {
                 reader.beginArray(); //cada elemento del array es un object
                 while (reader.hasNext())
                     listParadasBus.add(readParada(reader));
@@ -96,7 +107,7 @@ public class ParserJSON {
                 reader.skipValue();
             }
         }
-        Log.d("Lineas buses", listParadasBus.toString());
+        Log.d(LINEAS_BUSES, listParadasBus.toString());
         return listParadasBus;
     }
 
@@ -125,18 +136,18 @@ public class ParserJSON {
         return new Parada(nombre, identifier);
     }
 
-    // TODO Investigar si este metodo hara falta en el futuro
+
     public static List<Integer> cogeLineas(InputStream in, List<Parada> identificadorParada) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<Integer> lineas = new ArrayList<Integer>();
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF));
+        List<Integer> lineas = new ArrayList<>();
         int aux = 0;
         reader.beginObject(); //summary y resources
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("resources")) {
+            if (name.equals(RESOURCES)) {
                 reader.beginArray(); //cada elemento del array es un object
                 if (name.equals("ayto:linea")) {
-                    aux = reader.nextInt();
+                  //
                 }
                 if (name.equals("ayto:parada")) {
                     for (int i = 0; i < identificadorParada.size(); i++) {
@@ -152,7 +163,7 @@ public class ParserJSON {
             }
 
         }
-        Log.d("Lineas de la parada", lineas.toString());
+        Log.d(LINEAS_DE_LA_PARADA, lineas.toString());
         return lineas;
     }
 
@@ -165,12 +176,12 @@ public class ParserJSON {
      * @throws IOException en caso de que no pueda leerlo
      */
     public static List<Parada> readArraySecuenciaParadas(InputStream in, int identifierLinea) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<Parada> listParadasBus = new ArrayList<Parada>();
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF));
+        List<Parada> listParadasBus = new ArrayList<>();
         reader.beginObject(); //summary y resources
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("resources")) {
+            if (name.equals(RESOURCES)) {
                 reader.beginArray(); //cada elemento del array es un object
                 while (reader.hasNext()) {
                     Parada p = readParadaSecuencia(reader, identifierLinea);
@@ -181,7 +192,7 @@ public class ParserJSON {
                 reader.skipValue();
             }
         }
-        Log.d("Lineas buses", listParadasBus.toString());
+        Log.d(LINEAS_BUSES, listParadasBus.toString());
         return listParadasBus;
     }
 
@@ -230,12 +241,12 @@ public class ParserJSON {
      * @throws IOException en caso de que no pueda leer correctamente
      */
     public static List<Estimacion> readArrayEstimaciones(InputStream in, int paradaId) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<Estimacion> listEstimaciones = new ArrayList<Estimacion>();
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF));
+        List<Estimacion> listEstimaciones = new ArrayList<>();
         reader.beginObject(); //summary y resources
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("resources")) {
+            if (name.equals(RESOURCES)) {
                 reader.beginArray(); //cada elemento del array es un object
                 // recorre los elementos del resources
                 while (reader.hasNext()) {
@@ -277,9 +288,6 @@ public class ParserJSON {
                 try {
                     tiempo2Seg = reader.nextInt();
                 } catch (Exception e) {
-                    // en caso de que no pueda leer el campo porque esta vacio
-                    // comentado porque generaba muchos mensajes de error
-                    // e.printStackTrace();
                     reader.skipValue();
                     tiempo2Seg = -1;
                 }

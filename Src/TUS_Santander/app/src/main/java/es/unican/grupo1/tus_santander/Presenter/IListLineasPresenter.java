@@ -10,12 +10,12 @@ import es.unican.grupo1.tus_santander.Model.Linea;
  */
 public interface IListLineasPresenter {
 
-    // TODO comentario
+
     boolean obtenLineas();
 
-    // TODO comentario
+
     List<Linea> getListaLineasBus();
 
-    // TODO comentario
+
     String getTextoLineas();
 }

@@ -12,13 +12,13 @@ import es.unican.grupo1.tus_santander.Model.Linea;
  */
 public interface ILineasFragment {
 
-    // TODO comentario
+
     void showList(List<Linea> lineaList);
 
-    // TODO comentario
+
     void showProgress(boolean state);
 
-    // TODO comentario
+
     void showErrorMessage();
 
     ProgressDialog getDialog();

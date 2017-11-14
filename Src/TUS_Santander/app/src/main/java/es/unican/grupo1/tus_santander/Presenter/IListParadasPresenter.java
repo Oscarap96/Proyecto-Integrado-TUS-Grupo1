@@ -10,12 +10,12 @@ import es.unican.grupo1.tus_santander.Model.Parada;
  */
 public interface IListParadasPresenter {
 
-    // TODO comentario
+
     boolean obtenParadas();
 
-    // TODO comentario
+
     List<Parada> getListParadasBus();
 
-    // TODO comentario
+
     String getTextoParadas();
 }

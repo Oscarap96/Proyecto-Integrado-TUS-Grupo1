@@ -12,15 +12,15 @@ import es.unican.grupo1.tus_santander.Model.Parada;
  */
 public interface IParadasFragment {
 
-    // TODO comentario
+
     void showList(List<Parada> paradasList);
 
-    // TODO comentario
+
     void showProgress(boolean state);
 
-    // TODO comentario
+
     void showErrorMessage();
 
-    // TODO comentario
+
     ProgressDialog getDialog();
 }

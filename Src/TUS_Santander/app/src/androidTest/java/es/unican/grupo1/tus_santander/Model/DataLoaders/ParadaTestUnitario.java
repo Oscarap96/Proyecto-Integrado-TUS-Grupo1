@@ -12,9 +12,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Parada;
-import es.unican.grupo1.tus_santander.Presenter.ListParadasPresenter;
 import es.unican.grupo1.tus_santander.R;
-import es.unican.grupo1.tus_santander.Views.ParadasFragment;
 
 /**
  * Created by pma11 on 30/10/2017.

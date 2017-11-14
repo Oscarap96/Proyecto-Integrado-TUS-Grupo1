@@ -10,12 +10,12 @@ import es.unican.grupo1.tus_santander.Model.Estimacion;
  */
 public interface IListEstimacionesPresenter {
 
-    // TODO comentario
+
     boolean obtenEstimaciones();
 
-    // TODO comentario
+
     List<Estimacion> getListaEstimacionesBus();
 
-    // TODO comentario
+
     String getTextoEstimaciones();
 }

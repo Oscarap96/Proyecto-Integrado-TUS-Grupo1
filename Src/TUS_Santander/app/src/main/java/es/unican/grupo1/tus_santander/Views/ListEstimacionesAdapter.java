@@ -33,9 +33,9 @@ public class ListEstimacionesAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewRow = layoutInflater.inflate(R.layout.custom_list_estimaciones_layout, null, true);
-        TextView linea = (TextView) viewRow.findViewById(R.id.textView_nombreLinea);
-        TextView tiempo1 = (TextView) viewRow.findViewById(R.id.textView_tiempoBus1);
-        TextView tiempo2 = (TextView) viewRow.findViewById(R.id.textView_tiempoBus2);
+        TextView linea = viewRow.findViewById(R.id.textView_nombreLinea);
+        TextView tiempo1 = viewRow.findViewById(R.id.textView_tiempoBus1);
+        TextView tiempo2 = viewRow.findViewById(R.id.textView_tiempoBus2);
         linea.setText(String.valueOf(estimaciones.get(position).getEtiquetaLinea().trim()));
         tiempo1.setText(String.valueOf(estimaciones.get(position).getTiempo1min()));
         if (estimaciones.get(position).getTiempo2min() == -1) {

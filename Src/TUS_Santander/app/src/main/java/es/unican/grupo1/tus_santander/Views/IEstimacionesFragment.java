@@ -12,15 +12,15 @@ import es.unican.grupo1.tus_santander.Model.Estimacion;
  */
 public interface IEstimacionesFragment {
 
-    // TODO comentario
+
     void showList(List<Estimacion> estimacionesList);
 
-    // TODO comentario
+
     void showProgress(boolean state);
 
-    // TODO comentario
+
     void showErrorMessage();
 
-    // TODO comentario
+
     ProgressDialog getDialog();
 }

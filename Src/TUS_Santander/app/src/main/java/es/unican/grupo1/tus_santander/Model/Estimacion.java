@@ -24,8 +24,8 @@ public class Estimacion implements Comparable {
      */
     public Estimacion(String autobus, int tiempo1seg, int tiempo2seg) {
         this.etiquetaLinea = autobus;
-        this.tiempo1min = (int) (Math.floor(tiempo1seg / 60));
-        this.tiempo2min = (int) (Math.floor(tiempo2seg / 60));
+        this.tiempo1min = (int) (Math.floor(tiempo1seg / 60.0));
+        this.tiempo2min = (int) (Math.floor(tiempo2seg / 60.0));
     }
 
     /**
@@ -37,7 +37,7 @@ public class Estimacion implements Comparable {
      */
     public Estimacion(String autobus, int tiempo1seg) {
         this.etiquetaLinea = autobus;
-        this.tiempo1min = (int) (Math.floor(tiempo1seg / 60));
+        this.tiempo1min = (int) (Math.floor(tiempo1seg / 60.0));
         this.tiempo2min = -1;
     }
 

@@ -1,12 +1,10 @@
 package es.unican.grupo1.tus_santander;
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import junit.framework.Assert;
@@ -24,10 +22,8 @@ import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.Estimacion;
-import es.unican.grupo1.tus_santander.Model.Linea;
 import es.unican.grupo1.tus_santander.Views.MainActivity;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.action.ViewActions.click;
 import static org.hamcrest.Matchers.anything;
 

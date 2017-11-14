@@ -29,8 +29,9 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private RemoteFetch remoteFetchLineas;
     private Context context;
     private RemoteFetch remoteFetchParadas;
+    private static final String ENTRA = "ENTRA";
 
-    private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
+    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     public ListLineasPresenter(Context context, ILineasFragment listLineasView) {
         this.listLineasView = listLineasView;
@@ -68,13 +69,9 @@ public class ListLineasPresenter implements IListLineasPresenter {
             try {
                 return obtenLineas();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("ERROR","Error en la obtención de las lineas");
                 return false;
             }
-        }
-
-        @Override
-        protected void onCancelled() {
         }
     }
 
@@ -93,7 +90,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     public boolean obtenLineas() {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-        if (remoteFetchLineas.checkDataBase(DB_PATH, context)) {
+        if (remoteFetchLineas.checkDataBase(dbPath, context)) {
             TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
             Log.d("BBDD: ", "SI hay base de datos");
@@ -102,10 +99,13 @@ public class ListLineasPresenter implements IListLineasPresenter {
             if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaLineasBus = funciones.obtenerLineas(db);
+            }else{
+                throw new NullPointerException();
             }
+
             db.close();
             Collections.sort(listaLineasBus); //ordenación de las lineas de buses
-            Log.d("ENTRA", "Obtiene lineas de DB:" + listaLineasBus.size());
+            Log.d(ENTRA, "Obtiene lineas de DB:" + listaLineasBus.size());
             return true;
         } else {
             try {
@@ -115,11 +115,10 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
 
-                //remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
-                //listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData());
 
-                Log.d("ENTRA", "Obtiene lineas de JSON:" + listaLineasBus.size());
-                //Log.d("ENTRA", "Obtiene paradas de JSON:" + listaParadasBus.size());
+
+                Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
+
 
                 TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
@@ -136,7 +135,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
                     remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                     paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
-                    Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
+                    Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
                     if (db != null) {
                         funciones.insertaParadasLinea(paradasDeLinea, identiLinea, db);
                     }
@@ -149,8 +148,9 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 if (db != null) {
                     Log.d("DB Creada", "creada la base de datos");
                     funciones.insertaListaLineas(listaLineasBus, db);
-                    //funciones.insertaListaParadas(listaParadasBus, db);
+
                 }
+                if(db == null) throw new NullPointerException();
 
                 db.close();
                 Collections.sort(listaLineasBus);

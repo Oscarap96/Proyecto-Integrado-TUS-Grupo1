@@ -24,7 +24,6 @@ import es.unican.grupo1.tus_santander.R;
  */
 public class ParadasFragment extends ListFragment implements IParadasFragment {
     private DataCommunication dataCommunication;
-    private int identifierLinea;
     private ProgressDialog dialog;
     private TextView textViewMensajeError;
 
@@ -33,8 +32,8 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_paradas_list, container, false);
-        textViewMensajeError = (TextView) view.findViewById(R.id.textViewMensajeError);
-        TextView buscarParadas = (TextView) view.findViewById(R.id.editText_search);
+        textViewMensajeError = view.findViewById(R.id.textViewMensajeError);
+        TextView buscarParadas = view.findViewById(R.id.editText_search);
         buscarParadas.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_24dp, 0, 0, 0);
         return view;
     }
@@ -43,11 +42,11 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         dataCommunication = (DataCommunication) getContext();
-        identifierLinea = dataCommunication.getLineaIdentifier();
+        int identifierLinea = dataCommunication.getLineaIdentifier();
         this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
         this.dialog = new ProgressDialog(getContext());
         this.listParadasPresenter.start();
-        // TODO
+
         ((DataCommunication) getContext()).setMostrarBotonActualizar(true);
     }
 

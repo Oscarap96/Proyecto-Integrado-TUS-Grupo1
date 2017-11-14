@@ -67,7 +67,7 @@ public class MisFuncionesBBDD {
     public List<Parada> obtenerParadasLinea(int identiLinea, SQLiteDatabase db) {
         int identiParada;
         String nombre;
-        List<Parada> paradas = new ArrayList<Parada>();
+        List<Parada> paradas = new ArrayList<>();
 
         Cursor c1 = db.rawQuery("SELECT * FROM ParadaLinea where idLinea =" + identiLinea, null);
 
@@ -76,9 +76,6 @@ public class MisFuncionesBBDD {
             do {
                 identiParada = c1.getInt(0);
                 nombre = c1.getString(1);
-                //Cursor c2 = db.rawQuery("SELECT * FROM Parada where identificador = " + identiParada + " limit 1", null);
-                //c2.moveToFirst();
-                //nombre = c2.getString(1);
                 paradas.add(new Parada(nombre, identiParada));
             } while (c1.moveToNext());
         }
@@ -90,7 +87,7 @@ public class MisFuncionesBBDD {
         String nombre;
         String numero;
         int identificador;
-        List<Linea> lineas = new ArrayList<Linea>();
+        List<Linea> lineas = new ArrayList<>();
         if (c.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros
             do {
@@ -107,7 +104,7 @@ public class MisFuncionesBBDD {
         Cursor c = db.rawQuery("SELECT * FROM Parada", null);
         String nombre;
         int identificador;
-        List<Parada> paradas = new ArrayList<Parada>();
+        List<Parada> paradas = new ArrayList<>();
         if (c.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros
             do {
@@ -118,17 +115,4 @@ public class MisFuncionesBBDD {
         }
         return paradas;
     }
-
-    //METODOS HEREDADOS DE LAS FUNCIONES ANTERIORES//
-    /**
-     * Permite anhadir lineas a la bd desde un inputstream. Por ejemplo, para leer un archivo.
-     */
-    /*
-    public static void anhadeLineasFromInputStream(InputStream in, TUSSQLiteHelper baseDatos) throws IOException {
-        List<Linea> lista=readArrayLineasBus(in);
-        for(int i=1;i<=lista.size();i++){
-            baseDatos.modificarParada(i,lista.get(i).getName(),lista.get(i).getIdentifier());
-        }
-        baseDatos.close();
-    }*/
 }

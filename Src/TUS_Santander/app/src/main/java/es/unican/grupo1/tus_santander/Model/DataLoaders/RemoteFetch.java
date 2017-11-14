@@ -47,8 +47,8 @@ public class RemoteFetch {
         bufferedData = new BufferedInputStream(urlConnection.getInputStream());
     }//getJSON
 
-    public boolean checkDataBase(String Database_path, Context contexto) {
-        File database = contexto.getDatabasePath(Database_path);
+    public boolean checkDataBase(String databasePath, Context contexto) {
+        File database = contexto.getDatabasePath(databasePath);
         if (!database.exists()) {
             // Database does not exist so copy it from assets here
             Log.i("Database", "Not Found");
