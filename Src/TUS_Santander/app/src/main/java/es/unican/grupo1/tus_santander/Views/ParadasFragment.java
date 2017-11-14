@@ -60,6 +60,7 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frameLayoutElements, fragmentEstimaciones);
         dataCommunication = (DataCommunication) getContext();
+        // Apunta la parada pulsada
         dataCommunication.setParadaIdentifier(listParadasPresenter.getListParadasBus().get(position).getIdentificador());
         ft.addToBackStack(null);
         ft.commit();
@@ -82,11 +83,13 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
         }
     }
 
+    @Override
     public void showErrorMessage() {
         textViewMensajeError.setVisibility(View.VISIBLE);
         textViewMensajeError.setText(getString(R.string.noHayInternet));
     }
 
+    @Override
     public ProgressDialog getDialog() {
         return dialog;
     }

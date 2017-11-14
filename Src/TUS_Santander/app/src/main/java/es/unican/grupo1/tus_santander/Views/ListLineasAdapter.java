@@ -23,6 +23,12 @@ public class ListLineasAdapter extends ArrayAdapter {
     List<Linea> lineasBus;
     Context context;
 
+    /**
+     * Contructor para mostrar las lineas.
+     *
+     * @param context   contexto de la app
+     * @param lineasBus lista de lineas
+     */
     public ListLineasAdapter(Context context, List<Linea> lineasBus) {
         super(context, R.layout.custom_list_lineas_layout, lineasBus);
         this.context = context;
@@ -39,7 +45,7 @@ public class ListLineasAdapter extends ArrayAdapter {
         TextView textViewNumero = viewRow.findViewById(R.id.textViewNumero);
         textViewIdentificador.setText(Integer.toString(lineasBus.get(position).getIdentifier()));
         textViewName.setText(lineasBus.get(position).getName().trim());
-
+        // Seleccionar el simbolo de la linea
         switch (lineasBus.get(position).getNumero()) {
             case "1":
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_1, 0, 0, 0);

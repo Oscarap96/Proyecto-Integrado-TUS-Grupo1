@@ -19,12 +19,22 @@ public interface IEstimacionesFragment {
      */
     void showList(List<Estimacion> estimacionesList);
 
-    // TODO comentario
+    /**
+     * Muestra un dialogo de carga.
+     *
+     * @param state true para mostrarlo, false para quitarlo
+     */
     void showProgress(boolean state);
 
-    // TODO comentario
+    /**
+     * Muestra el mensaje de error por falta de Internet.
+     */
     void showErrorMessage();
 
-    // TODO comentario
+    /**
+     * Observador del dialogo de carga.
+     *
+     * @return dialogo de carga
+     */
     ProgressDialog getDialog();
 }

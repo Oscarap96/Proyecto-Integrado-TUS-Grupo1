@@ -12,15 +12,29 @@ import es.unican.grupo1.tus_santander.Model.Parada;
  */
 public interface IParadasFragment {
 
-    // TODO comentario
+    /**
+     * Mustra graficamente la lista de paradas haciendo uso del adapter.
+     *
+     * @param paradasList lista de paradas
+     */
     void showList(List<Parada> paradasList);
 
-    // TODO comentario
+    /**
+     * Muestra un dialogo de carga.
+     *
+     * @param state true para mostrarlo, false para quitarlo
+     */
     void showProgress(boolean state);
 
-    // TODO comentario
+    /**
+     * Muestra el mensaje de error por falta de Internet.
+     */
     void showErrorMessage();
 
-    // TODO comentario
+    /**
+     * Observador del dialogo de carga.
+     *
+     * @return dialogo de carga
+     */
     ProgressDialog getDialog();
 }

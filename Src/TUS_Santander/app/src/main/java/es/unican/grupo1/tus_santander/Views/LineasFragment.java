@@ -53,6 +53,7 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frameLayoutElements, fragmentParadas);
         dataCommunication = (DataCommunication) getContext();
+        // guarda el valor de la linea pulsada
         dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
         ft.addToBackStack(null);
         ft.commit();
@@ -63,14 +64,8 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
     public void showList(List<Linea> lineaList) {
         ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getContext(), lineaList);
         getListView().setAdapter(listLineasAdapter);
-
     }
 
-    /**
-     * Este método cuando es llamado se encarga de mostrar un progressDialog
-     *
-     * @param state si es true pone el progressDialog en la interfaz, si es false lo cancela
-     */
     @Override
     public void showProgress(boolean state) {
         if (state) {
@@ -81,11 +76,13 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
         }
     }
 
+    @Override
     public void showErrorMessage() {
         textViewMensajeError.setVisibility(View.VISIBLE);
         textViewMensajeError.setText(getString(R.string.noHayInternet));
     }
 
+    @Override
     public ProgressDialog getDialog() {
         return dialog;
     }

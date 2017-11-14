@@ -24,6 +24,12 @@ public class ListParadasAdapter extends ArrayAdapter {
     List<Parada> paradasBus;
     Context context;
 
+    /**
+     * Constructor para mostrar paradas.
+     *
+     * @param context    context de la app
+     * @param paradasBus lista de paradas
+     */
     public ListParadasAdapter(Context context, List<Parada> paradasBus) {
         super(context, R.layout.custom_list_paradas_layout, paradasBus);
         this.context = context;
