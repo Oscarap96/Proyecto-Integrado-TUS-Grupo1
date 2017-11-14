@@ -19,16 +19,25 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
     private IEstimacionesFragment listEstimacionesView;
     private List<Estimacion> listaEstimaciones;
     private Context context;
+    // Numero de la parada correspondiente a las estimaciones
     private int paradaId;
 
-    // TODO comentario
+    /**
+     * Constructor.
+     *
+     * @param context              contexto de la app
+     * @param listEstimacionesView view utilizada en las estimaciones
+     * @param paradaId             numero de parada de la que queremos obtener sus estimaciones
+     */
     public ListEstimacionesPresenter(Context context, IEstimacionesFragment listEstimacionesView, int paradaId) {
         this.listEstimacionesView = listEstimacionesView;
         this.context = context;
         this.paradaId = paradaId;
     }
 
-    // TODO comentario
+    /**
+     * Clase privada para hacer una tarea asincrona al descargar los datos.
+     */
     private class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -59,7 +68,9 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
         }
     }
 
-    // TODO comentario
+    /**
+     * Inicia la tarea asincrona.
+     */
     public void start() {
         new RetrieveFeedTask().execute();
     }

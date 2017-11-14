@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     @Override
     public void setMostrarBotonActualizar(boolean mostrar) {
         this.mostrarBotonActualizar = mostrar;
-        // vuelve a llamar a onCreateOptionsMenu
+        // vuelve a llamar a onCreateOptionsMenu despues de invalidar la action bar
         invalidateOptionsMenu();
     }
 }// MainActivity

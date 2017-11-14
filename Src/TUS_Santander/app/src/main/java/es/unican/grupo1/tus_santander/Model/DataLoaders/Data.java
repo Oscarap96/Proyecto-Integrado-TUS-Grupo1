@@ -30,6 +30,4 @@ public class Data implements IData {
         remoteFetch.getJSON(RemoteFetch.URL_ESTIMACION);
         return ParserJSON.readArrayEstimaciones(remoteFetch.getBufferedData(), paradaId);
     }
-
-    // TODO Metodo que use el json local de las pruebas
 }

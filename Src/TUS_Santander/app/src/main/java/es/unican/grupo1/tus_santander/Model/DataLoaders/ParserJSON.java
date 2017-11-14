@@ -27,7 +27,7 @@ public class ParserJSON {
      *
      * @param in InputStream del JSON con las lineas de buses
      * @return Lista con todas las lineas
-     * @throws IOException
+     * @throws IOException en caso de que no pueda leer el inputstream
      */
     public static List<Linea> readArrayLineasBus(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
@@ -123,37 +123,6 @@ public class ParserJSON {
         }
         reader.endObject();
         return new Parada(nombre, identifier);
-    }
-
-    // TODO Investigar si este metodo hara falta en el futuro
-    public static List<Integer> cogeLineas(InputStream in, List<Parada> identificadorParada) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<Integer> lineas = new ArrayList<Integer>();
-        int aux = 0;
-        reader.beginObject(); //summary y resources
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals("resources")) {
-                reader.beginArray(); //cada elemento del array es un object
-                if (name.equals("ayto:linea")) {
-                    aux = reader.nextInt();
-                }
-                if (name.equals("ayto:parada")) {
-                    for (int i = 0; i < identificadorParada.size(); i++) {
-                        if (reader.nextInt() == identificadorParada.get(i).getIdentificador()) {
-                            aux = reader.nextInt();
-                            lineas.add(aux);
-                            identificadorParada.get(i).setLinea(aux);
-                        }
-                    }
-                } else {
-                    reader.skipValue();
-                }
-            }
-
-        }
-        Log.d("Lineas de la parada", lineas.toString());
-        return lineas;
     }
 
     /**

@@ -38,7 +38,7 @@ public class RemoteFetch {
      * al JSON alojado en el servidor y lo almacena en el atributo bufferedDataGasolineras de la
      * clase
      *
-     * @throws IOException
+     * @throws IOException en caso de que no pueda descargar el json de internet
      */
     public void getJSON(String urlJSON) throws IOException {
         URL url = new URL(urlJSON);
@@ -47,6 +47,13 @@ public class RemoteFetch {
         bufferedData = new BufferedInputStream(urlConnection.getInputStream());
     }//getJSON
 
+    /**
+     * Comprueba si existe la base de datos en la ruta especificada.
+     *
+     * @param Database_path ruta a la base de datos
+     * @param contexto      contexto
+     * @return verdadero en caso de que exista
+     */
     public boolean checkDataBase(String Database_path, Context contexto) {
         File database = contexto.getDatabasePath(Database_path);
         if (!database.exists()) {
@@ -63,7 +70,7 @@ public class RemoteFetch {
      * Retorna el BufferedInputStream con el JSON, pero para que el objeto no este vacío debemos de
      * llamar antes a getJSON
      *
-     * @return
+     * @return BufferedInputStream con el JSON
      */
     public BufferedInputStream getBufferedData() {
         return bufferedData;

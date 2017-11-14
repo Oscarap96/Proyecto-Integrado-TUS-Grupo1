@@ -7,20 +7,37 @@ package es.unican.grupo1.tus_santander.Views;
  */
 public interface DataCommunication {
 
-    // TODO comentario
+    /**
+     * Observador del identificador de la linea.
+     *
+     * @return identificador numerico de la linea
+     */
     int getLineaIdentifier();
 
-    // TODO comentario
+    /**
+     * Setter de la linea.
+     *
+     * @param identifier identificador numerico de la linea
+     */
     void setLineaIdentifier(int identifier);
 
-    // TODO comentario
+    /**
+     * Observador del numero de la parada.
+     *
+     * @return numero de la parada
+     */
     int getParadaIdentifier();
 
-    // TODO comentario
+    /**
+     * Setter del numero de la parada.
+     *
+     * @param paradaIdentifier numero de la parada
+     */
     void setParadaIdentifier(int paradaIdentifier);
 
     /**
-     * Permite ocultar o mostrar el boton de recargar de la action bar.
+     * Permite ocultar o mostrar el boton de recargar de la action bar. Solo con llamar a este
+     * metodo se refresca la action bar.
      *
      * @param mostrar true para mostrar el boton, false para ocultarlo
      */

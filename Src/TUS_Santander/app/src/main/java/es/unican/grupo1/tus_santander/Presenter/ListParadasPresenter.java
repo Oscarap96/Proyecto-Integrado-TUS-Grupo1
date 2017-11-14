@@ -30,6 +30,13 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
     private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
+    /**
+     * Constructor.
+     *
+     * @param context         contexto de la app
+     * @param listParadasView view de las paradas
+     * @param identifierLinea numero de la linea correspondiente a estas paradas
+     */
     public ListParadasPresenter(Context context, IParadasFragment listParadasView, int identifierLinea) {
         this.listParadasView = listParadasView;
         this.remoteFetchParadas = new RemoteFetch();
@@ -37,6 +44,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         this.identifierLinea = identifierLinea;
     }// ListLineasPresenter
 
+    @Override
     public boolean obtenParadas() {
         TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
         SQLiteDatabase db = tusdbh.getWritableDatabase();
@@ -77,6 +85,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         }
     }
 
+    @Override
     public String getTextoParadas() {
         String textoParadas = "";
         if (listaParadasBus != null) {
@@ -89,10 +98,14 @@ public class ListParadasPresenter implements IListParadasPresenter {
         return textoParadas;
     }
 
+    @Override
     public List<Parada> getListParadasBus() {
         return listaParadasBus;
     }
 
+    /**
+     * Clase para hacer la tarea asincrona y obtener los datos correspondientes.
+     */
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
@@ -128,6 +141,9 @@ public class ListParadasPresenter implements IListParadasPresenter {
         }
     }
 
+    /**
+     * Inicia la tarea asincrona.
+     */
     public void start() {
         new RetrieveFeedTask().execute();
     }// start
