@@ -7,8 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,12 +19,12 @@ import es.unican.grupo1.tus_santander.Presenter.ListEstimacionesPresenter;
 import es.unican.grupo1.tus_santander.R;
 import es.unican.grupo1.tus_santander.Views.EstimacionesFragment;
 
-import static org.mockito.Mockito.when;
+
 
 /**
  * Created by Adrian on 09/11/2017.
  */
-@RunWith(MockitoJUnitRunner.class)
+
 public class UnitariasEstimacionesTest {
 
     @Test
