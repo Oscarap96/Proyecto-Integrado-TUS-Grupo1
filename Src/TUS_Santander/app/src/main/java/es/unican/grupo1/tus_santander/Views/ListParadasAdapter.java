@@ -41,11 +41,9 @@ public class ListParadasAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewRow = layoutInflater.inflate(R.layout.custom_list_paradas_layout, null, true);
-        TextView nombreParada = (TextView) viewRow.findViewById(R.id.textView_nombreParada);
-        TextView idParada = (TextView) viewRow.findViewById(R.id.textView_idParada);
-        TextView separador = (TextView) viewRow.findViewById(R.id.textView_separador);
-        // como falta la funcionalidad, de momento no se muestran las lineas que pasan por las paradas
-        // TextView lineasParada = (TextView) viewRow.findViewById(R.id.textView_lineasParada);
+        TextView nombreParada = viewRow.findViewById(R.id.textView_nombreParada);
+        TextView idParada = viewRow.findViewById(R.id.textView_idParada);
+        TextView separador = viewRow.findViewById(R.id.textView_separador);
 
         idParada.setText(String.valueOf(paradasBus.get(position).getIdentificador()));
         separador.setText(" - ");

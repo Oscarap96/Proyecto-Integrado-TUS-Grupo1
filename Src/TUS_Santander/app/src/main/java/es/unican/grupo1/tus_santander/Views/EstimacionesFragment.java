@@ -19,24 +19,22 @@ import es.unican.grupo1.tus_santander.R;
  * Fragment para las estimaciones.
  */
 public class EstimacionesFragment extends ListFragment implements IEstimacionesFragment {
-    private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private ListEstimacionesPresenter listEstimacionesPresenter;
     private TextView textViewMensajeErrorEstimaciones;
-    private int paradaId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_estimaciones_list, container, false);
-        textViewMensajeErrorEstimaciones = (TextView) view.findViewById(R.id.textViewMensajeErrorEstimaciones);
+        textViewMensajeErrorEstimaciones = view.findViewById(R.id.textViewMensajeErrorEstimaciones);
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        dataCommunication = (DataCommunication) getContext();
-        paradaId = dataCommunication.getParadaIdentifier();
+        DataCommunication dataCommunication = (DataCommunication) getContext();
+        int paradaId = dataCommunication.getParadaIdentifier();
         this.listEstimacionesPresenter = new ListEstimacionesPresenter(getContext(), this, paradaId);
         this.dialog = new ProgressDialog(getContext());
         this.listEstimacionesPresenter.start();

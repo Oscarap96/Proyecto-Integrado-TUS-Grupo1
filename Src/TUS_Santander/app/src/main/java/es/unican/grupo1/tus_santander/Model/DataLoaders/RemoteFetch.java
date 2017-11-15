@@ -54,8 +54,8 @@ public class RemoteFetch {
      * @param contexto      contexto
      * @return verdadero en caso de que exista
      */
-    public boolean checkDataBase(String Database_path, Context contexto) {
-        File database = contexto.getDatabasePath(Database_path);
+    public boolean checkDataBase(String databasePath, Context contexto) {
+        File database = contexto.getDatabasePath(databasePath);
         if (!database.exists()) {
             // Database does not exist so copy it from assets here
             Log.i("Database", "Not Found");

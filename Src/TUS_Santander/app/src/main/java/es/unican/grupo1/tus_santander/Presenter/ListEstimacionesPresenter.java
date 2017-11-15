@@ -2,6 +2,7 @@ package es.unican.grupo1.tus_santander.Presenter;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
             try {
                 return obtenEstimaciones();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("ERROR","Error en la obtención de las estimaciones");
                 return false;
             }
         }
@@ -82,7 +83,7 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
             listaEstimaciones = data.descargarEstimaciones(paradaId);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERROR","Error en la descarga de estimaciones");
             return false;
         }
     }
@@ -94,7 +95,7 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
 
     @Override
     public String getTextoEstimaciones() {
-        // TODO
+
         return null;
     }
 }

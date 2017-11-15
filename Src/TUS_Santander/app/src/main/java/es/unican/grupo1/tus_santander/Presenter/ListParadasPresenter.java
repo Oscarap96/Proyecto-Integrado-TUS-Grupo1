@@ -28,7 +28,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private int identifierLinea;
     private Context context;
 
-    private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
+    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     /**
      * Constructor.
@@ -50,7 +50,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         SQLiteDatabase db = tusdbh.getWritableDatabase();
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-        if (remoteFetchParadas.checkDataBase(DB_PATH, context)) {
+        if (remoteFetchParadas.checkDataBase(dbPath, context)) {
             Log.d("BBDD: ", "SI hay base de datos");
 
             //Si hemos abierto correctamente la base de datos
@@ -59,6 +59,8 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
                 Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
             }
+            if(db == null) throw new NullPointerException();
+
             db.close();
             Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
             return true;
@@ -73,6 +75,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 if (db != null) {
                     funciones.insertaListaParadas(listaParadasBus, db);
                 }
+                if(db == null) throw new NullPointerException();
 
                 db.close();
                 return true;
@@ -135,7 +138,6 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 return obtenParadas();
             } catch (Exception e) {
                 Log.d("ERROR", "No hay conexion a Internet");
-                e.printStackTrace();
                 return false;
             }
         }

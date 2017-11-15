@@ -1,14 +1,12 @@
 package es.unican.grupo1.tus_santander.Model.DataLoaders;
 
 import android.support.test.InstrumentationRegistry;
-import android.util.Log;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.Linea;

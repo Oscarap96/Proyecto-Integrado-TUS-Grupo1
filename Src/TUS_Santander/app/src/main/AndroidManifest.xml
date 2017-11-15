@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Views.MainActivity"
+            android:name="es.unican.grupo1.tus_santander.Views.MainActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>

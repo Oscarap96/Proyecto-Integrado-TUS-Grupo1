@@ -1,12 +1,10 @@
 package es.unican.grupo1.tus_santander.Model;
 
-import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 
 import java.io.IOException;
@@ -15,10 +13,7 @@ import java.util.List;
 
 import es.unican.grupo1.tus_santander.Model.DataLoaders.Data;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
-import es.unican.grupo1.tus_santander.Presenter.ListEstimacionesPresenter;
 import es.unican.grupo1.tus_santander.R;
-import es.unican.grupo1.tus_santander.Views.EstimacionesFragment;
-
 
 
 /**

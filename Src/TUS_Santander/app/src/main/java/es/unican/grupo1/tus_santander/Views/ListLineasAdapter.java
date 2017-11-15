@@ -163,6 +163,8 @@ public class ListLineasAdapter extends ArrayAdapter {
                 textViewNumero.setCompoundDrawablesWithIntrinsicBounds(R.drawable.e31, 0, 0, 0);
                 textViewIdentificador.setText("E31");
                 break;
+            default:
+                break;
         }
         return viewRow;
     }
