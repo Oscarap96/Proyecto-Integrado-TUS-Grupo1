@@ -1,9 +1,14 @@
 <resources>
-    <string name="app_name">TUS_Santander</string>
-
+    <string name="app_name">TUS Santander</string>
     <string name="refresh">Refresh</string>
-
     <string name="title_activity_list_paradas_linea">ListParadasLinea</string>
     <string name="buscar_paradas">Buscar paradas</string>
-
+    <string name="linea">Línea</string>
+    <string name="mensajeToast1">Datos obtenidos con éxito</string>
+    <string name="mensajeCargando">Cargando datos...</string>
+    <string name="noHayInternet">Internet no disponible. Inténtalo más tarde.</string>
+    <string name="separador"> </string>
+    <string name="primerBus">Primer bus:</string>
+    <string name="segundoBus">Segundo bus:</string>
+    <string name="minutos">min.</string>
 </resources>

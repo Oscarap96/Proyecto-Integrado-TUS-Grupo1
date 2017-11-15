@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_primeraFila"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView_linea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/linea"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_separadorLinea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView_nombreLinea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_segundaFila"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView_bus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/primerBus"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_separadorBus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_tiempoBus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_separadorTiempoBus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_minBus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minutos"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_terceraFila"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView_bus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/segundoBus"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_separadorBus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_tiempoBus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_separadorTiempoBus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_minBus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minutos"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,52 +1,59 @@
 package es.unican.grupo1.tus_santander.Presenter;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
-
-import es.unican.grupo1.tus_santander.Model.DataLoaders.BaseTUS;
-import es.unican.grupo1.tus_santander.Model.DataLoaders.FuncionesBBDD;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.ParserJSON;
 import es.unican.grupo1.tus_santander.Model.DataLoaders.RemoteFetch;
+import es.unican.grupo1.tus_santander.Model.DatabaseAccess.MisFuncionesBBDD;
+import es.unican.grupo1.tus_santander.Model.DatabaseAccess.TUSSQLiteHelper;
 import es.unican.grupo1.tus_santander.Model.Linea;
-import es.unican.grupo1.tus_santander.Views.IListLineasView;
+import es.unican.grupo1.tus_santander.Model.Parada;
+import es.unican.grupo1.tus_santander.R;
+import es.unican.grupo1.tus_santander.Views.ILineasFragment;
+
 
 /**
- * Created by alejandro on 11/10/17.
+ * Presenter de lineas. Se encarga de la logica entre la interfaz de lineas y el modelo.
  */
-
 public class ListLineasPresenter implements IListLineasPresenter {
-    private IListLineasView listLineasView;
+    private ILineasFragment listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
     private Context context;
+    private RemoteFetch remoteFetchParadas;
+    private static final String ENTRA = "ENTRA";
 
+    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
-    private static String DB_PATH = "/data/data/es.unican.grupo1.tus_santander.Model.DataLoaders/databases/BaseTUS.db";
-    //private static String DB_NAME = "";
-
-    public ListLineasPresenter(Context context, IListLineasView listLineasView) {
+    /**
+     * Constructor.
+     *
+     * @param context        contexto de la app
+     * @param listLineasView view para las lineas
+     */
+    public ListLineasPresenter(Context context, ILineasFragment listLineasView) {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
         this.context = context;
-    }// ListLineasPresenter
+        this.remoteFetchParadas = new RemoteFetch();
+    }
 
+    /**
+     * Clase para hacer una tarea asincrona al descargar los datos.
+     */
     class RetrieveFeedTask extends AsyncTask<String, Void, Boolean> {
-
-        private Exception exception;
 
         @Override
         protected void onPreExecute() {
+            listLineasView.getDialog().setCancelable(false);
             //Muestra mensaje de cargando datos...
             listLineasView.showProgress(true);
 
@@ -58,7 +65,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 listLineasView.showList(getListaLineasBus());
                 listLineasView.showProgress(false);
                 //Muestra el toast con el mensaje
-                Toast toast1 = Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT);
+                Toast toast1 = Toast.makeText(context, R.string.mensajeToast1, Toast.LENGTH_SHORT);
                 toast1.show();
             } else {
                 listLineasView.showProgress(false);
@@ -71,79 +78,104 @@ public class ListLineasPresenter implements IListLineasPresenter {
             try {
                 return obtenLineas();
             } catch (Exception e) {
-                this.exception = e;
-                return null;
+                Log.e("ERROR","Error en la obtención de las lineas");
+                return false;
             }
-
         }
-
     }
 
+    /**
+     * Inicia la tarea asincrona.
+     */
     public void start() {
         new RetrieveFeedTask().execute();
-
     }// start
 
-    /**
-     * Método a través del cual se almacenan las lineas de buses en el atributo listaLineasBus
-     * de esta clase. Para realizar esto internamente realiza una llamada a la función
-     * getJSON (RemoteFetch) para seguidamente parsear el JSON obtenido con la llamada
-     * a readArrayLineasBus (ParserJSON)
-     *
-     * @return
-     */
+    @Override
     public boolean obtenLineas() {
-        try {
-            if (remoteFetchLineas.checkDataBase(DB_PATH)) {
-                Log.d("BBDD: ", "SI hay base de datos");
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+
+        if (remoteFetchLineas.checkDataBase(dbPath, context)) {
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            SQLiteDatabase db = tusdbh.getWritableDatabase();
+            Log.d("BBDD: ", "SI hay base de datos");
+
+            //Si hemos abierto correctamente la base de datos
+            if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
-                listaLineasBus = FuncionesBBDD.obtenerLineas();
-            } else {
+                listaLineasBus = funciones.obtenerLineas(db);
+            }else{
+                throw new NullPointerException();
+            }
+
+            db.close();
+            Collections.sort(listaLineasBus); //ordenación de las lineas de buses
+            Log.d(ENTRA, "Obtiene lineas de DB:" + listaLineasBus.size());
+            return true;
+        } else {
+            try {
                 Log.d("BBDD: ", "NO hay base de datos");
+
                 //SE OBTIENEN LOS DATOS DE INTERNET...
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
 
-                //... Y SE METEN EN LA BBDD
-                //FuncionesBBDD usuario = new FuncionesBBDD();
-                //usuario.anhadeLineas(remoteFetchLineas);
-                //usuario.anhadeParadas(remoteFetchLineas);
-                /**BaseTUS usuario = new BaseTUS(context);
-                 SQLiteDatabase db = usuario.getWritableDatabase();
 
-                 ContentValues valores = new ContentValues();
-                 valores.put("_id", "1");
-                 valores.put("nombre", "MiLinea");
-                 valores.put("identificador", 1);
 
-                 db.insert(usuario.TABLA_LINEAS,null,valores);
-                 db.close();*/
+                Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
+
+
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+                SQLiteDatabase db = tusdbh.getWritableDatabase();
+
+                // Asignar paradas a lineas
+
+                Linea laLinea;
+                int identiLinea;
+                List<Parada> paradasDeLinea;
+
+                for (int i = 0; i < listaLineasBus.size(); i++) {
+                    laLinea = listaLineasBus.get(i);
+                    identiLinea = laLinea.getIdentifier();
+                    Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
+                    remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                    paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
+                    Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
+                    if (db != null) {
+                        funciones.insertaParadasLinea(paradasDeLinea, identiLinea, db);
+                    }
+                }
+
+                // Asignar paradas a lineas
+
+
+                //Si hemos abierto correctamente la base de datos
+                if (db != null) {
+                    Log.d("DB Creada", "creada la base de datos");
+                    funciones.insertaListaLineas(listaLineasBus, db);
+
+                }
+                if(db == null) throw new NullPointerException();
+
+                db.close();
+                Collections.sort(listaLineasBus);
+                Log.d("ordenadas", "lineas ordenadas");
+                return true;
+            } catch (IOException e) {
+                return false;
+            } catch (Exception e) {
+                Log.e("ERROR", "Error en la obtención de las lineas de Bus: " + e.getMessage());
+                return false;
             }
-            Collections.sort(listaLineasBus); //ordenación de las lineas de buses
-            Log.d("ENTRA", "Obten lineas de bus:" + listaLineasBus.size());
-            return true;
-        } catch (IOException e) {
-            return false;
-        } catch (Exception e) {
-            Log.e("ERROR", "Error en la obtención de las lineas de Bus: " + e.getMessage());
+        }
+    }
 
-            e.printStackTrace();
-            return false;
-        }//try
-    }//obtenLineas
-
-
+    @Override
     public List<Linea> getListaLineasBus() {
         return listaLineasBus;
     }//getListaLineasBus
 
-
-    /**
-     * Método para obtener un cadena de texto con todas las lineas. En esta cadena
-     * se muestra unicamente el nombre de la linea
-     *
-     * @return String con todas las gasolineras separadas por un doble salto de línea
-     */
+    @Override
     public String getTextoLineas() {
         String textoLineas = "";
         if (listaLineasBus != null) {
@@ -155,6 +187,4 @@ public class ListLineasPresenter implements IListLineasPresenter {
         }//if
         return textoLineas;
     }//getTextoLineas
-
-
 }// ListLineasPresenter
