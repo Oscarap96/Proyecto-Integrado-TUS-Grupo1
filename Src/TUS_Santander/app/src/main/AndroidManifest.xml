@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="es.unican.grupo1.tus_santander">
+    package="es.unican.grupo1.tussantander">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="es.unican.grupo1.tus_santander.Views.MainActivity"
+            android:name="es.unican.grupo1.tussantander.views.MainActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
