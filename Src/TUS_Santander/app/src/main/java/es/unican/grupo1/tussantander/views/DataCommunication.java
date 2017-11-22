@@ -1,6 +1,8 @@
 package es.unican.grupo1.tussantander.views;
 
 
+import es.unican.grupo1.tussantander.presenter.ListParadasPresenter;
+
 /**
  * Interfaz que implementará la activitidad MainActivity para tener métodos que nos permitan comunicar
  * los distintos fragments de la app.
@@ -42,4 +44,10 @@ public interface DataCommunication {
      * @param mostrar true para mostrar el boton, false para ocultarlo
      */
     void setMostrarBotonActualizar(boolean mostrar);
+
+    // TODO
+    void setParadasPresenter(ListParadasPresenter paradasPresenter);
+
+    // TODO
+    ListParadasPresenter getParadasPresenter();
 }

@@ -149,4 +149,10 @@ public class ListParadasPresenter implements IListParadasPresenter {
     public void start() {
         new RetrieveFeedTask().execute();
     }// start
+
+    // TODO
+    public void buscar(String busqueda) {
+        List<Parada> resultados = Parada.buscarParada(listaParadasBus, busqueda);
+        listParadasView.showList(resultados);
+    }
 }
