@@ -41,8 +41,6 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
         this.listEstimacionesPresenter = new ListEstimacionesPresenter(getContext(), this, paradaId);
         this.dialog = new ProgressDialog(getContext());
         this.listEstimacionesPresenter.start();
-        // oculta el boton de refrescar
-        ((DataCommunication) getContext()).setMostrarBotonActualizar(false);
     }
 
     @Override
