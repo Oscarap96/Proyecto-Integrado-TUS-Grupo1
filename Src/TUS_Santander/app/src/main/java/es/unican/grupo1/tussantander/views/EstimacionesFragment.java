@@ -53,6 +53,7 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.refresh_item)
         {
+            listEstimacionesPresenter.start();
             Log.d("Pulsado","Actualizar");
             return(true);
         }
