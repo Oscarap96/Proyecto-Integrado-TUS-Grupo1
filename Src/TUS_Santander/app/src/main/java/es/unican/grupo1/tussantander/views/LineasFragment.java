@@ -64,7 +64,6 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.refresh_item)
         {
-            Log.d("Pulsado","Actualizar");
             listLineasPresenter.start1();
             return(true);
         }

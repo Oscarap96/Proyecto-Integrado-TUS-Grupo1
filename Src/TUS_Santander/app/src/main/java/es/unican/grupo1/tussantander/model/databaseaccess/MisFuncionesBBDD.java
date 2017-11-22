@@ -3,6 +3,7 @@ package es.unican.grupo1.tussantander.model.databaseaccess;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import es.unican.grupo1.tussantander.model.Linea;
 import es.unican.grupo1.tussantander.model.Parada;
 
 /**
- * Created by Oscar Alario Pelaz on 08/11/2017.
+ * Created by Oscar Alario Pelaz and Alverto de Castro on 08/11/2017.
  */
 
 public class MisFuncionesBBDD {
@@ -30,13 +31,16 @@ public class MisFuncionesBBDD {
         for (int i = 0; i < lineas.size(); i++) {
             Linea linea = lineas.get(i);
             insertaLinea(i, linea.getName(), linea.getNumero(), linea.getIdentifier(), db);
+
         }
     }
 
-    public void borrarLinea(int id,SQLiteDatabase db){
+    private void borrarLinea(int id,SQLiteDatabase db){
         if (db!=null){
-            db.delete("Linea","idLinea"+id,null);
-        }
+            db.delete("Linea","idLinea="+id,null);
+
+        }else
+            Log.d("Error: ", "ERROR DELETE");
     }
     public void borrarListaLineas(List<Linea> lineas,SQLiteDatabase db){
         for (int i=0; i< lineas.size();i++){

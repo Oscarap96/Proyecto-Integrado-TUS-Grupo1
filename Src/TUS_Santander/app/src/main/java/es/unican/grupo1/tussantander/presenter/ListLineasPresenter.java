@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private ILineasFragment listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
+    private RemoteFetch remoteFetchActualizar;
     private Context context;
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
@@ -42,6 +45,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     public ListLineasPresenter(Context context, ILineasFragment listLineasView) {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
+        this.remoteFetchActualizar=new RemoteFetch();
         this.context = context;
         this.remoteFetchParadas = new RemoteFetch();
     }
@@ -102,7 +106,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 listLineasView.showList(getListaLineasBus());
                 listLineasView.showProgress(false);
                 //Muestra el toast con el mensaje
-                Toast toast1 = Toast.makeText(context, R.string.mensajeToast1, Toast.LENGTH_SHORT);
+                Toast toast1 = Toast.makeText(context,"Actualizado", Toast.LENGTH_SHORT);
                 toast1.show();
             } else {
                 listLineasView.showProgress(false);
@@ -216,31 +220,33 @@ public class ListLineasPresenter implements IListLineasPresenter {
     }
     @Override
     public boolean recargaLineas(){
+        //SE CARGA LA DB Y HABILITA SUS FUNCIONES
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        SQLiteDatabase db = tusdbh.getWritableDatabase();
 
 
-            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
-            SQLiteDatabase db = tusdbh.getWritableDatabase();
-            Log.d("BBDD: ", "SI hay base de datos");
+        //Si hemos abierto correctamente la base de datos
+        if (db != null) {
 
-            //Si hemos abierto correctamente la base de datos
-            if (db != null) {
-                //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
-                funciones.borrarListaLineas(listaLineasBus,db);
-                try {
-                    remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
-                    listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
-                }catch(IOException e) {
-                    return true;
-                }
-                funciones.insertaListaLineas(listaLineasBus,db);
+            //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
+            funciones.borrarListaLineas(listaLineasBus,db);
 
+            try {
+                remoteFetchActualizar.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchActualizar.getBufferedData());
+                //InputStream is = context.getResources().openRawResource(R.raw.lineas_test);
+                //listaLineasBus = ParserJSON.readArrayLineasBus(is);
+                Collections.sort(listaLineasBus);
+            }catch(IOException e) {
 
-            }else{
-                throw new NullPointerException();
+                return false;
             }
-        return true;
+            funciones.insertaListaLineas(listaLineasBus,db);
 
+        }else return false;
+
+        return true;
     }
 
     @Override
