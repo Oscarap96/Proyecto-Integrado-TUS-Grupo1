@@ -1,5 +1,7 @@
 package es.unican.grupo1.tussantander.model;
 
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.List;
 
 /**
@@ -102,5 +104,63 @@ public class Parada {
     public static List<Parada> buscarParada(List<Parada> paradas, String busqueda) {
         // TODO
         return null;
+    }
+
+    /**
+     * Dada una parada y un texto de busqueda, comprueba si la parada seria un resultado a esa
+     * busqueda.
+     *
+     * @param parada   parada a comprobar si satisface la busqueda
+     * @param busqueda texto buscado
+     * @return true en caso de que parada sea un resultado de busqueda
+     */
+    private static boolean comprobarResultadoParada(Parada parada, String busqueda) {
+        busqueda = busqueda.toUpperCase();
+        // al comprobar nombre tendre que quitar los acentos tanto de la parada como de la busqueda
+        // TODO
+        return false;
+    }
+
+    // TODO comentarios
+    private static int[] obtenerIdentificadoresBuscados(String busqueda) {
+        // TODO
+        //StringBuilder builder = new StringBuilder(busqueda);
+        // BufferedReader bufferedReader = new BufferedReader(busqueda);
+        // StringReader stringReader = new StringReader(busqueda);
+        // BufferedReader bufferedReader = new BufferedReader(stringReader);
+        // busqueda.split(" ");
+        return null;
+    }
+
+    /**
+     * Cambia las vocales con acento por su correspondiente sin acento.
+     *
+     * @param busqueda texto buscado
+     * @return texto buscado sin acentos
+     */
+    private static String quitarAcentos(String busqueda) {
+        String resultado = busqueda.replace("Á", "A");
+        resultado = resultado.replace("É", "E");
+        resultado = resultado.replace("Í", "I");
+        resultado = resultado.replace("Ó", "O");
+        resultado = resultado.replace("Ú", "U");
+        return resultado;
+    }
+
+    /**
+     * Quita los caracteres que puede haber anhadido el usuario por equivocarse con la interfaz
+     * mostrada debajo.
+     *
+     * @param busqueda texto buscado
+     * @return texto buscado sin simbolos innecesarios
+     */
+    private static String quitarSimbolosInnecesarios(String busqueda) {
+        /*
+        no quitar los puntos porque en ese caso no tienen que salir resultados, seria culpa del
+        usuario, no hay razon para que ponga un punto sin querer
+         */
+        String resultado = busqueda.replace("-", "");
+        // TODO pensar en mas cosas que sea razonable que se equivoque
+        return resultado;
     }
 }
