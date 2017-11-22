@@ -1,5 +1,7 @@
 package es.unican.grupo1.tussantander.model;
 
+import java.util.List;
+
 /**
  * Guarda los datos de las paradas, como su nombre, numero o identificador.
  */
@@ -87,5 +89,18 @@ public class Parada {
      */
     public void setLinea(int linea) {
         this.linea = linea;
+    }
+
+    /**
+     * Busca sobre una lista de paradas segun los criterios especificados en los tests de aceptacion
+     * de Buscar parada de una linea.
+     *
+     * @param paradas  lista de paradas sobre la que buscar
+     * @param busqueda texto de busqueda introducido
+     * @return lista de resultados
+     */
+    public static List<Parada> buscarParada(List<Parada> paradas, String busqueda) {
+        // TODO
+        return null;
     }
 }
