@@ -83,12 +83,57 @@ public class ListLineasPresenter implements IListLineasPresenter {
             }
         }
     }
+    /**
+     * Clase para hacer una tarea asincrona al descargar los datos.
+     */
+    class RetrieveFeedTask2 extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            listLineasView.getDialog().setCancelable(false);
+            //Muestra mensaje de cargando datos...
+            listLineasView.showProgress(true);
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                listLineasView.showList(getListaLineasBus());
+                listLineasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context, R.string.mensajeToast1, Toast.LENGTH_SHORT);
+                toast1.show();
+            } else {
+                listLineasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context,"No hay Internet",Toast.LENGTH_SHORT);
+                toast1.show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+                return recargaLineas();
+            } catch (Exception e) {
+                Log.e("ERROR","Error en la obtención de las lineas");
+                return false;
+            }
+        }
+    }
 
     /**
      * Inicia la tarea asincrona.
      */
     public void start() {
         new RetrieveFeedTask().execute();
+    }// start
+    /**
+     * Inicia la tarea asincrona.
+     */
+    public void start1() {
+        new RetrieveFeedTask2().execute();
     }// start
 
     @Override
@@ -168,6 +213,34 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 return false;
             }
         }
+    }
+    @Override
+    public boolean recargaLineas(){
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+
+
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            SQLiteDatabase db = tusdbh.getWritableDatabase();
+            Log.d("BBDD: ", "SI hay base de datos");
+
+            //Si hemos abierto correctamente la base de datos
+            if (db != null) {
+                //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
+                funciones.borrarListaLineas(listaLineasBus,db);
+                try {
+                    remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                    listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+                }catch(IOException e) {
+                    return true;
+                }
+                funciones.insertaListaLineas(listaLineasBus,db);
+
+
+            }else{
+                throw new NullPointerException();
+            }
+        return true;
+
     }
 
     @Override

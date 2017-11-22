@@ -19,6 +19,10 @@ public interface IListLineasPresenter {
      * @return true en caso de que lo haya obtenido con exito, false en caso contrario
      */
     boolean obtenLineas();
+    /**
+     * Metodo a través del cual se recargan las lineas en la base de datos
+     */
+    boolean recargaLineas();
 
     /**
      * Observador de listaLineasBus.

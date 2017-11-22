@@ -33,6 +33,16 @@ public class MisFuncionesBBDD {
         }
     }
 
+    public void borrarLinea(int id,SQLiteDatabase db){
+        if (db!=null){
+            db.delete("Linea","idLinea"+id,null);
+        }
+    }
+    public void borrarListaLineas(List<Linea> lineas,SQLiteDatabase db){
+        for (int i=0; i< lineas.size();i++){
+            borrarLinea(i,db);
+        }
+    }
     private void insertaParada(int id, String nom, int identi, SQLiteDatabase db) {
         if (db != null) {
             ContentValues valores = new ContentValues();

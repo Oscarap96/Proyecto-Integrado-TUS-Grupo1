@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -31,12 +32,14 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         ft.commit();
     }//onCreate
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         // mustra u oculta el boton de actualizar
         MenuItem item = menu.findItem(R.id.refresh_item);
         item.setVisible(mostrarBotonActualizar);
+
         return true;
     }
 

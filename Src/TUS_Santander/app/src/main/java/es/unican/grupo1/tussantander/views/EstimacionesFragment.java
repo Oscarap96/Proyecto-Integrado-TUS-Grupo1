@@ -3,7 +3,9 @@ package es.unican.grupo1.tussantander.views;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -33,6 +35,7 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
         DataCommunication dataCommunication = (DataCommunication) getContext();
         int paradaId = dataCommunication.getParadaIdentifier();
         this.listEstimacionesPresenter = new ListEstimacionesPresenter(getContext(), this, paradaId);
@@ -46,7 +49,15 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
     public void onListItemClick(ListView listView, View view, int position, long id) {
         // no hace nada al pulsar una estimacion
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.refresh_item)
+        {
+            Log.d("Pulsado","Actualizar");
+            return(true);
+        }
+        return(super.onOptionsItemSelected(item));
+    }
     @Override
     public void showList(List<Estimacion> estimacionesList) {
         ListEstimacionesAdapter listEstimacionesAdapter = new ListEstimacionesAdapter(getContext(), estimacionesList);

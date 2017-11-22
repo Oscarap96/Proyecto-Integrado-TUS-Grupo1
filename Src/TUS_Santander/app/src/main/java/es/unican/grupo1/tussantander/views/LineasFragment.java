@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -38,6 +40,7 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
         this.listLineasPresenter = new ListLineasPresenter(getContext(), this);
         this.dialog = new ProgressDialog(getContext());
         this.listLineasPresenter.start();
@@ -57,6 +60,17 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
         ft.commit();
         listView.setVisibility(View.INVISIBLE);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.refresh_item)
+        {
+            Log.d("Pulsado","Actualizar");
+            listLineasPresenter.start1();
+            return(true);
+        }
+        return(super.onOptionsItemSelected(item));
+    }
+
 
     @Override
     public void showList(List<Linea> lineaList) {

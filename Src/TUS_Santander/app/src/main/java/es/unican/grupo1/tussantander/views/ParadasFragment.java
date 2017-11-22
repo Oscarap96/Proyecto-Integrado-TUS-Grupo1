@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -41,6 +42,7 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
         dataCommunication = (DataCommunication) getContext();
         int identifierLinea = dataCommunication.getLineaIdentifier();
         this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
@@ -64,6 +66,16 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
         ft.addToBackStack(null);
         ft.commit();
         listView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.refresh_item)
+        {
+            Log.d("Pulsado","ActualizarParadas");
+            return(true);
+        }
+        return(super.onOptionsItemSelected(item));
     }
 
     @Override
