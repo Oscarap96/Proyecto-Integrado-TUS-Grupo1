@@ -7,8 +7,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import es.unican.grupo1.tussantander.R;
+
+import static java.security.AccessController.getContext;
 
 
 /**
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        // mustra u oculta el boton de actualizar
+        // muestra u oculta el boton de actualizar
         MenuItem item = menu.findItem(R.id.refresh_item);
         item.setVisible(mostrarBotonActualizar);
         return true;
@@ -65,5 +68,30 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         this.mostrarBotonActualizar = mostrar;
         // vuelve a llamar a onCreateOptionsMenu despues de invalidar la action bar
         invalidateOptionsMenu();
+    }
+
+    /**
+     * Método que en función del item del menú que se pulse realiza su acción correspondiente
+     * @param item es el item que ha sido pulsado
+     * @return true si el item se controla correctamente, false si no es así.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.tarifas_item:
+                TarifasFragment fragmentTarifas = new TarifasFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frameLayoutElements, fragmentTarifas);
+                //DataCommunication dataCommunication = (DataCommunication) getContext();
+                //dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
+                ft.addToBackStack(null);
+                ft.commit();
+                //listView.setVisibility(View.INVISIBLE);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }// MainActivity

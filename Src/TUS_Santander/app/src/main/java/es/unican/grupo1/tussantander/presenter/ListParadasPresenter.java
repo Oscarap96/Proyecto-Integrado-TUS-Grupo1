@@ -58,27 +58,38 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
                 Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
+                db.close();
+                // se comprueba que el servicio de TUS no está caído comprobando que la lista de paradas tiene más de 10 paradas
+                if(listaParadasBus.size()>10) {
+                    Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
+                    return true;
+                } else {
+                    return false;
+                }
             }
-            if(db == null) throw new NullPointerException();
-
-            db.close();
-            Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
-            return true;
+            else {
+                throw new NullPointerException();
+            }
         } else {
             try {
                 Log.d("BBDD: ", "NO hay base de datos");
                 //SE OBTIENEN LOS DATOS DE INTERNET...
                 remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
                 listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
-                Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + listaParadasBus.size());
-                //Si hemos abierto correctamente la base de datos
-                if (db != null) {
-                    funciones.insertaListaParadas(listaParadasBus, db);
-                }
-                if(db == null) throw new NullPointerException();
+                // se comprueba que el servicio de TUS no está caído comprobando que la lista de paradas tiene más de 10 paradas
+                if(listaParadasBus.size()>10) {
+                    Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + listaParadasBus.size());
+                    //Si hemos abierto correctamente la base de datos
+                    if (db != null) {
+                        funciones.insertaListaParadas(listaParadasBus, db);
+                    }
+                    if (db == null) throw new NullPointerException();
 
+                    db.close();
+                    return true;
+                }
                 db.close();
-                return true;
+                return false;
             } catch (IOException e) {
                 return false;
             } catch (Exception e) {

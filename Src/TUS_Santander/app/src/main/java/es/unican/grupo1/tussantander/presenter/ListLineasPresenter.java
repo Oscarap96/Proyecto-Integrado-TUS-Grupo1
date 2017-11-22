@@ -104,14 +104,20 @@ public class ListLineasPresenter implements IListLineasPresenter {
             if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaLineasBus = funciones.obtenerLineas(db);
+                db.close();
+                // se comprueba que el servicio de TUS no está caído comprobando que la lista de lineas tiene más de 2 lineas
+                if (listaLineasBus.size() > 2) {
+                    Collections.sort(listaLineasBus); //ordenación de las lineas de buses
+                    Log.d(ENTRA, "Obtiene lineas de DB:" + listaLineasBus.size());
+                    return true;
+                } else {
+                    return false;
+                }
             }else{
                 throw new NullPointerException();
             }
 
-            db.close();
-            Collections.sort(listaLineasBus); //ordenación de las lineas de buses
-            Log.d(ENTRA, "Obtiene lineas de DB:" + listaLineasBus.size());
-            return true;
+
         } else {
             try {
                 Log.d("BBDD: ", "NO hay base de datos");
@@ -120,47 +126,52 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
 
+                // se comprueba que el servicio de TUS no está caído comprobando que la lista de lineas tiene más de 2 lineas
+                if(listaLineasBus.size() > 2) {
+
+                    Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
 
 
-                Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
+                    TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+                    SQLiteDatabase db = tusdbh.getWritableDatabase();
 
+                    // Asignar paradas a lineas
 
-                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
-                SQLiteDatabase db = tusdbh.getWritableDatabase();
+                    Linea laLinea;
+                    int identiLinea;
+                    List<Parada> paradasDeLinea;
 
-                // Asignar paradas a lineas
-
-                Linea laLinea;
-                int identiLinea;
-                List<Parada> paradasDeLinea;
-
-                for (int i = 0; i < listaLineasBus.size(); i++) {
-                    laLinea = listaLineasBus.get(i);
-                    identiLinea = laLinea.getIdentifier();
-                    Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
-                    remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
-                    paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
-                    Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
-                    if (db != null) {
-                        funciones.insertaParadasLinea(paradasDeLinea, identiLinea, db);
+                    for (int i = 0; i < listaLineasBus.size(); i++) {
+                        laLinea = listaLineasBus.get(i);
+                        identiLinea = laLinea.getIdentifier();
+                        Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
+                        remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                        paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
+                        Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
+                        if (db != null) {
+                            funciones.insertaParadasLinea(paradasDeLinea, identiLinea, db);
+                        }
                     }
+
+                    // Asignar paradas a lineas
+
+
+                    //Si hemos abierto correctamente la base de datos
+                    if (db != null) {
+                        Log.d("DB Creada", "creada la base de datos");
+                        funciones.insertaListaLineas(listaLineasBus, db);
+
+                    }
+                    if (db == null) throw new NullPointerException();
+
+                    db.close();
+                    Collections.sort(listaLineasBus);
+                    Log.d("ordenadas", "lineas ordenadas");
+                    return true;
+                } else {
+                    // servicio de TUS caido
+                    return false;
                 }
-
-                // Asignar paradas a lineas
-
-
-                //Si hemos abierto correctamente la base de datos
-                if (db != null) {
-                    Log.d("DB Creada", "creada la base de datos");
-                    funciones.insertaListaLineas(listaLineasBus, db);
-
-                }
-                if(db == null) throw new NullPointerException();
-
-                db.close();
-                Collections.sort(listaLineasBus);
-                Log.d("ordenadas", "lineas ordenadas");
-                return true;
             } catch (IOException e) {
                 return false;
             } catch (Exception e) {
