@@ -30,7 +30,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private Context context;
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
-
     private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     /**
@@ -91,11 +90,33 @@ public class ListLineasPresenter implements IListLineasPresenter {
         new RetrieveFeedTask().execute();
     }// start
 
+    /**
+     * Comprueba si la BBDD esta completa
+     * @return true si la BBDD se ha completado
+     * o false en caso contrario.
+     */
+    public boolean isCompleta(){
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        SQLiteDatabase db = tusdbh.getWritableDatabase();
+        if(db != null) {
+            Log.d("Entra", "Entra aqui");
+            List<Linea> listaLinea = funciones.obtenerLineas(db);
+            List<Parada> listaParada = funciones.obtenerParadas(db);
+            Log.d("Tamaño", "listaLinea:" +listaLinea.size());
+            Log.d("Tamaño", "listaParada:" +listaParada.size());
+            if (listaLinea.size() > 30 && listaParada.size() > 2000) {
+                return true;
+            }
+        }
+        return  false;
+    }
+
     @Override
     public boolean obtenLineas() {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-        if (remoteFetchLineas.checkDataBase(dbPath, context)) {
+        if (remoteFetchLineas.checkDataBase(dbPath, context) && isCompleta()) {
             TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
             Log.d("BBDD: ", "SI hay base de datos");
@@ -153,7 +174,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 if (db != null) {
                     Log.d("DB Creada", "creada la base de datos");
                     funciones.insertaListaLineas(listaLineasBus, db);
-
                 }
                 if(db == null) throw new NullPointerException();
 
