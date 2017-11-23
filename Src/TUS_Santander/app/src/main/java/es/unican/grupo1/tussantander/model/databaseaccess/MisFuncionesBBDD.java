@@ -68,7 +68,6 @@ public class MisFuncionesBBDD {
         Parada parada;
         for (int i=0; i< paradas.size();i++){
             parada=paradas.get(i);
-            Log.d("Error: ", "ERROR DELETE");
             db.delete("ParadaLinea","idParada="+parada.getIdentificador(),null);
         }
     }

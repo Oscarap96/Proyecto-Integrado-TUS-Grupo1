@@ -187,6 +187,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     laLinea = listaLineasBus.get(i);
                     identiLinea = laLinea.getIdentifier();
                     Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
+                    Log.d("IdentLinea","Identiline"+identiLinea);
                     remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                     paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
                     Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
@@ -194,6 +195,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                         funciones.insertaParadasLinea(paradasDeLinea, identiLinea, db);
                     }
                 }
+
 
                 // Asignar paradas a lineas
 

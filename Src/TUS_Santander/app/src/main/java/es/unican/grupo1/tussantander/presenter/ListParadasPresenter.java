@@ -27,7 +27,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private IParadasFragment listParadasView;
     private List<Parada> listaParadasBus;
     private RemoteFetch remoteFetchParadas;
-    private RemoteFetch remoteFetchActualizar;
+    private RemoteFetch remoteFetchParadasActualizar;
     private int identifierLinea;
     private Context context;
 
@@ -43,6 +43,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     public ListParadasPresenter(Context context, IParadasFragment listParadasView, int identifierLinea) {
         this.listParadasView = listParadasView;
         this.remoteFetchParadas = new RemoteFetch();
+        this.remoteFetchParadasActualizar = new RemoteFetch();
         this.context = context;
         this.identifierLinea = identifierLinea;
     }// ListLineasPresenter
@@ -105,16 +106,13 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
             try {
 
-                remoteFetchActualizar.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
-                Log.e("ERROR", "EMpezando a reccargar Paradas");
-                listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchActualizar.getBufferedData(),identifierLinea);
-                //InputStream is = context.getResources().openRawResource(R.raw.paradas_test);
-                //listaParadasBus = ParserJSON.readArraySecuenciaParadas(is,identifierLinea);
-
+                remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(),identifierLinea);
             }catch(IOException e) {
-
                 return false;
             }
+
+
             funciones.insertaParadasLinea(listaParadasBus,identifierLinea,db);
 
         }else return false;
@@ -122,6 +120,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         return true;
 
     }
+
 
     @Override
     public String getTextoParadas() {
