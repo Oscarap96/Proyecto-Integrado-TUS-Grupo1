@@ -60,6 +60,7 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
         ft.commit();
         listView.setVisibility(View.INVISIBLE);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.refresh_item)

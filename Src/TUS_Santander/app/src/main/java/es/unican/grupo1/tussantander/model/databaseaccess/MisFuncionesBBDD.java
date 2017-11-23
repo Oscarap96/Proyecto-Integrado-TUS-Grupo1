@@ -12,7 +12,7 @@ import es.unican.grupo1.tussantander.model.Linea;
 import es.unican.grupo1.tussantander.model.Parada;
 
 /**
- * Created by Oscar Alario Pelaz and Alverto de Castro on 08/11/2017.
+ * Created by Oscar Alario Pelaz and Alberto de Castro on 08/11/2017.
  */
 
 public class MisFuncionesBBDD {
@@ -38,7 +38,6 @@ public class MisFuncionesBBDD {
     private void borrarLinea(int id,SQLiteDatabase db){
         if (db!=null){
             db.delete("Linea","idLinea="+id,null);
-
         }else
             Log.d("Error: ", "ERROR DELETE");
     }

@@ -17,7 +17,13 @@ public interface IListParadasPresenter {
      * @return true en caso de que lo haya obtenido con exito, false en caso contrario
      */
     boolean obtenParadas();
-
+    /**
+     * Recarga los datos de paradas de la linea.Para ello borra los datos antiguos y mete
+     * los nuevos datos actualizados en la base de datos.
+     *
+     * @return true en caso de que lo haya obtenido con exito, false en caso contrario
+     */
+    boolean recargaParadas();
     /**
      * Observador de listaParadasBus.
      *
@@ -31,5 +37,5 @@ public interface IListParadasPresenter {
      * @return String con todas las paradas
      */
     String getTextoParadas();
-    boolean recargaParadas();
+
 }
