@@ -30,6 +30,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private Context context;
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
+    private static final String DBTUS = "DBTUS";
     private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     /**
@@ -97,7 +98,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
      */
     public boolean isCompleta(){
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
-        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
         SQLiteDatabase db = tusdbh.getWritableDatabase();
         if(db != null) {
             Log.d("Entra", "Entra aqui");
@@ -117,7 +118,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
         if (remoteFetchLineas.checkDataBase(dbPath, context) && isCompleta()) {
-            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
             Log.d("BBDD: ", "SI hay base de datos");
 
@@ -146,7 +147,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
 
 
-                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
 
                 // Asignar paradas a lineas
