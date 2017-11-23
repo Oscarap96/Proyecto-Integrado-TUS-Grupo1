@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 
 import es.unican.grupo1.tussantander.model.dataloaders.ParserJSON;
@@ -25,6 +27,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private IParadasFragment listParadasView;
     private List<Parada> listaParadasBus;
     private RemoteFetch remoteFetchParadas;
+    private RemoteFetch remoteFetchActualizar;
     private int identifierLinea;
     private Context context;
 
@@ -86,6 +89,38 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 return false;
             }
         }
+    }
+    @Override
+    public boolean recargaParadas() {
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        SQLiteDatabase db = tusdbh.getWritableDatabase();
+
+
+        //Si hemos abierto correctamente la base de datos
+        if (db != null) {
+
+            //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
+            funciones.borrarListaParadas(listaParadasBus,db);
+
+            try {
+
+                remoteFetchActualizar.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
+                Log.e("ERROR", "EMpezando a reccargar Paradas");
+                listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchActualizar.getBufferedData(),identifierLinea);
+                //InputStream is = context.getResources().openRawResource(R.raw.paradas_test);
+                //listaParadasBus = ParserJSON.readArraySecuenciaParadas(is,identifierLinea);
+
+            }catch(IOException e) {
+
+                return false;
+            }
+            funciones.insertaParadasLinea(listaParadasBus,identifierLinea,db);
+
+        }else return false;
+
+        return true;
+
     }
 
     @Override
@@ -149,4 +184,53 @@ public class ListParadasPresenter implements IListParadasPresenter {
     public void start() {
         new RetrieveFeedTask().execute();
     }// start
+    /**
+     * Clase para hacer una tarea asincrona al descargar los datos.
+     */
+    class RetrieveFeedTask2 extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            listParadasView.getDialog().setCancelable(false);
+            //Muestra mensaje de cargando datos...
+            listParadasView.showProgress(true);
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                listParadasView.showList(getListParadasBus());
+                listParadasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context,"Actualizado", Toast.LENGTH_SHORT);
+                toast1.show();
+            } else {
+                listParadasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context,"No hay Internet",Toast.LENGTH_SHORT);
+                toast1.show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+
+                return recargaParadas();
+            } catch (Exception e) {
+                Log.e("ERROR","Error en la obtención de las lineas");
+                return false;
+            }
+        }
+    }
+    /**
+     * Inicia la tarea asincrona.
+     */
+    public void start1() {
+        new RetrieveFeedTask2().execute();
+    }// start
+
+
+
 }

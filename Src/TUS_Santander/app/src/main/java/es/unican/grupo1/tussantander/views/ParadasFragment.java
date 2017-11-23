@@ -72,6 +72,8 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.refresh_item)
         {
+
+            listParadasPresenter.start1();
             Log.d("Pulsado","ActualizarParadas");
             return(true);
         }

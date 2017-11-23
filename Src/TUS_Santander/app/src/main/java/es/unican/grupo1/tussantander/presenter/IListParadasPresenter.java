@@ -31,4 +31,5 @@ public interface IListParadasPresenter {
      * @return String con todas las paradas
      */
     String getTextoParadas();
+    boolean recargaParadas();
 }
