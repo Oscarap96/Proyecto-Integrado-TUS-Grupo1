@@ -9,6 +9,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
+import es.unican.grupo1.tussantander.utils.Utilidades;
 import es.unican.grupo1.tussantander.model.dataloaders.ParserJSON;
 import es.unican.grupo1.tussantander.model.dataloaders.RemoteFetch;
 import es.unican.grupo1.tussantander.model.databaseaccess.MisFuncionesBBDD;
@@ -152,7 +153,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
     // TODO
     public void buscar(String busqueda) {
-        List<Parada> resultados = Parada.buscarParada(listaParadasBus, busqueda);
+        List<Parada> resultados = Utilidades.buscarParada(listaParadasBus, busqueda);
         listParadasView.showList(resultados);
     }
 }
