@@ -84,6 +84,7 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
 
         ((DataCommunication) getContext()).setMostrarBotonActualizar(true);
         */
+        // TODO ver que hago con ese codigo comentado
     }
 
     @Override
