@@ -22,7 +22,9 @@ import es.unican.grupo1.tussantander.R;
 public class ListEstimacionesAdapter extends ArrayAdapter {
     List<Estimacion> estimaciones;
     Context context;
-
+    private static final String COLORGRIS = "#929292";
+    private static final String COLORVERDE = "#157A3A";
+    private static final String COLORNARANJA = "#F26319";
     /**
      * Contructor para mostrar las estimaciones.
      *
@@ -66,28 +68,22 @@ public class ListEstimacionesAdapter extends ArrayAdapter {
                 campoLinea.setTextColor(Color.parseColor("#21C4E3"));
                 break;
             case "5C1":
-                linea.setTextColor(Color.parseColor("#929292"));
-                campoLinea.setTextColor(Color.parseColor("#929292"));
+                linea.setTextColor(Color.parseColor(COLORGRIS));
+                campoLinea.setTextColor(Color.parseColor(COLORGRIS));
                 break;
             case "5C2":
-                linea.setTextColor(Color.parseColor("#929292"));
-                campoLinea.setTextColor(Color.parseColor("#929292"));
                 break;
             case "6C1":
-                linea.setTextColor(Color.parseColor("#157A3A"));
-                campoLinea.setTextColor(Color.parseColor("#157A3A"));
+                linea.setTextColor(Color.parseColor(COLORVERDE));
+                campoLinea.setTextColor(Color.parseColor(COLORVERDE));
                 break;
             case "6C2":
-                linea.setTextColor(Color.parseColor("#157A3A"));
-                campoLinea.setTextColor(Color.parseColor("#157A3A"));
                 break;
             case "7C1":
-                linea.setTextColor(Color.parseColor("#F26319"));
-                campoLinea.setTextColor(Color.parseColor("#F26319"));
+                linea.setTextColor(Color.parseColor(COLORNARANJA));
+                campoLinea.setTextColor(Color.parseColor(COLORNARANJA));
                 break;
             case "7C2":
-                linea.setTextColor(Color.parseColor("#F26319"));
-                campoLinea.setTextColor(Color.parseColor("#F26319"));
                 break;
             case "11":
                 linea.setTextColor(Color.parseColor("#070F47"));
@@ -140,6 +136,17 @@ public class ListEstimacionesAdapter extends ArrayAdapter {
             default:
                 break;
         }
+        //Utilizamos esto para las lineas con dos autobuses(p.e. 5C1 y 5C2)
+       if(estimaciones.get(position).getEtiquetaLinea().equals("5C2")){
+           linea.setTextColor(Color.parseColor(COLORGRIS));
+           campoLinea.setTextColor(Color.parseColor(COLORGRIS));
+       }else if(estimaciones.get(position).getEtiquetaLinea().equals("6C2")){
+           linea.setTextColor(Color.parseColor(COLORVERDE));
+           campoLinea.setTextColor(Color.parseColor(COLORVERDE));
+       }else if(estimaciones.get(position).getEtiquetaLinea().equals("7C2")){
+           linea.setTextColor(Color.parseColor(COLORNARANJA));
+           campoLinea.setTextColor(Color.parseColor(COLORNARANJA));
+       }
         // Oculta la segunda linea en caso de que no tenga valor (-1)
         if (estimaciones.get(position).getTiempo2min() == -1) {
             viewRow.findViewById(R.id.linearLayout_terceraFila).setVisibility(View.GONE);
