@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
 import es.unican.grupo1.tussantander.R;
 import es.unican.grupo1.tussantander.presenter.ListParadasPresenter;
 
