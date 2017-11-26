@@ -34,5 +34,17 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewSinResultados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15sp"
+            android:textStyle="bold|italic"
+            android:text="@string/sinResultados"
+            android:visibility="invisible"/>
     </RelativeLayout>
 </LinearLayout>

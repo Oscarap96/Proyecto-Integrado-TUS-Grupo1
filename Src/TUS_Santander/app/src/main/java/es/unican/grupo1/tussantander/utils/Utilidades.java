@@ -5,7 +5,10 @@ import java.util.List;
 
 import es.unican.grupo1.tussantander.model.Parada;
 
-// TODO
+/**
+ * Utilidades contiene metodos estaticos referentes a la logica de negocio. Se pueden utilizar
+ * donde hagan falta.
+ */
 public class Utilidades {
 
     /**
@@ -23,7 +26,7 @@ public class Utilidades {
         textoBuscado = quitarSimbolosInnecesarios(textoBuscado);
         textoBuscado = quitarAcentos(textoBuscado);
         // si la parada es un resultado de busqueda, lo anhade como resultado
-        List<Parada> resultado = new ArrayList<Parada>();
+        List<Parada> resultado = new ArrayList<>();
         for (Parada parada : paradas) {
             if (comprobarResultadoParada(parada, textoBuscado)) {
                 resultado.add(parada);

@@ -45,9 +45,18 @@ public interface DataCommunication {
      */
     void setMostrarBotonActualizar(boolean mostrar);
 
-    // TODO
+    /**
+     * Setter de paradas para permitir la busqueda de paradas.
+     *
+     * @param paradasPresenter presenter de paradas
+     */
     void setParadasPresenter(ListParadasPresenter paradasPresenter);
 
-    // TODO
+    /**
+     * Observador del presenter de paradas para poder realizar la busqueda en tiempo real de las
+     * paradas.
+     *
+     * @return presenter de paradas
+     */
     ListParadasPresenter getParadasPresenter();
 }

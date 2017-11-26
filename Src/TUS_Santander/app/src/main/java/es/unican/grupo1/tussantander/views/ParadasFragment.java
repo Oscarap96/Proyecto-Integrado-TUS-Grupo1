@@ -31,6 +31,7 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     private DataCommunication dataCommunication;
     private ProgressDialog dialog;
     private TextView textViewMensajeError;
+    private TextView textViewSinResultados;
 
     private ListParadasPresenter listParadasPresenter;
 
@@ -38,53 +39,30 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_paradas_list, container, false);
         textViewMensajeError = view.findViewById(R.id.textViewMensajeError);
+        textViewSinResultados = view.findViewById(R.id.textViewSinResultados);
         TextView buscarParadas = view.findViewById(R.id.editText_search);
         buscarParadas.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_24dp, 0, 0, 0);
-
-        // TODO
+        /*
+        el siguiente codigo estaba en onActivityCreated y se ha movido para poder definir el
+        campo de buscar adecuadamente
+        */
         dataCommunication = (DataCommunication) getContext();
         int identifierLinea = dataCommunication.getLineaIdentifier();
         this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
         this.dialog = new ProgressDialog(getContext());
-        // this.listParadasPresenter.start();
         ((DataCommunication) getContext()).setMostrarBotonActualizar(true);
+        // anhadir el listener al campo de buscar
         dataCommunication.setParadasPresenter(listParadasPresenter);
         EditText buscar = (EditText) view.findViewById(R.id.editText_search);
-        buscar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // TODO aqui meto lo que pasa cuando modifican el texto
-                DataCommunication dataCommunication = (DataCommunication) getContext();
-                ListParadasPresenter presenter = dataCommunication.getParadasPresenter();
-                presenter.buscar(charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
+        buscar.addTextChangedListener(generarTextWatcher());
+        // iniciar el presenter
         this.listParadasPresenter.start();
-
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*
-        dataCommunication = (DataCommunication) getContext();
-        int identifierLinea = dataCommunication.getLineaIdentifier();
-        this.listParadasPresenter = new ListParadasPresenter(getContext(), this, identifierLinea);
-        this.dialog = new ProgressDialog(getContext());
-        this.listParadasPresenter.start();
-
-        ((DataCommunication) getContext()).setMostrarBotonActualizar(true);
-        */
-        // TODO ver que hago con ese codigo comentado
     }
 
     @Override
@@ -128,5 +106,39 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     @Override
     public ProgressDialog getDialog() {
         return dialog;
+    }
+
+    /**
+     * Genera el TextWatcher del campo de busqueda, encargado de volver a buscar cuando cambie
+     * el texto del campo de busqueda.
+     *
+     * @return TextWatcher del campo de busqueda.
+     */
+    private TextWatcher generarTextWatcher() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // aqui meto lo que pasa cuando modifican el texto
+                ListParadasPresenter presenter = ((DataCommunication) getContext()).getParadasPresenter();
+                presenter.buscar(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
+    }
+
+    @Override
+    public void showSinResultados(boolean mostrar) {
+        if (mostrar) {
+            textViewSinResultados.setVisibility(View.VISIBLE);
+        } else {
+            textViewSinResultados.setVisibility(View.INVISIBLE);
+        }
     }
 }

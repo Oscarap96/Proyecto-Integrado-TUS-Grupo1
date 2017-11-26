@@ -25,6 +25,7 @@ import es.unican.grupo1.tussantander.views.IParadasFragment;
 public class ListParadasPresenter implements IListParadasPresenter {
     private IParadasFragment listParadasView;
     private List<Parada> listaParadasBus;
+    private List<Parada> resultados;
     private RemoteFetch remoteFetchParadas;
     private int identifierLinea;
     private Context context;
@@ -60,7 +61,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
                 Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
             }
-            if(db == null) throw new NullPointerException();
+            if (db == null) throw new NullPointerException();
 
             db.close();
             Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
@@ -76,7 +77,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 if (db != null) {
                     funciones.insertaListaParadas(listaParadasBus, db);
                 }
-                if(db == null) throw new NullPointerException();
+                if (db == null) throw new NullPointerException();
 
                 db.close();
                 return true;
@@ -104,7 +105,12 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
     @Override
     public List<Parada> getListParadasBus() {
-        return listaParadasBus;
+        // retorna la lista correspondiente segun se haya realizado una busqueda o no
+        if (resultados == null || resultados.size() == listaParadasBus.size()) {
+            return listaParadasBus;
+        } else {
+            return resultados;
+        }
     }
 
     /**
@@ -122,7 +128,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                listParadasView.showList(getListParadasBus());
+                listParadasView.showList(listaParadasBus);
                 listParadasView.showProgress(false);
                 //Muestra el toast con el mensaje
                 Toast toast1 = Toast.makeText(context, R.string.mensajeToast1, Toast.LENGTH_SHORT);
@@ -151,9 +157,16 @@ public class ListParadasPresenter implements IListParadasPresenter {
         new RetrieveFeedTask().execute();
     }// start
 
-    // TODO
+    @Override
     public void buscar(String busqueda) {
-        List<Parada> resultados = Utilidades.buscarParada(listaParadasBus, busqueda);
-        listParadasView.showList(resultados);
+        if (listaParadasBus != null) {
+            resultados = Utilidades.buscarParada(listaParadasBus, busqueda);
+            listParadasView.showList(resultados);
+            if (resultados.size() == 0) {
+                listParadasView.showSinResultados(true);
+            } else {
+                listParadasView.showSinResultados(false);
+            }
+        }
     }
 }

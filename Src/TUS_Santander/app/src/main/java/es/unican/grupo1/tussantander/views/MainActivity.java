@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     private int paradaIdentifier;
     // determina si hay que mostrar el boton de refrescar de la action bar
     private boolean mostrarBotonActualizar = true;
-    // TODO
+    // presenter de paradas
     private ListParadasPresenter paradasPresenter;
 
     @Override
@@ -72,13 +72,11 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         invalidateOptionsMenu();
     }
 
-    // TODO
     @Override
     public void setParadasPresenter(ListParadasPresenter paradasPresenter) {
         this.paradasPresenter = paradasPresenter;
     }
 
-    // TODO
     @Override
     public ListParadasPresenter getParadasPresenter() {
         return paradasPresenter;
