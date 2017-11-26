@@ -31,4 +31,11 @@ public interface IListParadasPresenter {
      * @return String con todas las paradas
      */
     String getTextoParadas();
+
+    /**
+     * Busca y muestra la lista de paradas buscadas.
+     *
+     * @param busqueda texto buscado
+     */
+    void buscar(String busqueda);
 }

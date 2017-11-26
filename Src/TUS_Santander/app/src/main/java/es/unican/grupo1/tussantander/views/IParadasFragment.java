@@ -37,4 +37,11 @@ public interface IParadasFragment {
      * @return dialogo de carga
      */
     ProgressDialog getDialog();
+
+    /**
+     * Mustra y oculta el mensaje de sin resultados al buscar paradas.
+     *
+     * @param mostrar true para mostrar, false para ocultar
+     */
+    void showSinResultados(boolean mostrar);
 }
