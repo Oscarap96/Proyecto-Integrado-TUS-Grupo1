@@ -53,16 +53,11 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
         ((DataCommunication) getContext()).setMostrarBotonActualizar(true);
         // anhadir el listener al campo de buscar
         dataCommunication.setParadasPresenter(listParadasPresenter);
-        EditText buscar = (EditText) view.findViewById(R.id.editText_search);
+        EditText buscar = view.findViewById(R.id.editText_search);
         buscar.addTextChangedListener(generarTextWatcher());
         // iniciar el presenter
         this.listParadasPresenter.start();
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -118,6 +113,7 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // aqui no hace nada porque detecta todos los cambios en onTextChanged
             }
 
             @Override
@@ -129,6 +125,7 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                // aqui no hace nada porque detecta todos los cambios en onTextChanged
             }
         };
     }

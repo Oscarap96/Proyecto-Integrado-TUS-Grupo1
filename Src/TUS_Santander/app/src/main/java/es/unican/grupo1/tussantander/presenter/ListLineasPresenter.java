@@ -78,7 +78,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             try {
                 return obtenLineas();
             } catch (Exception e) {
-                Log.e("ERROR","Error en la obtención de las lineas");
+                Log.e("ERROR", "Error en la obtención de las lineas");
                 return false;
             }
         }
@@ -104,7 +104,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaLineasBus = funciones.obtenerLineas(db);
-            }else{
+            } else {
                 throw new NullPointerException();
             }
 
@@ -119,7 +119,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 //SE OBTIENEN LOS DATOS DE INTERNET...
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
-
 
 
                 Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
@@ -155,7 +154,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     funciones.insertaListaLineas(listaLineasBus, db);
 
                 }
-                if(db == null) throw new NullPointerException();
+                if (db == null) throw new NullPointerException();
 
                 db.close();
                 Collections.sort(listaLineasBus);
@@ -180,7 +179,11 @@ public class ListLineasPresenter implements IListLineasPresenter {
         String textoLineas = "";
         if (listaLineasBus != null) {
             for (int i = 0; i < listaLineasBus.size(); i++) {
-                textoLineas = textoLineas + listaLineasBus.get(i).getNumero() + "\n\n";
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(textoLineas);
+                stringBuilder.append(listaLineasBus.get(i).getNumero());
+                stringBuilder.append("\n\n");
+                textoLineas = stringBuilder.toString();
             }//for
         } else {
             textoLineas = "Sin lineas";

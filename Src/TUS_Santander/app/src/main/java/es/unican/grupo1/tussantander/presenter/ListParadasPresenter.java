@@ -95,7 +95,11 @@ public class ListParadasPresenter implements IListParadasPresenter {
         String textoParadas = "";
         if (listaParadasBus != null) {
             for (int i = 0; i < listaParadasBus.size(); i++) {
-                textoParadas = textoParadas + listaParadasBus.get(i).getNombre() + "\n\n";
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(textoParadas);
+                stringBuilder.append(listaParadasBus.get(i).getNombre());
+                stringBuilder.append("\n\n");
+                textoParadas = stringBuilder.toString();
             }
         } else {
             textoParadas = "";
@@ -162,7 +166,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         if (listaParadasBus != null) {
             resultados = Utilidades.buscarParada(listaParadasBus, busqueda);
             listParadasView.showList(resultados);
-            if (resultados.size() == 0) {
+            if (resultados.isEmpty()) {
                 listParadasView.showSinResultados(true);
             } else {
                 listParadasView.showSinResultados(false);
