@@ -59,7 +59,7 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                listEstimacionesView.showList(getListaEstimacionesBus());
+                listEstimacionesView.showList(listaEstimaciones);
                 listEstimacionesView.showProgress(false);
                 Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT).show();
             } else {

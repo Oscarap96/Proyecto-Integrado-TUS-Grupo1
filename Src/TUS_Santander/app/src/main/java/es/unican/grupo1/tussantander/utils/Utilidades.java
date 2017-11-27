@@ -12,6 +12,14 @@ import es.unican.grupo1.tussantander.model.Parada;
 public class Utilidades {
 
     /**
+     * Constructor privado para evitar que se creen objetos de esta clase, ya que es una clase de
+     * metodos estaticos.
+     */
+    private Utilidades() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
      * Busca sobre una lista de paradas segun los criterios especificados en los tests de aceptacion
      * de Buscar parada de una linea.
      *

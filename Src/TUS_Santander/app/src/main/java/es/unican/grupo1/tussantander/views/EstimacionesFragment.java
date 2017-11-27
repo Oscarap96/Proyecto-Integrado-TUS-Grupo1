@@ -20,7 +20,6 @@ import es.unican.grupo1.tussantander.R;
  */
 public class EstimacionesFragment extends ListFragment implements IEstimacionesFragment {
     private ProgressDialog dialog;
-    private ListEstimacionesPresenter listEstimacionesPresenter;
     private TextView textViewMensajeErrorEstimaciones;
 
     @Override
@@ -35,9 +34,9 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
         super.onActivityCreated(savedInstanceState);
         DataCommunication dataCommunication = (DataCommunication) getContext();
         int paradaId = dataCommunication.getParadaIdentifier();
-        this.listEstimacionesPresenter = new ListEstimacionesPresenter(getContext(), this, paradaId);
+        ListEstimacionesPresenter listEstimacionesPresenter = new ListEstimacionesPresenter(getContext(), this, paradaId);
         this.dialog = new ProgressDialog(getContext());
-        this.listEstimacionesPresenter.start();
+        listEstimacionesPresenter.start();
         // oculta el boton de refrescar
         ((DataCommunication) getContext()).setMostrarBotonActualizar(false);
     }
