@@ -16,7 +16,7 @@ import es.unican.grupo1.tussantander.model.Parada;
  */
 
 public class MisFuncionesBBDD {
-    private void insertaLinea(int id, String nom, String num, int identi, SQLiteDatabase db) {
+    public void insertaLinea(int id, String nom, String num, int identi, SQLiteDatabase db) {
         if (db != null) {
             ContentValues valores = new ContentValues();
             valores.put("idLinea", id);
@@ -35,7 +35,7 @@ public class MisFuncionesBBDD {
         }
     }
 
-    private void borrarLinea(int id,SQLiteDatabase db){
+    public void borrarLinea(int id,SQLiteDatabase db){
         if (db!=null){
             db.delete("Linea","idLinea="+id,null);
 
@@ -43,17 +43,30 @@ public class MisFuncionesBBDD {
             Log.d("Error: ", "ERROR DELETE");
     }
     public void borrarListaLineas(List<Linea> lineas,SQLiteDatabase db){
-        for (int i=0; i< lineas.size();i++){
-            borrarLinea(i,db);
+        for (int i=0; i<lineas.size();i++){
+            for(int j=0;j<obtenerLineas(db).size();j++){
+                if(lineas.get(i).getNumero().equals(obtenerLineas(db).get(j).getNumero())) {
+                    borrarLinea(i, db);
+            }
+
+
+            }
         }
+        int i=lineas.size();
+        borrarLinea(lineas.size(),db);
     }
-    private void insertaParada(int id, String nom, int identi, SQLiteDatabase db) {
+    public void insertaParada(int id, String nom, int idLinea, SQLiteDatabase db) {
         if (db != null) {
             ContentValues valores = new ContentValues();
             valores.put("idParada", id);
-            valores.put("nombre", nom);
-            valores.put("identificador", identi);
-            db.insert("Parada", null, valores);
+            valores.put("nombreParada", nom);
+            valores.put("idLinea", idLinea);
+            db.insert("ParadaLinea", null, valores);
+        }
+    }
+    public void borraParada(int id,SQLiteDatabase db){
+        if(db!=null){
+            db.delete("ParadaLinea","idParada="+id,null);
         }
     }
 
@@ -124,7 +137,7 @@ public class MisFuncionesBBDD {
     }
 
     public List<Parada> obtenerParadas(SQLiteDatabase db) {
-        Cursor c = db.rawQuery("SELECT * FROM Parada", null);
+        Cursor c = db.rawQuery("SELECT * FROM ParadaLinea", null);
         String nombre;
         int identificador;
         List<Parada> paradas = new ArrayList<>();
