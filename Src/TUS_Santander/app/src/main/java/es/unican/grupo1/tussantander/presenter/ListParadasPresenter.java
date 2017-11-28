@@ -93,7 +93,11 @@ public class ListParadasPresenter implements IListParadasPresenter {
         String textoParadas = "";
         if (listaParadasBus != null) {
             for (int i = 0; i < listaParadasBus.size(); i++) {
-                textoParadas = textoParadas + listaParadasBus.get(i).getNombre() + "\n\n";
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(textoParadas);
+                stringBuilder.append(listaParadasBus.get(i).getNombre());
+                stringBuilder.append("\n\n");
+                textoParadas = stringBuilder.toString();
             }
         } else {
             textoParadas = "";

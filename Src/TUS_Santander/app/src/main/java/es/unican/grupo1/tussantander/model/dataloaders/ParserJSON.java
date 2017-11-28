@@ -24,7 +24,7 @@ public class ParserJSON {
     private static final String UTF = "UTF-8";
     private static final String RESOURCES = "resources";
     private static final String LINEAS_BUSES = "Lineas buses";
-    private static final String LINEAS_DE_LA_PARADA = "Lineas de la parada";
+
 
     /**
      * Constructor
