@@ -18,8 +18,10 @@ import org.junit.runner.RunWith;
 import es.unican.grupo1.tussantander.views.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.anything;
 
 /**
@@ -39,7 +41,7 @@ public class EstimacionesTestAceptacion {
     @Test
     public void a1() {
         // Descomentarlo para probarlo.
-        //onView(withId(R.id.textViewMensajeError)).check(ViewAssertions.matches(checkMensajeError()));
+        onView(withId(R.id.textViewMensajeError)).check(ViewAssertions.matches(checkMensajeError()));
     }
 
     /**

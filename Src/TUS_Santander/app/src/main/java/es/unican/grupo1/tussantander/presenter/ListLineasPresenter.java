@@ -30,7 +30,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
     private RemoteFetch remoteFetchActualizar;
-    private Context context;
+    public Context context;
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
 
@@ -266,4 +266,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
         }//if
         return textoLineas;
     }//getTextoLineas
+    public Context getContexto(){
+        return context;
+    }
 }// ListLineasPresenter
