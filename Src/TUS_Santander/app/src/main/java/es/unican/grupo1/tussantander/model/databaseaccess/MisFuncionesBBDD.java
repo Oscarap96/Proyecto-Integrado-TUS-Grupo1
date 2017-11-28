@@ -43,17 +43,9 @@ public class MisFuncionesBBDD {
             Log.d("Error: ", "ERROR DELETE");
     }
     public void borrarListaLineas(List<Linea> lineas,SQLiteDatabase db){
-        for (int i=0; i<lineas.size();i++){
-            for(int j=0;j<obtenerLineas(db).size();j++){
-                if(lineas.get(i).getNumero().equals(obtenerLineas(db).get(j).getNumero())) {
-                    borrarLinea(i, db);
-            }
-
-
-            }
+        for (int i=0; i<lineas.size();i++) {
+            borrarLinea(i, db);
         }
-        int i=lineas.size();
-        borrarLinea(lineas.size(),db);
     }
     public void insertaParada(int id, String nom, int idLinea, SQLiteDatabase db) {
         if (db != null) {
