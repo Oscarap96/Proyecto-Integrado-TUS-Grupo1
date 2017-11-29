@@ -214,8 +214,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 for (int i = 0; i < listaLineasBus.size(); i++) {
                     laLinea = listaLineasBus.get(i);
                     identiLinea = laLinea.getIdentifier();
-                    Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
-                    Log.d("IdentLinea", "Identiline" + identiLinea);
                     remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                     paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
                     Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
