@@ -30,7 +30,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private RemoteFetch remoteFetchParadas;
     private RemoteFetch remoteFetchParadasActualizar;
     private int identifierLinea;
-    private static final String ERROR="ERROR";
+    private static final String ERROR = "ERROR";
     private Context context;
 
     private static final String DBTUS = "DBTUS";
@@ -53,46 +53,47 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
     /**
      * Comprueba si las paradas de una línea cuyo id se pasa como parámetro están almacenadas en la BBDD
+     *
      * @param idLinea identificador de la linea de la cual se quiere saber si sus paradas están en la BBDD
      * @return true si las paradas de dicha línea están en la BBDD
      * o false en caso contrario.
      */
-    public boolean isCompleta(int idLinea){
+    public boolean isCompleta(int idLinea) {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
         TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
         SQLiteDatabase db = tusdbh.getWritableDatabase();
-        if(db != null) {
+        if (db != null) {
             List<Parada> listaParada = funciones.obtenerParadasLinea(idLinea, db);
-            Log.d("Tamaño", "listaParada:" +listaParada.size());
+            Log.d("Tamaño", "listaParada:" + listaParada.size());
             if (listaParada.size() > 12) {
                 return true;
             }
         }
-        return  false;
+        return false;
     }
 
     @Override
     public boolean obtenParadas() {
-        if(Utilidades.isOnline(context)) {
-            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
-            SQLiteDatabase db = tusdbh.getWritableDatabase();
-            MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        SQLiteDatabase db = tusdbh.getWritableDatabase();
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-            if (remoteFetchParadas.checkDataBase(dbPath, context) && isCompleta(identifierLinea)) {
-                Log.d("BBDD: ", "SI hay base de datos");
+        if (remoteFetchParadas.checkDataBase(dbPath, context) && isCompleta(identifierLinea)) {
+            Log.d("BBDD: ", "SI hay base de datos");
 
-                //Si hemos abierto correctamente la base de datos
-                if (db != null) {
-                    //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
-                    listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
-                    Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
-                }
-                if (db == null) throw new NullPointerException();
+            //Si hemos abierto correctamente la base de datos
+            if (db != null) {
+                //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
+                listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
+                Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
+            }
+            if (db == null) throw new NullPointerException();
 
-                db.close();
-                Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
-                return true;
-            } else {
+            db.close();
+            Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
+            return true;
+        } else {
+            if (Utilidades.isOnline(context)) {
                 try {
                     Log.d("BBDD: ", "NO hay base de datos");
                     //SE OBTIENEN LOS DATOS DE INTERNET...
@@ -114,13 +115,14 @@ public class ListParadasPresenter implements IListParadasPresenter {
                     return false;
                 }
             }
+            return false;
         }
-        return false;
+
     }
 
     @Override
     public boolean recargaParadas() {
-        if(Utilidades.isOnline(context)) {
+        if (Utilidades.isOnline(context)) {
             MisFuncionesBBDD funciones = new MisFuncionesBBDD();
             TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
@@ -242,6 +244,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     public void start() {
         new RetrieveFeedTask().execute();
     }// start
+
     /**
      * Clase para hacer una tarea asincrona al descargar los datos.
      */
@@ -251,14 +254,14 @@ public class ListParadasPresenter implements IListParadasPresenter {
         protected void onPreExecute() {
             listParadasView.getDialog().setCancelable(false);
             //Muestra mensaje de cargando datos...
-            if(resultados!=null) {
+            if (resultados != null) {
 
                 listParadasView.showProgress(false);
-                if(resultados.size()==listaParadasBus.size())
+                if (resultados.size() == listaParadasBus.size())
                     listParadasView.showProgress(true);
 
-            }else {
-                Log.d("mostrado","DIalogo mostrados");
+            } else {
+                Log.d("mostrado", "DIalogo mostrados");
                 listParadasView.showProgress(true);
             }
 
@@ -271,12 +274,12 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 listParadasView.showList(getListParadasBus());
                 listParadasView.showProgress(false);
                 //Muestra el toast con el mensaje de que los datos se han actualizado
-                Toast toast1 = Toast.makeText(context,"Actualizado", Toast.LENGTH_SHORT);
+                Toast toast1 = Toast.makeText(context, "Actualizado", Toast.LENGTH_SHORT);
                 toast1.show();
             } else {
                 listParadasView.showProgress(false);
                 //Muestra el toast con el mensaje informando de que no hay conexión a internet
-                Toast toast1 = Toast.makeText(context,"No hay Internet",Toast.LENGTH_SHORT);
+                Toast toast1 = Toast.makeText(context, "No hay Internet", Toast.LENGTH_SHORT);
                 toast1.show();
             }
         }
@@ -286,19 +289,18 @@ public class ListParadasPresenter implements IListParadasPresenter {
             try {
                 return recargaParadas();
             } catch (Exception e) {
-                Log.e("ERROR","Error en la obtención de las lineas");
+                Log.e("ERROR", "Error en la obtención de las lineas");
                 return false;
             }
         }
     }
+
     /**
      * Inicia la tarea asincrona.
      */
     public void start1() {
         new RetrieveFeedTask2().execute();
     }// start
-
-
 
 
     @Override
