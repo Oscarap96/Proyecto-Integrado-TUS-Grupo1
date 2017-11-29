@@ -19,6 +19,13 @@ public interface IListLineasPresenter {
      * @return true en caso de que lo haya obtenido con exito, false en caso contrario
      */
     boolean obtenLineas();
+    /**
+     * Metodo a través del cual se recargan las lineas en la base de datos.
+     * Para realizar esto internamente realiza una llamada ala funcion getJSON para luego una
+     * llamada a readArrayLineasBus
+     *  @return true en caso de que lo haya obtenido con exito, false en caso contrario
+     */
+    boolean recargaLineas();
 
     /**
      * Observador de listaLineasBus.
