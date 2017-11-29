@@ -270,6 +270,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     //listaLineasBus = ParserJSON.readArrayLineasBus(is);
                     Collections.sort(listaLineasBus);
                 } catch (IOException e) {
+                    return false;
 
                 }
 
