@@ -24,6 +24,10 @@ public class UnitariasTarifasTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
     @Test
+    public void compruebaTituloInterfaz(){
+        Assert.assertEquals("Tarifas 2017",mActivityTestRule.getActivity().getResources().getString(R.string.tituloTarifas));
+    }
+    @Test
     public void compruebaPrecioBilleteOrdinario(){
 
         Assert.assertEquals("1.30€",mActivityTestRule.getActivity().getResources().getString(R.string.precioBillete));
@@ -48,6 +52,10 @@ public class UnitariasTarifasTest {
     public void compruebaPrecioDiscapacitados(){
         Assert.assertEquals("Gratis", mActivityTestRule.getActivity().getResources().getString(R.string.precioDiscapacitados));
 
+    }
+    @Test
+    public void compruebaTextoBotonMasInformacion(){
+        Assert.assertEquals("Más Información", mActivityTestRule.getActivity().getResources().getString(R.string.masInfo));
     }
 
 }
