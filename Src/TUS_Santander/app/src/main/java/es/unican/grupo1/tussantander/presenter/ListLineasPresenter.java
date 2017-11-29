@@ -1,7 +1,6 @@
 package es.unican.grupo1.tussantander.presenter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -32,7 +31,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
 
-    private static String dbPath;
+    private String dbPath;
 
     /**
      * Constructor.

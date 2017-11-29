@@ -28,7 +28,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private int identifierLinea;
     private Context context;
 
-    private static String dbPath;
+    private String dbPath;
 
     /**
      * Constructor.
