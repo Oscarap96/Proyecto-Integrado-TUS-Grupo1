@@ -123,9 +123,9 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
         //Si hemos abierto correctamente la base de datos
         if (db != null) {
-
+            List<Parada> listasecParada=listaParadasBus;
             //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
-            funciones.borrarListaParadas(listaParadasBus,db);
+            //funciones.borrarListaParadas(listaParadasBus,db);
 
             try {
 
@@ -134,7 +134,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             }catch(IOException e) {
                 return false;
             }
-
+            funciones.borrarListaParadas(listasecParada,db);
 
             funciones.insertaParadasLinea(listaParadasBus,identifierLinea,db);
 

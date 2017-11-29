@@ -252,9 +252,9 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
             //Si hemos abierto correctamente la base de datos
             if (db != null) {
-
+                List<Linea> listasec=listaLineasBus;
                 //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
-                funciones.borrarListaLineas(listaLineasBus, db);
+                //funciones.borrarListaLineas(listaLineasBus, db);
 
                 try {
                     remoteFetchActualizar.getJSON(RemoteFetch.URL_LINEAS_BUS);
@@ -266,6 +266,8 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
                     return false;
                 }
+                funciones.borrarListaLineas(listasec, db);
+
                 funciones.insertaListaLineas(listaLineasBus, db);
 
             } else {
