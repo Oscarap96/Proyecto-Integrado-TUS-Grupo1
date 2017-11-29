@@ -73,46 +73,49 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
     @Override
     public boolean obtenParadas() {
-        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
-        SQLiteDatabase db = tusdbh.getWritableDatabase();
-        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        if(Utilidades.isOnline(context)) {
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            SQLiteDatabase db = tusdbh.getWritableDatabase();
+            MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-        if (remoteFetchParadas.checkDataBase(dbPath, context) && isCompleta(identifierLinea)) {
-            Log.d("BBDD: ", "SI hay base de datos");
+            if (remoteFetchParadas.checkDataBase(dbPath, context) && isCompleta(identifierLinea)) {
+                Log.d("BBDD: ", "SI hay base de datos");
 
-            //Si hemos abierto correctamente la base de datos
-            if (db != null) {
-                //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
-                listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
-                Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
-            }
-            if (db == null) throw new NullPointerException();
-
-            db.close();
-            Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
-            return true;
-        } else {
-            try {
-                Log.d("BBDD: ", "NO hay base de datos");
-                //SE OBTIENEN LOS DATOS DE INTERNET...
-                remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
-                listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
-                Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + listaParadasBus.size());
                 //Si hemos abierto correctamente la base de datos
                 if (db != null) {
-                    funciones.insertaListaParadas(listaParadasBus, db);
+                    //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
+                    listaParadasBus = funciones.obtenerParadasLinea(identifierLinea, db);
+                    Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
                 }
                 if (db == null) throw new NullPointerException();
 
                 db.close();
+                Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
                 return true;
-            } catch (IOException e) {
-                return false;
-            } catch (Exception e) {
-                Log.e(ERROR, "Error en la obtención de las paradas de la linea: " + e.getMessage());
-                return false;
+            } else {
+                try {
+                    Log.d("BBDD: ", "NO hay base de datos");
+                    //SE OBTIENEN LOS DATOS DE INTERNET...
+                    remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
+                    listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
+                    Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + listaParadasBus.size());
+                    //Si hemos abierto correctamente la base de datos
+                    if (db != null) {
+                        funciones.insertaListaParadas(listaParadasBus, db);
+                    }
+                    if (db == null) throw new NullPointerException();
+
+                    db.close();
+                    return true;
+                } catch (IOException e) {
+                    return false;
+                } catch (Exception e) {
+                    Log.e(ERROR, "Error en la obtención de las paradas de la linea: " + e.getMessage());
+                    return false;
+                }
             }
         }
+        return false;
     }
 
     @Override
@@ -122,31 +125,46 @@ public class ListParadasPresenter implements IListParadasPresenter {
             TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
 
+            if (remoteFetchParadas.checkDataBase(dbPath, context) && isCompleta(identifierLinea)) {
+                //Si hemos abierto correctamente la base de datos
+                if (db != null) {
+                    List<Parada> listasecParada = listaParadasBus;
 
-            //Si hemos abierto correctamente la base de datos
-            if (db != null) {
-                List<Parada> listasecParada = listaParadasBus;
-                //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
-                //funciones.borrarListaParadas(listaParadasBus,db);
+                    //funciones.borrarListaParadas(listaParadasBus,db);
 
-                try {
+                    try {
+                        remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                        listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(), identifierLinea);
 
+                        Log.e(ERROR, "EMpezando a reccargar Paradas");
 
-                    remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
-                    listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(), identifierLinea);
+                    } catch (IOException e) {
+                        return false;
+                    }
+                    //SE BORRAN LAS PARADAS ANTIGUAS DE LA BASE DE DATOS
+                    funciones.borrarListaParadas(listasecParada, db);
+                    //Y SE INSERTAN LAS NUEVAS PARADAS
+                    funciones.insertaParadasLinea(listaParadasBus, identifierLinea, db);
 
-                    Log.e(ERROR, "EMpezando a reccargar Paradas");
+                } else return false;
 
-                } catch (IOException e) {
-                    return false;
-                }
-                funciones.borrarListaParadas(listasecParada, db);
+                return true;
+            } else {
+                if (db != null) {
+                    //List<Parada> listasecParada = listaParadasBus;
+                    try {
+                        remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                        listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(), identifierLinea);
 
-                funciones.insertaParadasLinea(listaParadasBus, identifierLinea, db);
+                    } catch (IOException e) {
+                        return false;
+                    }
 
-            } else return false;
+                    funciones.insertaParadasLinea(listaParadasBus, identifierLinea, db);
+                    return true;
 
-            return true;
+                } else return false;
+            }
         }
         return false;
 
@@ -195,6 +213,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
+                listParadasView.hideErrorMessage();
                 listParadasView.showList(listaParadasBus);
                 listParadasView.showProgress(false);
                 //Muestra el toast con el mensaje
@@ -248,6 +267,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
+                listParadasView.hideErrorMessage();
                 listParadasView.showList(getListParadasBus());
                 listParadasView.showProgress(false);
                 //Muestra el toast con el mensaje de que los datos se han actualizado
@@ -264,7 +284,6 @@ public class ListParadasPresenter implements IListParadasPresenter {
         @Override
         protected Boolean doInBackground(String... urls) {
             try {
-
                 return recargaParadas();
             } catch (Exception e) {
                 Log.e("ERROR","Error en la obtención de las lineas");

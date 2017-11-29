@@ -112,6 +112,11 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
     }
 
     @Override
+    public void hideErrorMessage() {
+        textViewMensajeError.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     public ProgressDialog getDialog() {
         return dialog;
     }

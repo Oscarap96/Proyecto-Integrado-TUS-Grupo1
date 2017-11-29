@@ -32,6 +32,11 @@ public interface IParadasFragment {
     void showErrorMessage();
 
     /**
+     * Esconde el mensaje de error por falta de Internet
+     */
+    void hideErrorMessage();
+
+    /**
      * Observador del dialogo de carga.
      *
      * @return dialogo de carga
