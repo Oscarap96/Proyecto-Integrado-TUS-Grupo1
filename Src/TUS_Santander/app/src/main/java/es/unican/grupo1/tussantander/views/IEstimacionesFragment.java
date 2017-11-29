@@ -13,11 +13,16 @@ import es.unican.grupo1.tussantander.model.Estimacion;
 public interface IEstimacionesFragment {
 
     /**
-     * Mustra graficamente la lista de estimaciones haciendo uso del adapter.
+     * Muestra graficamente la lista de estimaciones haciendo uso del adapter.
      *
      * @param estimacionesList lista de estimaciones
      */
     void showList(List<Estimacion> estimacionesList);
+
+    /**
+     * Borra lo que hay en el fragment haciendo uso del adapter.
+     */
+    void hideList();
 
     /**
      * Muestra un dialogo de carga.
@@ -30,6 +35,11 @@ public interface IEstimacionesFragment {
      * Muestra el mensaje de error por falta de Internet.
      */
     void showErrorMessage();
+
+    /**
+     * Esconde el mensaje de error por falta de Internet
+     */
+    void hideErrorMessage();
 
     /**
      * Observador del dialogo de carga.

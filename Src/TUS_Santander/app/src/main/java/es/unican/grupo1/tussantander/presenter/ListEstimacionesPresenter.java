@@ -1,14 +1,18 @@
 package es.unican.grupo1.tussantander.presenter;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
 
+import es.unican.grupo1.tussantander.R;
 import es.unican.grupo1.tussantander.model.dataloaders.Data;
 import es.unican.grupo1.tussantander.model.Estimacion;
+import es.unican.grupo1.tussantander.utils.Utilidades;
 import es.unican.grupo1.tussantander.views.IEstimacionesFragment;
 
 
@@ -59,12 +63,17 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                listEstimacionesView.showList(listaEstimaciones);
+                listEstimacionesView.hideErrorMessage();
+                listEstimacionesView.showList(listaEstimaciones); // Se muestra la lista de estimaciones
                 listEstimacionesView.showProgress(false);
                 Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT).show();
             } else {
+                listEstimacionesView.hideList(); // Se esconde la lista de estimaciones anterior
                 listEstimacionesView.showProgress(false);
                 listEstimacionesView.showErrorMessage();
+
+                Toast toast = Toast.makeText(context,"No hay Internet",Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }
@@ -78,14 +87,19 @@ public class ListEstimacionesPresenter implements IListEstimacionesPresenter {
 
     @Override
     public boolean obtenEstimaciones() {
-        try {
-            Data data = new Data();
-            listaEstimaciones = data.descargarEstimaciones(paradaId);
-            return true;
-        } catch (Exception e) {
-            Log.e("ERROR","Error en la descarga de estimaciones");
-            return false;
+        if(Utilidades.isOnline(context)) {
+            try {
+                Data data = new Data();
+                Log.e("descargando", "descargando estimaciones");
+                listaEstimaciones = data.descargarEstimaciones(paradaId);
+                Log.e("NO ERROR", "SIN error en la descarga de estimaciones");
+                return true;
+            } catch (Exception e) {
+                Log.e("ERROR", "Error en la descarga de estimaciones");
+                return false;
+            }
         }
+        return false;
     }
 
     @Override

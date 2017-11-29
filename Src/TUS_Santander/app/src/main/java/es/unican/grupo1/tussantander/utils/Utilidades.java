@@ -1,5 +1,9 @@
 package es.unican.grupo1.tussantander.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,5 +100,17 @@ public class Utilidades {
         usuario, no hay razon para que ponga un punto sin querer
          */
         return busqueda.replace("-", "");
+    }
+
+    /**
+     * Método que comprueba si el teléfono tiene conexión a internet.
+     * @param context contexto
+     * @return true si el teléfono tiene conexión a internet
+     * @return false si el teléfono no tiene conexión a internet
+     */
+    public static boolean isOnline(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
     }
 }

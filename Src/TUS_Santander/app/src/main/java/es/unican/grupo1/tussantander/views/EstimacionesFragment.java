@@ -47,6 +47,7 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
     public void onListItemClick(ListView listView, View view, int position, long id) {
         // no hace nada al pulsar una estimacion
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.refresh_item)
@@ -57,10 +58,16 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
         }
         return(super.onOptionsItemSelected(item));
     }
+
     @Override
     public void showList(List<Estimacion> estimacionesList) {
         ListEstimacionesAdapter listEstimacionesAdapter = new ListEstimacionesAdapter(getContext(), estimacionesList);
         getListView().setAdapter(listEstimacionesAdapter);
+    }
+
+    @Override
+    public void hideList() {
+        getListView().setAdapter(null);
     }
 
     @Override
@@ -77,6 +84,11 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
     public void showErrorMessage() {
         textViewMensajeErrorEstimaciones.setVisibility(View.VISIBLE);
         textViewMensajeErrorEstimaciones.setText("Internet no disponible. Inténtalo más tarde.");
+    }
+
+    @Override
+    public void hideErrorMessage() {
+        textViewMensajeErrorEstimaciones.setVisibility(View.INVISIBLE);
     }
 
     @Override

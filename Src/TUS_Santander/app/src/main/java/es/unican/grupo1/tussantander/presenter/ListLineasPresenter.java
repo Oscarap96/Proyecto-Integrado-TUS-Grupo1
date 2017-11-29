@@ -18,6 +18,7 @@ import es.unican.grupo1.tussantander.model.databaseaccess.TUSSQLiteHelper;
 import es.unican.grupo1.tussantander.model.Linea;
 import es.unican.grupo1.tussantander.model.Parada;
 import es.unican.grupo1.tussantander.R;
+import es.unican.grupo1.tussantander.utils.Utilidades;
 import es.unican.grupo1.tussantander.views.ILineasFragment;
 
 
@@ -249,52 +250,58 @@ public class ListLineasPresenter implements IListLineasPresenter {
 
     @Override
     public boolean recargaLineas() {
-        //SE CARGA LA DB Y HABILITA SUS FUNCIONES
-        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        // Se comprueba si hay internet: si lo hay se intentan actualizar las líneas,
+        // si no hay internet no se intentan actualizar y se retorna false
+        if (Utilidades.isOnline(context)) {
+            Log.d("HAY INTERNET","HAY INTERNET");
+            //SE CARGA LA DB Y HABILITA SUS FUNCIONES
+            MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-
-        if (remoteFetchLineas.checkDataBase(dbPath, context) && isCompleta()) {
-            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
-            SQLiteDatabase db = tusdbh.getWritableDatabase();
-
-            //Si hemos abierto correctamente la base de datos
-            if (db != null) {
-                List<Linea> listasec=listaLineasBus;
-                //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
-                //funciones.borrarListaLineas(listaLineasBus, db);
-
-                try {
-                    remoteFetchActualizar.getJSON(RemoteFetch.URL_LINEAS_BUS);
-                    listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchActualizar.getBufferedData());
-                    //InputStream is = context.getResources().openRawResource(R.raw.lineas_test);
-                    //listaLineasBus = ParserJSON.readArrayLineasBus(is);
-                    Collections.sort(listaLineasBus);
-                } catch (IOException e) {
-                    return false;
-
-                }
-                funciones.borrarListaLineas(listasec, db);
-
-                funciones.insertaListaLineas(listaLineasBus, db);
-
-            } else {
-                throw new NullPointerException();
-            }
-        } else {
-            try {
-                //SE OBTIENEN LOS DATOS DE INTERNET...
-                remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
-                listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
-
-                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
+            if (remoteFetchLineas.checkDataBase(dbPath, context) && isCompleta()) {
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
 
-                funciones.insertaListaLineas(listaLineasBus, db);
-            } catch (Exception e) {
-                return false;
+                //Si hemos abierto correctamente la base de datos
+                if (db != null) {
+                    List<Linea> listasec = listaLineasBus;
+                    //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
+                    //funciones.borrarListaLineas(listaLineasBus, db);
+
+                    try {
+                        remoteFetchActualizar.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                        listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchActualizar.getBufferedData());
+                        //InputStream is = context.getResources().openRawResource(R.raw.lineas_test);
+                        //listaLineasBus = ParserJSON.readArrayLineasBus(is);
+                        Collections.sort(listaLineasBus);
+                    } catch (IOException e) {
+                        return false;
+
+                    }
+                    funciones.borrarListaLineas(listasec, db);
+
+                    funciones.insertaListaLineas(listaLineasBus, db);
+
+                } else {
+                    throw new NullPointerException();
+                }
+            } else {
+                try {
+                    //SE OBTIENEN LOS DATOS DE INTERNET...
+                    remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                    listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+
+                    TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
+                    SQLiteDatabase db = tusdbh.getWritableDatabase();
+
+                    funciones.insertaListaLineas(listaLineasBus, db);
+                } catch (Exception e) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        Log.d("NO HAY INTERNET","NO HAY INTERNET");
+        return false;
 }
 
     @Override

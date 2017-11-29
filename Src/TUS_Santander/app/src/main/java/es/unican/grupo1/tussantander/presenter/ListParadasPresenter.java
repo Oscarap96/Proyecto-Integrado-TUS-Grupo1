@@ -114,37 +114,41 @@ public class ListParadasPresenter implements IListParadasPresenter {
             }
         }
     }
+
     @Override
     public boolean recargaParadas() {
-        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
-        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
-        SQLiteDatabase db = tusdbh.getWritableDatabase();
+        if(Utilidades.isOnline(context)) {
+            MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            SQLiteDatabase db = tusdbh.getWritableDatabase();
 
 
-        //Si hemos abierto correctamente la base de datos
-        if (db != null) {
-            List<Parada> listasecParada=listaParadasBus;
-            //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
-            //funciones.borrarListaParadas(listaParadasBus,db);
+            //Si hemos abierto correctamente la base de datos
+            if (db != null) {
+                List<Parada> listasecParada = listaParadasBus;
+                //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
+                //funciones.borrarListaParadas(listaParadasBus,db);
 
-            try {
+                try {
 
 
-                remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
-                listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(),identifierLinea);
+                    remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
+                    listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(), identifierLinea);
 
-                Log.e(ERROR, "EMpezando a reccargar Paradas");
+                    Log.e(ERROR, "EMpezando a reccargar Paradas");
 
-            }catch(IOException e) {
-                return false;
-            }
-            funciones.borrarListaParadas(listasecParada,db);
+                } catch (IOException e) {
+                    return false;
+                }
+                funciones.borrarListaParadas(listasecParada, db);
 
-            funciones.insertaParadasLinea(listaParadasBus,identifierLinea,db);
+                funciones.insertaParadasLinea(listaParadasBus, identifierLinea, db);
 
-        }else return false;
+            } else return false;
 
-        return true;
+            return true;
+        }
+        return false;
 
     }
 
@@ -246,12 +250,12 @@ public class ListParadasPresenter implements IListParadasPresenter {
             if (aBoolean) {
                 listParadasView.showList(getListParadasBus());
                 listParadasView.showProgress(false);
-                //Muestra el toast con el mensaje
+                //Muestra el toast con el mensaje de que los datos se han actualizado
                 Toast toast1 = Toast.makeText(context,"Actualizado", Toast.LENGTH_SHORT);
                 toast1.show();
             } else {
                 listParadasView.showProgress(false);
-                //Muestra el toast con el mensaje
+                //Muestra el toast con el mensaje informando de que no hay conexión a internet
                 Toast toast1 = Toast.makeText(context,"No hay Internet",Toast.LENGTH_SHORT);
                 toast1.show();
             }
