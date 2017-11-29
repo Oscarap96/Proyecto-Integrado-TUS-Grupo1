@@ -11,4 +11,5 @@
     <string name="primerBus">Primer bus:</string>
     <string name="segundoBus">Segundo bus:</string>
     <string name="minutos">min.</string>
+    <string name="sinResultados">Sin resultados</string>
 </resources>

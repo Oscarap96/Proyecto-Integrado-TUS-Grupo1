@@ -20,7 +20,7 @@ public class RemoteFetch {
 
     //URL para obtener un listado de la secuencia de paradas
     //http://datos.santander.es/resource/?ds=lineas-bus&id=bbfe898c-715b-4dfd-a418-a878d276f9fc&ft=JSON
-    public static final String URL_SECUENCIA_PARADAS = "http://datos.santander.es/api/rest/datasets/lineas_bus_secuencia.json?items=2232";
+    public static final String URL_SECUENCIA_PARADAS = "http://datos.santander.es/api/rest/datasets/lineas_bus_secuencia.json?items=5000";
 
     //URL para obtener un listado de todas las paradas de autobus
     public static final String URL_PARADAS_BUS = "http://datos.santander.es/api/rest/datasets/lineas_bus_paradas.json?items=2000";
@@ -29,7 +29,7 @@ public class RemoteFetch {
     public static final String URL_PARADAS_INFO = "http://datos.santander.es/api/rest/datasets/paradas_bus.json?items=2300";
 
     //Estimacion del tiempo de llegada
-    public static final String URL_ESTIMACION = "http://datos.santander.es/api/rest/datasets/control_flotas_estimaciones.json?items=2300";
+    public static final String URL_ESTIMACION = "http://datos.santander.es/api/rest/datasets/control_flotas_estimaciones.json?items=5000";
 
     private BufferedInputStream bufferedData;
 

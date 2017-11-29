@@ -3,7 +3,9 @@ package es.unican.grupo1.tussantander.views;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -20,8 +22,8 @@ import es.unican.grupo1.tussantander.R;
  */
 public class EstimacionesFragment extends ListFragment implements IEstimacionesFragment {
     private ProgressDialog dialog;
-    private ListEstimacionesPresenter listEstimacionesPresenter;
     private TextView textViewMensajeErrorEstimaciones;
+    ListEstimacionesPresenter listEstimacionesPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,20 +35,28 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
         DataCommunication dataCommunication = (DataCommunication) getContext();
         int paradaId = dataCommunication.getParadaIdentifier();
         this.listEstimacionesPresenter = new ListEstimacionesPresenter(getContext(), this, paradaId);
         this.dialog = new ProgressDialog(getContext());
         this.listEstimacionesPresenter.start();
-        // oculta el boton de refrescar
-        ((DataCommunication) getContext()).setMostrarBotonActualizar(false);
     }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         // no hace nada al pulsar una estimacion
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.refresh_item)
+        {
+            this.listEstimacionesPresenter.start();
+            Log.d("Pulsado","Actualizar");
+            return(true);
+        }
+        return(super.onOptionsItemSelected(item));
+    }
     @Override
     public void showList(List<Estimacion> estimacionesList) {
         ListEstimacionesAdapter listEstimacionesAdapter = new ListEstimacionesAdapter(getContext(), estimacionesList);

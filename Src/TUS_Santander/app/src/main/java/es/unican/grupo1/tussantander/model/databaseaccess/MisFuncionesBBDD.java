@@ -3,6 +3,7 @@ package es.unican.grupo1.tussantander.model.databaseaccess;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import es.unican.grupo1.tussantander.model.Linea;
 import es.unican.grupo1.tussantander.model.Parada;
 
 /**
- * Created by Oscar Alario Pelaz on 08/11/2017.
+ * Created by Oscar Alario Pelaz and Alberto de Castro on 08/11/2017.
  */
 
 public class MisFuncionesBBDD {
@@ -30,9 +31,21 @@ public class MisFuncionesBBDD {
         for (int i = 0; i < lineas.size(); i++) {
             Linea linea = lineas.get(i);
             insertaLinea(i, linea.getName(), linea.getNumero(), linea.getIdentifier(), db);
+
         }
     }
 
+    private void borrarLinea(int id,SQLiteDatabase db){
+        if (db!=null){
+            db.delete("Linea","idLinea="+id,null);
+        }else
+            Log.d("Error: ", "ERROR DELETE");
+    }
+    public void borrarListaLineas(List<Linea> lineas,SQLiteDatabase db){
+        for (int i=0; i< lineas.size();i++){
+            borrarLinea(i,db);
+        }
+    }
     private void insertaParada(int id, String nom, int identi, SQLiteDatabase db) {
         if (db != null) {
             ContentValues valores = new ContentValues();
@@ -47,6 +60,14 @@ public class MisFuncionesBBDD {
         for (int i = 0; i < paradas.size(); i++) {
             Parada parada = paradas.get(i);
             insertaParada(i, parada.getNombre(), parada.getIdentificador(), db);
+        }
+    }
+
+    public void borrarListaParadas(List<Parada> paradas,SQLiteDatabase db){
+        Parada parada;
+        for (int i=0; i< paradas.size();i++){
+            parada=paradas.get(i);
+            db.delete("ParadaLinea","idParada="+parada.getIdentificador(),null);
         }
     }
 
@@ -101,7 +122,7 @@ public class MisFuncionesBBDD {
     }
 
     public List<Parada> obtenerParadas(SQLiteDatabase db) {
-        Cursor c = db.rawQuery("SELECT * FROM Parada", null);
+        Cursor c = db.rawQuery("SELECT * FROM ParadaLinea", null);
         String nombre;
         int identificador;
         List<Parada> paradas = new ArrayList<>();

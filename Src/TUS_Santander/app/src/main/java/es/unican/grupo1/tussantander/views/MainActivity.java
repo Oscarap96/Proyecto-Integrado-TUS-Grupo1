@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import es.unican.grupo1.tussantander.R;
+import es.unican.grupo1.tussantander.presenter.ListParadasPresenter;
 
 
 /**
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     private int paradaIdentifier;
     // determina si hay que mostrar el boton de refrescar de la action bar
     private boolean mostrarBotonActualizar = true;
+    // presenter de paradas
+    private ListParadasPresenter paradasPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +35,14 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         ft.commit();
     }//onCreate
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         // mustra u oculta el boton de actualizar
         MenuItem item = menu.findItem(R.id.refresh_item);
         item.setVisible(mostrarBotonActualizar);
+
         return true;
     }
 
@@ -65,5 +71,15 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         this.mostrarBotonActualizar = mostrar;
         // vuelve a llamar a onCreateOptionsMenu despues de invalidar la action bar
         invalidateOptionsMenu();
+    }
+
+    @Override
+    public void setParadasPresenter(ListParadasPresenter paradasPresenter) {
+        this.paradasPresenter = paradasPresenter;
+    }
+
+    @Override
+    public ListParadasPresenter getParadasPresenter() {
+        return paradasPresenter;
     }
 }// MainActivity

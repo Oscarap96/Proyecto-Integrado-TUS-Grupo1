@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,10 +29,11 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private ILineasFragment listLineasView;
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
+    private RemoteFetch remoteFetchActualizar;
     private Context context;
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
-
+    private static final String DBTUS = "DBTUS";
     private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     /**
@@ -42,6 +45,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     public ListLineasPresenter(Context context, ILineasFragment listLineasView) {
         this.listLineasView = listLineasView;
         this.remoteFetchLineas = new RemoteFetch();
+        this.remoteFetchActualizar = new RemoteFetch();
         this.context = context;
         this.remoteFetchParadas = new RemoteFetch();
     }
@@ -78,7 +82,48 @@ public class ListLineasPresenter implements IListLineasPresenter {
             try {
                 return obtenLineas();
             } catch (Exception e) {
-                Log.e("ERROR","Error en la obtención de las lineas");
+                Log.e("ERROR", "Error en la obtención de las lineas");
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Clase para hacer una tarea asincrona al descargar los datos.
+     */
+    class RetrieveFeedTask2 extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            listLineasView.getDialog().setCancelable(false);
+            //Muestra mensaje de cargando datos...
+            listLineasView.showProgress(true);
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                listLineasView.hideErrorMessage();
+                listLineasView.showList(getListaLineasBus());
+                listLineasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context, "Actualizado", Toast.LENGTH_SHORT);
+                toast1.show();
+            } else {
+                listLineasView.showProgress(false);
+                //Muestra el toast con el mensaje
+                Toast toast1 = Toast.makeText(context, "No hay Internet", Toast.LENGTH_SHORT);
+                toast1.show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+                return recargaLineas();
+            } catch (Exception e) {
+                Log.e("ERROR", "Error en la obtención de las lineas");
                 return false;
             }
         }
@@ -91,12 +136,38 @@ public class ListLineasPresenter implements IListLineasPresenter {
         new RetrieveFeedTask().execute();
     }// start
 
+    /**
+     * Inicia la tarea asincrona.
+     */
+    public void start1() {
+        new RetrieveFeedTask2().execute();
+    }// start
+
+    /**
+     * Comprueba si las líneas están almacenadas en la BBDD
+     *
+     * @return true si las líneas están en la BBDD
+     * o false en caso contrario.
+     */
+    public boolean isCompleta() {
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
+        SQLiteDatabase db = tusdbh.getWritableDatabase();
+        if (db != null) {
+            List<Linea> listaLinea = funciones.obtenerLineas(db);
+            if (listaLinea.size() > 30) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean obtenLineas() {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-        if (remoteFetchLineas.checkDataBase(dbPath, context)) {
-            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        if (remoteFetchLineas.checkDataBase(dbPath, context) && isCompleta()) {
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
             Log.d("BBDD: ", "SI hay base de datos");
 
@@ -104,7 +175,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
                 listaLineasBus = funciones.obtenerLineas(db);
-            }else{
+            } else {
                 throw new NullPointerException();
             }
 
@@ -121,11 +192,10 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
 
 
-
                 Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
 
 
-                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
 
                 // Asignar paradas a lineas
@@ -138,6 +208,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     laLinea = listaLineasBus.get(i);
                     identiLinea = laLinea.getIdentifier();
                     Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
+                    Log.d("IdentLinea", "Identiline" + identiLinea);
                     remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                     paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
                     Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
@@ -146,6 +217,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     }
                 }
 
+
                 // Asignar paradas a lineas
 
 
@@ -153,9 +225,8 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 if (db != null) {
                     Log.d("DB Creada", "creada la base de datos");
                     funciones.insertaListaLineas(listaLineasBus, db);
-
                 }
-                if(db == null) throw new NullPointerException();
+                if (db == null) throw new NullPointerException();
 
                 db.close();
                 Collections.sort(listaLineasBus);
@@ -171,6 +242,53 @@ public class ListLineasPresenter implements IListLineasPresenter {
     }
 
     @Override
+    public boolean recargaLineas() {
+        //SE CARGA LA DB Y HABILITA SUS FUNCIONES
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+
+        if (remoteFetchLineas.checkDataBase(dbPath, context) && isCompleta()) {
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            SQLiteDatabase db = tusdbh.getWritableDatabase();
+
+            //Si hemos abierto correctamente la base de datos
+            if (db != null) {
+
+                //SE BORRAN LAS LINEAS PARA ACTUALIZAR LAS LINNEAS
+                funciones.borrarListaLineas(listaLineasBus, db);
+
+                try {
+                    remoteFetchActualizar.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                    listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchActualizar.getBufferedData());
+                    //InputStream is = context.getResources().openRawResource(R.raw.lineas_test);
+                    //listaLineasBus = ParserJSON.readArrayLineasBus(is);
+                    Collections.sort(listaLineasBus);
+                } catch (IOException e) {
+
+                    return false;
+                }
+                funciones.insertaListaLineas(listaLineasBus, db);
+
+            } else {
+                throw new NullPointerException();
+            }
+        } else {
+            try {
+                //SE OBTIENEN LOS DATOS DE INTERNET...
+                remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
+                listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
+                SQLiteDatabase db = tusdbh.getWritableDatabase();
+
+                funciones.insertaListaLineas(listaLineasBus, db);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return true;
+}
+
+    @Override
     public List<Linea> getListaLineasBus() {
         return listaLineasBus;
     }//getListaLineasBus
@@ -180,7 +298,11 @@ public class ListLineasPresenter implements IListLineasPresenter {
         String textoLineas = "";
         if (listaLineasBus != null) {
             for (int i = 0; i < listaLineasBus.size(); i++) {
-                textoLineas = textoLineas + listaLineasBus.get(i).getNumero() + "\n\n";
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(textoLineas);
+                stringBuilder.append(listaLineasBus.get(i).getNumero());
+                stringBuilder.append("\n\n");
+                textoLineas = stringBuilder.toString();
             }//for
         } else {
             textoLineas = "Sin lineas";
