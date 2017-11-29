@@ -7,8 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -30,9 +29,11 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private List<Linea> listaLineasBus;
     private RemoteFetch remoteFetchLineas;
     private RemoteFetch remoteFetchActualizar;
-    public Context context;
+    private Context context;
+    private static final String ERROR= "ERROR";
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
+    private static final String DBTUS="DBTUS";
 
     private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
@@ -82,7 +83,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             try {
                 return obtenLineas();
             } catch (Exception e) {
-                Log.e("ERROR","Error en la obtención de las lineas");
+                Log.e(ERROR,"Error en la obtención de las lineas");
                 return false;
             }
         }
@@ -121,7 +122,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             try {
                 return recargaLineas();
             } catch (Exception e) {
-                Log.e("ERROR","Error en la obtención de las lineas");
+                Log.e(ERROR,"Error en la obtención de las lineas");
                 return false;
             }
         }
@@ -143,12 +144,10 @@ public class ListLineasPresenter implements IListLineasPresenter {
     @Override
     public boolean obtenLineas() {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
-
         if (remoteFetchLineas.checkDataBase(dbPath, context)) {
-            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
             Log.d("BBDD: ", "SI hay base de datos");
-
             //Si hemos abierto correctamente la base de datos
             if (db != null) {
                 //SE OBTIENEN LOS DATOS DE LA BASE DE DATOS
@@ -174,7 +173,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
 
 
-                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
 
                 // Asignar paradas a lineas
@@ -213,7 +212,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
             } catch (IOException e) {
                 return false;
             } catch (Exception e) {
-                Log.e("ERROR", "Error en la obtención de las lineas de Bus: " + e.getMessage());
+                Log.e(ERROR, "Error en la obtención de las lineas de Bus: " + e.getMessage());
                 return false;
             }
         }
@@ -222,7 +221,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     public boolean recargaLineas(){
         //SE CARGA LA DB Y HABILITA SUS FUNCIONES
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
-        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
         SQLiteDatabase db = tusdbh.getWritableDatabase();
 
 
@@ -235,8 +234,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
             try {
                 remoteFetchActualizar.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchActualizar.getBufferedData());
-                //InputStream is = context.getResources().openRawResource(R.raw.lineas_test);
-                //listaLineasBus = ParserJSON.readArrayLineasBus(is);
                 Collections.sort(listaLineasBus);
             }catch(IOException e) {
 

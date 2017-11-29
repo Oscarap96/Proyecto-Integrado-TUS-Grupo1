@@ -7,8 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collections;
+
 import java.util.List;
 
 import es.unican.grupo1.tussantander.model.dataloaders.ParserJSON;
@@ -29,6 +28,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private RemoteFetch remoteFetchParadas;
     private RemoteFetch remoteFetchActualizar;
     private int identifierLinea;
+    private static final String ERROR="ERROR";
     private Context context;
 
     private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
@@ -85,7 +85,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             } catch (IOException e) {
                 return false;
             } catch (Exception e) {
-                Log.e("ERROR", "Error en la obtención de las paradas de la linea: " + e.getMessage());
+                Log.e(ERROR, "Error en la obtención de las paradas de la linea: " + e.getMessage());
                 return false;
             }
         }
@@ -106,10 +106,8 @@ public class ListParadasPresenter implements IListParadasPresenter {
             try {
 
                 remoteFetchActualizar.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
-                Log.e("ERROR", "EMpezando a reccargar Paradas");
+                Log.e(ERROR, "EMpezando a reccargar Paradas");
                 listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchActualizar.getBufferedData(),identifierLinea);
-                //InputStream is = context.getResources().openRawResource(R.raw.paradas_test);
-                //listaParadasBus = ParserJSON.readArraySecuenciaParadas(is,identifierLinea);
 
             }catch(IOException e) {
 
@@ -172,7 +170,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             try {
                 return obtenParadas();
             } catch (Exception e) {
-                Log.d("ERROR", "No hay conexion a Internet");
+                Log.d(ERROR, "No hay conexion a Internet");
                 return false;
             }
         }

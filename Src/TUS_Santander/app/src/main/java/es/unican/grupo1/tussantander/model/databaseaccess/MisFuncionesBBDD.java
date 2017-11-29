@@ -16,10 +16,13 @@ import es.unican.grupo1.tussantander.model.Parada;
  */
 
 public class MisFuncionesBBDD {
+    private static final String IDLINEA="idLinea";
+    private static final String PARADALINEA="ParadaLinea";
+
     public void insertaLinea(int id, String nom, String num, int identi, SQLiteDatabase db) {
         if (db != null) {
             ContentValues valores = new ContentValues();
-            valores.put("idLinea", id);
+            valores.put(IDLINEA, id);
             valores.put("nombre", nom);
             valores.put("numero", num);
             valores.put("identificador", identi);
@@ -53,12 +56,12 @@ public class MisFuncionesBBDD {
             valores.put("idParada", id);
             valores.put("nombreParada", nom);
             valores.put("idLinea", idLinea);
-            db.insert("ParadaLinea", null, valores);
+            db.insert(PARADALINEA, null, valores);
         }
     }
     public void borraParada(int id,SQLiteDatabase db){
         if(db!=null){
-            db.delete("ParadaLinea","idParada="+id,null);
+            db.delete(PARADALINEA,"idParada="+id,null);
         }
     }
 
@@ -74,7 +77,7 @@ public class MisFuncionesBBDD {
         for (int i=0; i< paradas.size();i++){
             parada=paradas.get(i);
             Log.d("Error: ", "ERROR DELETE");
-            db.delete("ParadaLinea","idParada="+parada.getIdentificador(),null);
+            db.delete(PARADALINEA,"idParada="+parada.getIdentificador(),null);
         }
     }
 
@@ -86,7 +89,7 @@ public class MisFuncionesBBDD {
                 laParada = paradas.get(i);
                 valores.put("idParada", laParada.getIdentificador());
                 valores.put("nombreParada", laParada.getNombre());
-                valores.put("idLinea", identiLinea);
+                valores.put(IDLINEA, identiLinea);
                 db.insert("ParadaLinea", null, valores);
             }
         }

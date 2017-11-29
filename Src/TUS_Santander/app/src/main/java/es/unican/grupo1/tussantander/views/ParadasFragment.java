@@ -54,7 +54,7 @@ public class ParadasFragment extends ListFragment implements IParadasFragment {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        Log.d("pulsado", "" + position);
+        Log.d("pulsado", Integer.toString(position));
         // cambio a la interfaz de estimaciones
         EstimacionesFragment fragmentEstimaciones = new EstimacionesFragment();
         FragmentManager fm = getActivity().getSupportFragmentManager();
