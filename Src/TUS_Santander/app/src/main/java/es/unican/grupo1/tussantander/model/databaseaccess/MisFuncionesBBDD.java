@@ -122,7 +122,7 @@ public class MisFuncionesBBDD {
     }
 
     public List<Parada> obtenerParadas(SQLiteDatabase db) {
-        Cursor c = db.rawQuery("SELECT * FROM Parada", null);
+        Cursor c = db.rawQuery("SELECT * FROM ParadaLinea", null);
         String nombre;
         int identificador;
         List<Parada> paradas = new ArrayList<>();

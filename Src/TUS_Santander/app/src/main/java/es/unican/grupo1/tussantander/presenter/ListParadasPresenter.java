@@ -31,6 +31,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private int identifierLinea;
     private Context context;
 
+    private static final String DBTUS = "DBTUS";
     private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     /**
@@ -48,13 +49,33 @@ public class ListParadasPresenter implements IListParadasPresenter {
         this.identifierLinea = identifierLinea;
     }// ListLineasPresenter
 
+    /**
+     * Comprueba si las paradas de una línea cuyo id se pasa como parámetro están almacenadas en la BBDD
+     * @param idLinea identificador de la linea de la cual se quiere saber si sus paradas están en la BBDD
+     * @return true si las paradas de dicha línea están en la BBDD
+     * o false en caso contrario.
+     */
+    public boolean isCompleta(int idLinea){
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
+        SQLiteDatabase db = tusdbh.getWritableDatabase();
+        if(db != null) {
+            List<Parada> listaParada = funciones.obtenerParadasLinea(idLinea, db);
+            Log.d("Tamaño", "listaParada:" +listaParada.size());
+            if (listaParada.size() > 12) {
+                return true;
+            }
+        }
+        return  false;
+    }
+
     @Override
     public boolean obtenParadas() {
         TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
         SQLiteDatabase db = tusdbh.getWritableDatabase();
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-        if (remoteFetchParadas.checkDataBase(dbPath, context)) {
+        if (remoteFetchParadas.checkDataBase(dbPath, context) && isCompleta(identifierLinea)) {
             Log.d("BBDD: ", "SI hay base de datos");
 
             //Si hemos abierto correctamente la base de datos
