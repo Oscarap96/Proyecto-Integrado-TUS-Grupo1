@@ -92,8 +92,8 @@ public class ListLineasPresenter implements IListLineasPresenter {
     }// start
 
     /**
-     * Comprueba si la BBDD esta completa
-     * @return true si la BBDD se ha completado
+     * Comprueba si las líneas están almacenadas en la BBDD
+     * @return true si las líneas están en la BBDD
      * o false en caso contrario.
      */
     public boolean isCompleta(){
@@ -101,12 +101,8 @@ public class ListLineasPresenter implements IListLineasPresenter {
         TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
         SQLiteDatabase db = tusdbh.getWritableDatabase();
         if(db != null) {
-            Log.d("Entra", "Entra aqui");
             List<Linea> listaLinea = funciones.obtenerLineas(db);
-            List<Parada> listaParada = funciones.obtenerParadas(db);
-            Log.d("Tamaño", "listaLinea:" +listaLinea.size());
-            Log.d("Tamaño", "listaParada:" +listaParada.size());
-            if (listaLinea.size() > 30 && listaParada.size() > 2000) {
+            if (listaLinea.size() > 30) {
                 return true;
             }
         }
