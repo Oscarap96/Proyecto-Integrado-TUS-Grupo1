@@ -30,7 +30,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private Context context;
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
-
+    private static final String DBTUS = "DBTUS";
     private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     /**
@@ -91,12 +91,30 @@ public class ListLineasPresenter implements IListLineasPresenter {
         new RetrieveFeedTask().execute();
     }// start
 
+    /**
+     * Comprueba si las líneas están almacenadas en la BBDD
+     * @return true si las líneas están en la BBDD
+     * o false en caso contrario.
+     */
+    public boolean isCompleta(){
+        MisFuncionesBBDD funciones = new MisFuncionesBBDD();
+        TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
+        SQLiteDatabase db = tusdbh.getWritableDatabase();
+        if(db != null) {
+            List<Linea> listaLinea = funciones.obtenerLineas(db);
+            if (listaLinea.size() > 30) {
+                return true;
+            }
+        }
+        return  false;
+    }
+
     @Override
     public boolean obtenLineas() {
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
 
-        if (remoteFetchLineas.checkDataBase(dbPath, context)) {
-            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+        if (remoteFetchLineas.checkDataBase(dbPath, context) && isCompleta()) {
+            TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
             SQLiteDatabase db = tusdbh.getWritableDatabase();
             Log.d("BBDD: ", "SI hay base de datos");
 
@@ -125,7 +143,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
 
 
-                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
+                TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
 
                 // Asignar paradas a lineas
@@ -153,7 +171,6 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 if (db != null) {
                     Log.d("DB Creada", "creada la base de datos");
                     funciones.insertaListaLineas(listaLineasBus, db);
-
                 }
                 if(db == null) throw new NullPointerException();
 
