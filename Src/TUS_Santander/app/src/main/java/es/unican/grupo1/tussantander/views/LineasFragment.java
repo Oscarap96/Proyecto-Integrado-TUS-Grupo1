@@ -95,6 +95,11 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
     }
 
     @Override
+    public void hideErrorMessage() {
+        textViewMensajeError.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     public ProgressDialog getDialog() {
         return dialog;
     }
