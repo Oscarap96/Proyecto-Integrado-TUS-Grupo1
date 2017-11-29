@@ -22,8 +22,8 @@ import es.unican.grupo1.tussantander.R;
  */
 public class EstimacionesFragment extends ListFragment implements IEstimacionesFragment {
     private ProgressDialog dialog;
-    private ListEstimacionesPresenter listEstimacionesPresenter;
     private TextView textViewMensajeErrorEstimaciones;
+    ListEstimacionesPresenter listEstimacionesPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class EstimacionesFragment extends ListFragment implements IEstimacionesF
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.refresh_item)
         {
-            listEstimacionesPresenter.start();
+            this.listEstimacionesPresenter.start();
             Log.d("Pulsado","Actualizar");
             return(true);
         }

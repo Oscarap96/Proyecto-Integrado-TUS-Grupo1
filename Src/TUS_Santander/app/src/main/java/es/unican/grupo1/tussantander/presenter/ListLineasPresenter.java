@@ -298,7 +298,11 @@ public class ListLineasPresenter implements IListLineasPresenter {
         String textoLineas = "";
         if (listaLineasBus != null) {
             for (int i = 0; i < listaLineasBus.size(); i++) {
-                textoLineas = textoLineas + listaLineasBus.get(i).getNumero() + "\n\n";
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(textoLineas);
+                stringBuilder.append(listaLineasBus.get(i).getNumero());
+                stringBuilder.append("\n\n");
+                textoLineas = stringBuilder.toString();
             }//for
         } else {
             textoLineas = "Sin lineas";

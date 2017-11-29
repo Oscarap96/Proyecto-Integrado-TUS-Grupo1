@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import es.unican.grupo1.tussantander.R;
+import es.unican.grupo1.tussantander.presenter.ListParadasPresenter;
 
 
 /**
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     private int paradaIdentifier;
     // determina si hay que mostrar el boton de refrescar de la action bar
     private boolean mostrarBotonActualizar = true;
+    // presenter de paradas
+    private ListParadasPresenter paradasPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,5 +71,15 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
         this.mostrarBotonActualizar = mostrar;
         // vuelve a llamar a onCreateOptionsMenu despues de invalidar la action bar
         invalidateOptionsMenu();
+    }
+
+    @Override
+    public void setParadasPresenter(ListParadasPresenter paradasPresenter) {
+        this.paradasPresenter = paradasPresenter;
+    }
+
+    @Override
+    public ListParadasPresenter getParadasPresenter() {
+        return paradasPresenter;
     }
 }// MainActivity
