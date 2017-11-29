@@ -21,6 +21,7 @@ import es.unican.grupo1.tussantander.R;
  */
 
 public class UnitariasEstimacionesTest {
+    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
 
     @Test
     public void readArrayEstimacionesTest() throws IOException {

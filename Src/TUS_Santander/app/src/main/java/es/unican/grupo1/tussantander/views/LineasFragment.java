@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,7 @@ public class LineasFragment extends ListFragment implements ILineasFragment {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        Log.d("pulsado", "" + position);
+        Log.d("pulsado", Integer.toString(position));
         //AQUI SE DEBE HACER EL CAMBIO DE FRAGMENTS
         ParadasFragment fragmentParadas = new ParadasFragment();
         FragmentManager fm = getActivity().getSupportFragmentManager();

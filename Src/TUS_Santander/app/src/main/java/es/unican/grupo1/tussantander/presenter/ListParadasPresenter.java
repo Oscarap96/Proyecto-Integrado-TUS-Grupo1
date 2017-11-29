@@ -7,8 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collections;
+
 import java.util.List;
 
 import es.unican.grupo1.tussantander.utils.Utilidades;
@@ -31,6 +30,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private RemoteFetch remoteFetchParadas;
     private RemoteFetch remoteFetchParadasActualizar;
     private int identifierLinea;
+    private static final String ERROR="ERROR";
     private Context context;
 
     private static final String DBTUS = "DBTUS";
@@ -109,7 +109,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             } catch (IOException e) {
                 return false;
             } catch (Exception e) {
-                Log.e("ERROR", "Error en la obtención de las paradas de la linea: " + e.getMessage());
+                Log.e(ERROR, "Error en la obtención de las paradas de la linea: " + e.getMessage());
                 return false;
             }
         }
@@ -129,8 +129,12 @@ public class ListParadasPresenter implements IListParadasPresenter {
 
             try {
 
+
                 remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                 listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(),identifierLinea);
+
+                Log.e(ERROR, "EMpezando a reccargar Paradas");
+
             }catch(IOException e) {
                 return false;
             }
@@ -203,7 +207,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
             try {
                 return obtenParadas();
             } catch (Exception e) {
-                Log.d("ERROR", "No hay conexion a Internet");
+                Log.d(ERROR, "No hay conexion a Internet");
                 return false;
             }
         }
