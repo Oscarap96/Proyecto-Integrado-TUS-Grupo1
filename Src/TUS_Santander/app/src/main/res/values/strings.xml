@@ -24,4 +24,5 @@
     <string name="discapacitados">Personas Con Discapacidad</string>
     <string name="precioDiscapacitados">Gratis</string>
     <string name="masInfo">Más Información</string>
+    <string name="dbPath">/data/data/es.unican.grupo1.tus_santander/databases/DBTUS</string>
 </resources>

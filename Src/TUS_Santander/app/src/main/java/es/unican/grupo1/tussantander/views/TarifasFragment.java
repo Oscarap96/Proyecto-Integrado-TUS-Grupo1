@@ -33,7 +33,7 @@ public class TarifasFragment extends Fragment {
         View view = inflater.inflate(R.layout.custom_tarifas, container, false);
 
         //Se busca el botón "MasInfo" y se guarda en una variable
-        Button info = (Button) view.findViewById(R.id.buttonMasInfo);
+        Button info = view.findViewById(R.id.buttonMasInfo);
 
         //Se asigna un método al botón para cuando sea pulsado
         info.setOnClickListener(new View.OnClickListener() {

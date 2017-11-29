@@ -84,11 +84,8 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.frameLayoutElements, fragmentTarifas);
-                //DataCommunication dataCommunication = (DataCommunication) getContext();
-                //dataCommunication.setLineaIdentifier(listLineasPresenter.getListaLineasBus().get(position).getIdentifier());
                 ft.addToBackStack(null);
                 ft.commit();
-                //listView.setVisibility(View.INVISIBLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

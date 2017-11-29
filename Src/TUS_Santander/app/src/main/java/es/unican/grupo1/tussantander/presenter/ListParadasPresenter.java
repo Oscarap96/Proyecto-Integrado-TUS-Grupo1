@@ -28,7 +28,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private int identifierLinea;
     private Context context;
 
-    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
+    private static String dbPath;
 
     /**
      * Constructor.
@@ -42,6 +42,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         this.remoteFetchParadas = new RemoteFetch();
         this.context = context;
         this.identifierLinea = identifierLinea;
+        dbPath = context.getString(R.string.dbPath);
     }// ListLineasPresenter
 
     @Override
@@ -104,7 +105,15 @@ public class ListParadasPresenter implements IListParadasPresenter {
         String textoParadas = "";
         if (listaParadasBus != null) {
             for (int i = 0; i < listaParadasBus.size(); i++) {
-                textoParadas = textoParadas + listaParadasBus.get(i).getNombre() + "\n\n";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                stringBuilder.append(textoParadas);
+
+                stringBuilder.append(listaParadasBus.get(i).getNombre());
+
+                stringBuilder.append("\n\n");
+
+                textoParadas = stringBuilder.toString();
             }
         } else {
             textoParadas = "";

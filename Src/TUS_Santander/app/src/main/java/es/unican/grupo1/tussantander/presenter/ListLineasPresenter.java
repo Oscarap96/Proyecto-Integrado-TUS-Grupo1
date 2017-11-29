@@ -1,6 +1,7 @@
 package es.unican.grupo1.tussantander.presenter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private RemoteFetch remoteFetchParadas;
     private static final String ENTRA = "ENTRA";
 
-    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
+    private static String dbPath;
 
     /**
      * Constructor.
@@ -44,6 +45,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
         this.remoteFetchLineas = new RemoteFetch();
         this.context = context;
         this.remoteFetchParadas = new RemoteFetch();
+        dbPath = context.getString(R.string.dbPath);
     }
 
     /**
@@ -191,7 +193,15 @@ public class ListLineasPresenter implements IListLineasPresenter {
         String textoLineas = "";
         if (listaLineasBus != null) {
             for (int i = 0; i < listaLineasBus.size(); i++) {
-                textoLineas = textoLineas + listaLineasBus.get(i).getNumero() + "\n\n";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                stringBuilder.append(textoLineas);
+
+                stringBuilder.append(listaLineasBus.get(i).getNumero());
+
+                stringBuilder.append("\n\n");
+
+                textoLineas = stringBuilder.toString();
             }//for
         } else {
             textoLineas = "Sin lineas";
