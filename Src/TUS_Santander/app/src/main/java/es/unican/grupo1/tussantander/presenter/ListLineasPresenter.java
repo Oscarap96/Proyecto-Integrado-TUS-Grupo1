@@ -36,9 +36,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
     private static final String ENTRA = "ENTRA";
 
     private static final String DBTUS="DBTUS";
-
-
-    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
+    private String dbPath;
 
     /**
      * Constructor.
@@ -52,6 +50,7 @@ public class ListLineasPresenter implements IListLineasPresenter {
         this.remoteFetchActualizar = new RemoteFetch();
         this.context = context;
         this.remoteFetchParadas = new RemoteFetch();
+        dbPath = context.getString(R.string.dbPath);
     }
 
     /**
@@ -187,9 +186,10 @@ public class ListLineasPresenter implements IListLineasPresenter {
             }
 
             db.close();
+
             Collections.sort(listaLineasBus); //ordenación de las lineas de buses
-            Log.d(ENTRA, "Obtiene lineas de DB:" + listaLineasBus.size());
             return true;
+
         } else {
             try {
                 Log.d("BBDD: ", "NO hay base de datos");
@@ -197,16 +197,13 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 //SE OBTIENEN LOS DATOS DE INTERNET...
                 remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
                 listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
-
-
                 Log.d(ENTRA, "Obtiene lineas de JSON:" + listaLineasBus.size());
 
-
                 TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, DBTUS, null, 1);
+
                 SQLiteDatabase db = tusdbh.getWritableDatabase();
 
                 // Asignar paradas a lineas
-
                 Linea laLinea;
                 int identiLinea;
                 List<Parada> paradasDeLinea;
@@ -214,6 +211,8 @@ public class ListLineasPresenter implements IListLineasPresenter {
                 for (int i = 0; i < listaLineasBus.size(); i++) {
                     laLinea = listaLineasBus.get(i);
                     identiLinea = laLinea.getIdentifier();
+                    Log.d("ENTRA EN EL BUCLE", "Casi obtiene paradas de linea de JSON");
+                    Log.d("IdentLinea", "Identiline" + identiLinea);
                     remoteFetchParadas.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                     paradasDeLinea = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identiLinea);
                     Log.d(ENTRA, "Obtiene paradas de linea de JSON:" + paradasDeLinea.size());
@@ -222,17 +221,15 @@ public class ListLineasPresenter implements IListLineasPresenter {
                     }
                 }
 
+                // Insertar lineas
+                // Si hemos abierto correctamente la base de datos
 
-                // Asignar paradas a lineas
-
-
-                //Si hemos abierto correctamente la base de datos
                 if (db != null) {
                     Log.d("DB Creada", "creada la base de datos");
                     funciones.insertaListaLineas(listaLineasBus, db);
                 }
-                if (db == null) throw new NullPointerException();
 
+                if (db == null) throw new NullPointerException();
                 db.close();
                 Collections.sort(listaLineasBus);
                 Log.d("ordenadas", "lineas ordenadas");

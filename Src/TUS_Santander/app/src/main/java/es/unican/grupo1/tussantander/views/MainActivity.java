@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import es.unican.grupo1.tussantander.R;
 import es.unican.grupo1.tussantander.presenter.ListParadasPresenter;
 
+import static java.security.AccessController.getContext;
+
 
 /**
  * Actividad principal desde la que se inicia toda la aplicacion.
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        // mustra u oculta el boton de actualizar
+        // muestra u oculta el boton de actualizar
         MenuItem item = menu.findItem(R.id.refresh_item);
         item.setVisible(mostrarBotonActualizar);
 
@@ -80,5 +82,27 @@ public class MainActivity extends AppCompatActivity implements DataCommunication
     @Override
     public ListParadasPresenter getParadasPresenter() {
         return paradasPresenter;
+    }
+
+    /**
+     * Método que en función del item del menú que se pulse realiza su acción correspondiente
+     * @param item es el item que ha sido pulsado
+     * @return true si el item se controla correctamente, false si no es así.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.tarifas_item:
+                TarifasFragment fragmentTarifas = new TarifasFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frameLayoutElements, fragmentTarifas);
+                ft.addToBackStack(null);
+                ft.commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }// MainActivity

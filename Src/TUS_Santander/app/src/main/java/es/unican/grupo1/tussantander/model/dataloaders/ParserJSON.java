@@ -25,7 +25,6 @@ public class ParserJSON {
     private static final String RESOURCES = "resources";
     private static final String LINEAS_BUSES = "Lineas buses";
 
-
     /**
      * Constructor
      */

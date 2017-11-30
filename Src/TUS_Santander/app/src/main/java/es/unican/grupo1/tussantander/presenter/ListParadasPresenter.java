@@ -34,7 +34,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
     private Context context;
 
     private static final String DBTUS = "DBTUS";
-    private static String dbPath = "/data/data/es.unican.grupo1.tus_santander/databases/DBTUS";
+    private String dbPath;
 
     /**
      * Constructor.
@@ -49,6 +49,7 @@ public class ListParadasPresenter implements IListParadasPresenter {
         this.remoteFetchParadasActualizar = new RemoteFetch();
         this.context = context;
         this.identifierLinea = identifierLinea;
+        dbPath = context.getString(R.string.dbPath);
     }// ListLineasPresenter
 
     /**
@@ -72,8 +73,8 @@ public class ListParadasPresenter implements IListParadasPresenter {
         return false;
     }
 
-    @Override
     public boolean obtenParadas() {
+
         TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
         SQLiteDatabase db = tusdbh.getWritableDatabase();
         MisFuncionesBBDD funciones = new MisFuncionesBBDD();
@@ -88,7 +89,6 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 Log.d("Lista paradasLinea", "Tamano es: " + listaParadasBus.size());
             }
             if (db == null) throw new NullPointerException();
-
             db.close();
             Log.d("ENTRA", "Obtiene paradas de DB:" + listaParadasBus.size());
             return true;
@@ -96,14 +96,17 @@ public class ListParadasPresenter implements IListParadasPresenter {
             if (Utilidades.isOnline(context)) {
                 try {
                     Log.d("BBDD: ", "NO hay base de datos");
+
                     //SE OBTIENEN LOS DATOS DE INTERNET...
                     remoteFetchParadas.getJSON(RemoteFetch.URL_SECUENCIA_PARADAS);
                     listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadas.getBufferedData(), identifierLinea);
                     Log.d("ENTRA", "Obtiene paradas de linea de JSON:" + listaParadasBus.size());
+
                     //Si hemos abierto correctamente la base de datos
                     if (db != null) {
                         funciones.insertaListaParadas(listaParadasBus, db);
                     }
+
                     if (db == null) throw new NullPointerException();
 
                     db.close();
@@ -117,11 +120,12 @@ public class ListParadasPresenter implements IListParadasPresenter {
             }
             return false;
         }
-
     }
 
     @Override
+
     public boolean recargaParadas() {
+
         if (Utilidades.isOnline(context)) {
             MisFuncionesBBDD funciones = new MisFuncionesBBDD();
             TUSSQLiteHelper tusdbh = new TUSSQLiteHelper(context, "DBTUS", null, 1);
@@ -132,32 +136,30 @@ public class ListParadasPresenter implements IListParadasPresenter {
                 if (db != null) {
                     List<Parada> listasecParada = listaParadasBus;
 
-                    //funciones.borrarListaParadas(listaParadasBus,db);
-
                     try {
                         remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                         listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(), identifierLinea);
-
                         Log.e(ERROR, "EMpezando a reccargar Paradas");
-
                     } catch (IOException e) {
                         return false;
                     }
+
                     //SE BORRAN LAS PARADAS ANTIGUAS DE LA BASE DE DATOS
                     funciones.borrarListaParadas(listasecParada, db);
+
                     //Y SE INSERTAN LAS NUEVAS PARADAS
                     funciones.insertaParadasLinea(listaParadasBus, identifierLinea, db);
-
                 } else return false;
 
                 return true;
+
             } else {
                 if (db != null) {
-                    //List<Parada> listasecParada = listaParadasBus;
+
                     try {
+
                         remoteFetchParadasActualizar.getJSON((RemoteFetch.URL_SECUENCIA_PARADAS));
                         listaParadasBus = ParserJSON.readArraySecuenciaParadas(remoteFetchParadasActualizar.getBufferedData(), identifierLinea);
-
                     } catch (IOException e) {
                         return false;
                     }
@@ -169,7 +171,6 @@ public class ListParadasPresenter implements IListParadasPresenter {
             }
         }
         return false;
-
     }
 
 

@@ -12,4 +12,18 @@
     <string name="segundoBus">Segundo bus:</string>
     <string name="minutos">min.</string>
     <string name="sinResultados">Sin resultados</string>
+    <string name="tarifas">Tarifas</string>
+    <string name="tituloTarifas">Tarifas 2017</string>
+    <string name="billeteOrdinario">Billete Ordinario</string>
+    <string name="precioBillete">1.30€</string>
+    <string name="tarjeta">Con Tarjeta</string>
+    <string name="precioTarjeta">0.66€</string>
+    <string name="famNumerosa">Tarjeta Familia Numerosa</string>
+    <string name="precioFamNumerosa">Gratis</string>
+    <string name="ninhos">Niños Hasta 4 Años</string>
+    <string name="precioNinhos">Gratis</string>
+    <string name="discapacitados">Personas Con Discapacidad</string>
+    <string name="precioDiscapacitados">Gratis</string>
+    <string name="masInfo">Más Información</string>
+    <string name="dbPath">/data/data/es.unican.grupo1.tus_santander/databases/DBTUS</string>
 </resources>

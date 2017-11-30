@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeGeneral"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="true"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/precios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/tituloTarifas"
+            android:textColor="@android:color/black"
+            android:textSize="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_billete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutTitulo"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/billeteOrdinario"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:text="@string/precioBillete"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20dp"
+            android:lines="2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_tarjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_billete"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/tarjeta"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/precioTarjeta"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_famNumerosa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_tarjeta"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/famNumerosa"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/precioFamNumerosa"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_ninhos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_famNumerosa"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/ninhos"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/precioNinhos"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_discapacidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_ninhos"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/discapacitados"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@string/precioDiscapacitados"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonMasInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/masInfo"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
